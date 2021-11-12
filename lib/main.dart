@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/views/auth/ControlView.dart';
 import 'package:e_commerce_app/views/auth/LoginScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       initialBinding: Binding(),
       home: Scaffold(
-        body: LoginScreen(),
+        body: ControlView(),
       ),
     );
   }

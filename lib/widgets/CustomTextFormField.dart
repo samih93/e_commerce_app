@@ -8,14 +8,14 @@ class CustomTextFormField extends StatelessWidget {
 
   final String hint;
 
-  final String? Function(String?)? onSave;
-  final String? Function(String?)? validator;
+  final String Function(String) onSave;
+  final String Function(String) validator;
 
   CustomTextFormField({
-    required this.text,
-    required this.hint,
-    required this.onSave,
-    required this.validator,
+    this.text,
+    this.hint,
+    this.onSave,
+    this.validator,
   });
 
   @override

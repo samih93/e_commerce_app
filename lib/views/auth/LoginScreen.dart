@@ -44,14 +44,14 @@ class LoginScreen extends GetWidget<AuthViewModel> {
               CustomTextFormField(
                 text: 'Email',
                 hint: "..........@gmail.com",
-                onSave: (Value) => controller.email = Value!,
+                onSave: (Value) => controller.email = Value,
                 validator: (value) {},
               ),
               SizedBox(height: 30),
               CustomTextFormField(
                 text: 'Password',
                 hint: "*********",
-                onSave: (Value) => controller.password = Value!,
+                onSave: (Value) => controller.password = Value,
                 validator: (Value) {},
               ),
               SizedBox(height: 15),
@@ -65,8 +65,8 @@ class LoginScreen extends GetWidget<AuthViewModel> {
               CustomButton(
                   text: "Sign In",
                   onPress: () {
-                    _formkey.currentState!.save();
-                    if (_formkey.currentState!.validate())
+                    _formkey.currentState.save();
+                    if (_formkey.currentState.validate())
                       controller.SignInWithEmailAndPassword();
                   }),
               SizedBox(
@@ -76,7 +76,7 @@ class LoginScreen extends GetWidget<AuthViewModel> {
                 text: "Sign In With Facebook",
                 imagename: "facebook.png",
                 onpress: () {
-                  // controller.facebookSignInMethod();
+                  controller.facebookSignInMethod();
                 },
               ),
               SizedBox(

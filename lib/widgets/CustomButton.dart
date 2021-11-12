@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'CustumText.dart';
 
 class CustomButton extends StatelessWidget {
-  late final String text;
+  final String text;
   final VoidCallback onPress;
 
-  CustomButton({required this.text, required this.onPress});
+  CustomButton({this.text, this.onPress});
 
   @override
   Widget build(BuildContext context) {

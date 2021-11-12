@@ -6,8 +6,7 @@ class CustomButtonWithSocial extends StatelessWidget {
   final String imagename;
   final VoidCallback onpress;
 
-  CustomButtonWithSocial(
-      {required this.text, required this.imagename, required this.onpress});
+  CustomButtonWithSocial({this.text, this.imagename, this.onpress});
   @override
   Widget build(BuildContext context) {
     return Container(
