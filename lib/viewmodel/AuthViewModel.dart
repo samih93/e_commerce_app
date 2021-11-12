@@ -1,4 +1,5 @@
 //import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:e_commerce_app/widgets/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -57,8 +58,9 @@ class AuthViewModel extends GetxController {
 
   void SignInWithEmailAndPassword() async {
     try {
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
-      print("Sign In Successfully");
+      await _auth.signInWithEmailAndPassword(
+          email: email, password: password); // .then((value) => print(value));
+      Get.offAll(HomeView());
     } catch (e) {
       Get.snackbar('Error Login Account', e.toString(),
           colorText: Colors.black, snackPosition: SnackPosition.BOTTOM);
