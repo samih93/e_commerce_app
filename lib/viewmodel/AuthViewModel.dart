@@ -11,10 +11,14 @@ class AuthViewModel extends GetxController {
   //FacebookLogin _facebookLogin = FacebookLogin();
   String email = "", password = "";
 
+  //ToDo:
+  //Rx<User> _user = Rx<User>();
+
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    // _user.bindStream(_auth.authStateChanges());
   }
 
   @override
