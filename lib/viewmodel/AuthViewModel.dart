@@ -1,3 +1,5 @@
+//import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -5,8 +7,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 class AuthViewModel extends GetxController {
   GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
   FirebaseAuth _auth = FirebaseAuth.instance;
-
-  //GoogleSignIn googleSignIn = Google();
+  //FacebookLogin _facebookLogin = FacebookLogin();
+  String email = "", password = "";
 
   @override
   void onInit() {
@@ -40,5 +42,26 @@ class AuthViewModel extends GetxController {
         accessToken: googleSignInAuthentication.accessToken);
     await _auth.signInWithCredential(credential);
     //print("google user : $googleuser");
+  }
+
+  // void facebookSignInMethod() async {
+  //   FacebookLoginResult result =
+  //       await _facebookLogin.logInWithReadPermissions(['email']);
+
+  //   final accessToken = result.accessToken.token;
+  //   if (result.status == FacebookLoginStatus.loggedIn) {
+  //     final facebookcredential = FacebookAuthProvider.credential(accessToken);
+  //     await _auth.signInWithCredential(facebookcredential);
+  //   }
+  // }
+
+  void SignInWithEmailAndPassword() async {
+    try {
+      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      print("Sign In Successfully");
+    } catch (e) {
+      Get.snackbar('Error Login Account', e.toString(),
+          colorText: Colors.black, snackPosition: SnackPosition.BOTTOM);
+    }
   }
 }
