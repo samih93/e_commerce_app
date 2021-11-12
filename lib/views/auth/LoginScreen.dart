@@ -1,9 +1,13 @@
 import 'package:e_commerce_app/Constant.dart';
+import 'package:e_commerce_app/viewmodel/AuthViewModel.dart';
+import 'package:e_commerce_app/widgets/CustomButton.dart';
 import 'package:e_commerce_app/widgets/CustomTextFormField.dart';
+import 'package:e_commerce_app/widgets/CustumButton_with_social_Media.dart';
 import 'package:e_commerce_app/widgets/CustumText.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends GetWidget<AuthViewModel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,15 +41,15 @@ class LoginScreen extends StatelessWidget {
             CustomTextFormField(
               text: 'Email',
               hint: "..........@gmail.com",
-              onSave: (value) {},
-              validator: (value) {},
+              onSave: () => {},
+              validator: () => {},
             ),
             SizedBox(height: 30),
             CustomTextFormField(
               text: 'Password',
               hint: "*********",
-              onSave: (value) {},
-              validator: (value) {},
+              onSave: () => {},
+              validator: () => {},
             ),
             SizedBox(height: 15),
             CustomText(
@@ -55,15 +59,24 @@ class LoginScreen extends StatelessWidget {
             SizedBox(
               height: 30,
             ),
-            FlatButton(
-              onPressed: () {},
-              color: primarycolor,
-              textColor: Colors.white,
-              child: CustomText(
-                text: "Sign In",
-                color: Colors.white,
-                alignment: Alignment.center,
-              ),
+            CustomButton(text: "Sign In", onPress: () {}),
+            SizedBox(
+              height: 30,
+            ),
+            CustomButtonWithSocial(
+              text: "Sign In With Facebook",
+              imagename: "facebook.png",
+              onpress: () {},
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            CustomButtonWithSocial(
+              text: "Sign In With google",
+              imagename: "google.png",
+              onpress: () {
+                controller.googleSignInMethod();
+              },
             ),
           ],
         ),
