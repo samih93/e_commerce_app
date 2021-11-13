@@ -1,4 +1,4 @@
-import 'package:e_commerce_app/views/auth/LoginScreen.dart';
+import 'package:e_commerce_app/views/auth/LoginView.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,7 +18,7 @@ class HomeView extends StatelessWidget {
               child: Text("Logout"),
               onPressed: () {
                 _Auth.signOut();
-                Get.offAll(LoginScreen());
+                Get.offAll(LoginView());
               },
             )
           ],

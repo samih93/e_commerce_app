@@ -1,4 +1,6 @@
 // @dart=2.9
+import 'package:e_commerce_app/models/UserModel.dart';
+import 'package:e_commerce_app/service/FireStoreUser.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:e_commerce_app/widgets/home_view.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +12,7 @@ class AuthViewModel extends GetxController {
   GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
   FirebaseAuth _auth = FirebaseAuth.instance;
   FacebookLogin _facebookLogin = FacebookLogin();
-  String email = "", password = "";
+  String email = "", password = "", name = "";
 
   //ToDo:
   final _user = Rx<User>();
@@ -75,5 +77,25 @@ class AuthViewModel extends GetxController {
       Get.snackbar('Error Login Account', e.toString(),
           colorText: Colors.black, snackPosition: SnackPosition.BOTTOM);
     }
+  }
+
+  void CreateAccount() async {
+    try {
+      await _auth
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .then((user) {
+        UserModel userModel = UserModel(
+            userId: user.user.uid, email: user.user.email, name: name, pic: '');
+        SaveUserToFireStore(userModel);
+      }); // .then((value) => print(value));
+      Get.offAll(() => HomeView());
+    } catch (e) {
+      Get.snackbar('Error Login Account', e.toString(),
+          colorText: Colors.black, snackPosition: SnackPosition.BOTTOM);
+    }
+  }
+
+  SaveUserToFireStore(UserModel userModel) async {
+    await FireStoreUser().AddUserToFireStore(userModel);
   }
 }
