@@ -81,7 +81,7 @@ class MyApp extends StatelessWidget {
         ],
         currentIndex: Controller.navigatorvalue,
         onTap: (index) => {
-          Controller.chnageSelectedValue(index),
+          Controller.changeSelectedValue(index),
           print(Controller.navigatorvalue)
         },
         elevation: 0,
