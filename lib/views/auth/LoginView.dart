@@ -18,7 +18,7 @@ class LoginView extends GetWidget<AuthViewModel> {
         backgroundColor: Colors.white,
       ),
       body: Padding(
-        padding: const EdgeInsets.only(top: 50, right: 20, left: 20),
+        padding: const EdgeInsets.only(top: 10, right: 20, left: 20),
         child: Form(
           key: _formkey,
           child: SingleChildScrollView(
@@ -63,7 +63,7 @@ class LoginView extends GetWidget<AuthViewModel> {
                   alignment: Alignment.topRight,
                 ),
                 SizedBox(
-                  height: 30,
+                  height: 15,
                 ),
                 CustomButton(
                     text: "Sign In",
