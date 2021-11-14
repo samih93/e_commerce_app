@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      // bind the dependency to check if user != null
       initialBinding: Binding(),
       home: Scaffold(
         body: ControlView(),
