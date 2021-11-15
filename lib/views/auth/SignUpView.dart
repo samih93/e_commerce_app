@@ -1,5 +1,5 @@
 import 'package:e_commerce_app/Constant.dart';
-import 'package:e_commerce_app/viewmodel/AuthViewModel.dart';
+import 'package:e_commerce_app/Controller/AuthController.dart';
 import 'package:e_commerce_app/views/auth/LoginView.dart';
 import 'package:e_commerce_app/widgets/CustomButton.dart';
 import 'package:e_commerce_app/widgets/CustomTextFormField.dart';
@@ -8,7 +8,7 @@ import 'package:e_commerce_app/widgets/CustumText.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class SignUpView extends GetWidget<AuthViewModel> {
+class SignUpView extends GetWidget<AuthController> {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
   @override
