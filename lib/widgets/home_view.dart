@@ -110,11 +110,14 @@ class HomeView extends StatelessWidget {
                             height: 60,
                             width: 60,
                             //ToDo:
-                            child: Image.network(
-                              HomeViewModelService.CategoryList[index].image
-                                  .toString(),
-                              //whatever image you can put here
-                              fit: BoxFit.fill,
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: new Image.network(
+                                HomeViewModelService.CategoryList[index].image
+                                    .toString(),
+                                //whatever image you can put here
+                                fit: BoxFit.fill,
+                              ),
                             ),
                           ),
                           SizedBox(height: 15),

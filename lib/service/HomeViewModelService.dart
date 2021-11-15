@@ -9,7 +9,7 @@ class HomeViewModelService extends GetxController {
 
   var _CategoryList = <Category>[];
 
-  get CategoryList => _CategoryList;
+  List<Category> get CategoryList => _CategoryList;
 
   HomeViewModelService() {
     getCategories();
