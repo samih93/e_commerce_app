@@ -146,7 +146,7 @@ class HomeView extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
                   return Container(
-                    width: MediaQuery.of(context).size.width * .4,
+                    width: MediaQuery.of(context).size.width * .6,
                     child: Column(
                       children: [
                         Container(
@@ -155,7 +155,6 @@ class HomeView extends StatelessWidget {
                             color: Colors.grey.shade100,
                           ),
                           height: 230,
-                          width: 160,
                           child: Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: new Image.network(
