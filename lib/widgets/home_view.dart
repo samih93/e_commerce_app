@@ -86,48 +86,47 @@ class HomeView extends StatelessWidget {
       height: 100,
       child: GetBuilder<HomeViewModelService>(
         init: HomeViewModelService(),
-        builder: (HomeViewModelService) =>
-            HomeViewModelService.categoryIsLoading.value
-                ? Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.blue,
+        builder: (HomeViewModelService) => HomeViewModelService.IsLoding.value
+            ? Center(
+                child: CircularProgressIndicator(
+                  color: Colors.blue,
+                ),
+              )
+            : ListView.separated(
+                separatorBuilder: (context, index) => SizedBox(
+                      width: 20,
                     ),
-                  )
-                : ListView.separated(
-                    separatorBuilder: (context, index) => SizedBox(
-                          width: 20,
+                itemCount: HomeViewModelService.CategoryList.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          color: Colors.grey.shade200,
                         ),
-                    itemCount: HomeViewModelService.CategoryList.length,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              color: Colors.grey.shade200,
-                            ),
-                            height: 60,
-                            width: 60,
-                            //ToDo:
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: new Image.network(
-                                HomeViewModelService.CategoryList[index].image
-                                    .toString(),
-                                //whatever image you can put here
-                                fit: BoxFit.fill,
-                              ),
-                            ),
+                        height: 60,
+                        width: 60,
+                        //ToDo:
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: new Image.network(
+                            HomeViewModelService.CategoryList[index].image
+                                .toString(),
+                            //whatever image you can put here
+                            fit: BoxFit.fill,
                           ),
-                          SizedBox(height: 15),
-                          CustomText(
-                            text: HomeViewModelService.CategoryList[index].name,
-                            fontSize: 15,
-                          ),
-                        ],
-                      );
-                    }),
+                        ),
+                      ),
+                      SizedBox(height: 15),
+                      CustomText(
+                        text: HomeViewModelService.CategoryList[index].name,
+                        fontSize: 15,
+                      ),
+                    ],
+                  );
+                }),
       ),
     );
   }
@@ -135,53 +134,72 @@ class HomeView extends StatelessWidget {
   Widget _Products() {
     return Container(
       height: 305,
-      child: ListView.separated(
-          separatorBuilder: (context, index) => SizedBox(
-                width: 20,
-              ),
-          itemCount: _CategoriesList.length,
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) {
-            return Container(
-              width: MediaQuery.of(context).size.width * .4,
-              child: Column(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: Colors.grey.shade100,
+      child: GetBuilder<HomeViewModelService>(
+        init: HomeViewModelService(),
+        builder: (HomeViewModelService) => HomeViewModelService.IsLoding.value
+            ? Center(child: CircularProgressIndicator())
+            : ListView.separated(
+                separatorBuilder: (context, index) => SizedBox(
+                      width: 20,
                     ),
-                    child: Image.asset('assets/icons/chaire.png',
-                        fit: BoxFit.fill),
-                  ),
-                  SizedBox(height: 5),
-                  CustomText(
-                    text: _CategoriesList[index],
-                    alignment: Alignment.bottomLeft,
-                    fontSize: 20,
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  CustomText(
-                    text: _CategoriesList[index],
-                    alignment: Alignment.bottomLeft,
-                    color: Colors.grey[800],
-                    fontSize: 15,
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  CustomText(
-                    text: "\$755",
-                    color: primarycolor,
-                    alignment: Alignment.bottomLeft,
-                    fontSize: 15,
-                  ),
-                ],
-              ),
-            );
-          }),
+                itemCount: HomeViewModelService.ProductList.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return Container(
+                    width: MediaQuery.of(context).size.width * .4,
+                    child: Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            color: Colors.grey.shade100,
+                          ),
+                          height: 230,
+                          width: 160,
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: new Image.network(
+                              HomeViewModelService.ProductList[index].image
+                                  .toString(),
+                              //whatever image you can put here
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 5),
+                        CustomText(
+                          text: HomeViewModelService.ProductList[index].name,
+                          alignment: Alignment.bottomLeft,
+                          fontSize: 20,
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Expanded(
+                          child: CustomText(
+                            text: HomeViewModelService
+                                .ProductList[index].description,
+                            alignment: Alignment.bottomLeft,
+                            color: Colors.grey[800],
+                            fontSize: 15,
+                            maxLine: 1,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        CustomText(
+                          text:
+                              "${HomeViewModelService.ProductList[index].price} \$",
+                          color: primarycolor,
+                          alignment: Alignment.bottomLeft,
+                          fontSize: 15,
+                        ),
+                      ],
+                    ),
+                  );
+                }),
+      ),
     );
   }
 }

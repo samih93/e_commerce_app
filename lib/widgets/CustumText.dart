@@ -10,7 +10,7 @@ class CustomText extends StatelessWidget {
 
   final Alignment alignment;
 
-  int maxLine;
+  final int maxLine;
   final double height;
 
   CustomText({

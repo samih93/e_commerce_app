@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Product {
-  String name, image, description, sized, price;
-  Color color;
+  String name, image, description, sized, price, color;
+  //Color color;
 
   Product(
       {this.name,
@@ -22,7 +22,7 @@ class Product {
     description = map['description'];
     color = map['color'];
     // color = HexColor.fromHex(map['color']);
-    sized = map['sized'];
+    sized = map['size'];
     price = map['price'];
   }
 
@@ -32,7 +32,7 @@ class Product {
       'image': image,
       'description': description,
       'color': color,
-      'sized': sized,
+      'size': sized,
       'price': price,
     };
   }
