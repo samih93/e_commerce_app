@@ -2,7 +2,7 @@
 import 'package:e_commerce_app/models/UserModel.dart';
 import 'package:e_commerce_app/service/FireStoreUser.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
-import 'package:e_commerce_app/widgets/home_view.dart';
+import 'package:e_commerce_app/views/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';

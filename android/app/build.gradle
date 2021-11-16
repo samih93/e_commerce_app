@@ -47,7 +47,7 @@ android {
         applicationId "com.example.e_commerce_app"
         minSdkVersion 19
         targetSdkVersion 30
-       // multiDexEnabled true  //<= 
+        multiDexEnabled true  //<= 
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true

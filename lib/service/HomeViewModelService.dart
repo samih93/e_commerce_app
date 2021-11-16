@@ -28,6 +28,7 @@ class HomeViewModelService extends GetxController {
         _CategoryList.add(Category.fromjson(value[i].data()));
       }
       _IsLoding.value = false;
+
       update();
     });
   }
@@ -38,8 +39,9 @@ class HomeViewModelService extends GetxController {
       for (int i = 0; i < value.length; i++) {
         _ProductList.add(Product.fromJson(value[i].data()));
       }
-      print(" product :${ProductList.length}");
       _IsLoding.value = false;
+
+      print(" product :${ProductList.length}");
       update();
     });
   }

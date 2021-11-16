@@ -1,7 +1,7 @@
 import 'package:e_commerce_app/Controller/HomeController.dart';
 import 'package:e_commerce_app/views/auth/ControlView.dart';
 import 'package:e_commerce_app/views/auth/LoginView.dart';
-import 'package:e_commerce_app/widgets/home_view.dart';
+import 'package:e_commerce_app/views/home_view.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      // bind the dependency to check if user != null
+      // bind the dependency
       initialBinding: Binding(),
       home: Scaffold(
         body: ControlView(),
