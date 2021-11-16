@@ -1,7 +1,9 @@
 import 'package:e_commerce_app/Constant.dart';
 import 'package:e_commerce_app/models/Category.dart';
+import 'package:e_commerce_app/models/Product.dart';
 import 'package:e_commerce_app/service/ApplicationDb.dart';
 import 'package:e_commerce_app/service/HomeViewModelService.dart';
+import 'package:e_commerce_app/views/DetailsProduct.dart';
 import 'package:e_commerce_app/views/auth/LoginView.dart';
 import 'package:e_commerce_app/widgets/CustumText.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -152,56 +154,61 @@ class HomeView extends StatelessWidget {
             itemCount: HomeViewModelService.ProductList.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
-              return Container(
-                width: MediaQuery.of(context).size.width * .6,
-                child: Column(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: Colors.grey.shade100,
-                      ),
-                      height: 230,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: new Image.network(
-                          HomeViewModelService.ProductList[index].image
-                              .toString(),
-                          //whatever image you can put here
-                          fit: BoxFit.fill,
+              return GestureDetector(
+                onTap: () => Get.off(DetailsProduct(
+                    product:
+                        HomeViewModelService.ProductList[index] as Product)),
+                child: Container(
+                  width: MediaQuery.of(context).size.width * .6,
+                  child: Column(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          color: Colors.grey.shade100,
+                        ),
+                        height: 230,
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: new Image.network(
+                            HomeViewModelService.ProductList[index].image
+                                .toString(),
+                            //whatever image you can put here
+                            fit: BoxFit.fill,
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(height: 5),
-                    CustomText(
-                      text: HomeViewModelService.ProductList[index].name,
-                      alignment: Alignment.bottomLeft,
-                      fontSize: 20,
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Expanded(
-                      child: CustomText(
-                        text:
-                            HomeViewModelService.ProductList[index].description,
+                      SizedBox(height: 5),
+                      CustomText(
+                        text: HomeViewModelService.ProductList[index].name,
                         alignment: Alignment.bottomLeft,
-                        color: Colors.grey[800],
-                        fontSize: 15,
-                        maxLine: 1,
+                        fontSize: 20,
                       ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    CustomText(
-                      text:
-                          "${HomeViewModelService.ProductList[index].price} \$",
-                      color: primarycolor,
-                      alignment: Alignment.bottomLeft,
-                      fontSize: 15,
-                    ),
-                  ],
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Expanded(
+                        child: CustomText(
+                          text: HomeViewModelService
+                              .ProductList[index].description,
+                          alignment: Alignment.bottomLeft,
+                          color: Colors.grey[800],
+                          fontSize: 15,
+                          maxLine: 1,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      CustomText(
+                        text:
+                            "${HomeViewModelService.ProductList[index].price} \$",
+                        color: primarycolor,
+                        alignment: Alignment.bottomLeft,
+                        fontSize: 15,
+                      ),
+                    ],
+                  ),
                 ),
               );
             }),
