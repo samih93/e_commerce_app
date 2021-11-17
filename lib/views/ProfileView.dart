@@ -10,6 +10,11 @@ class ProfileView extends StatelessWidget {
         alignment: Alignment.center,
         fontSize: 20,
       ),
+
+      // GetBuilder<ProfileController>(
+      //       init: ProfileController(),
+      //       builder: (ProfileController) => CustomButton(
+      //           text: "Signout", onPress: () => ProfileController.SignOut())));
     );
   }
 }

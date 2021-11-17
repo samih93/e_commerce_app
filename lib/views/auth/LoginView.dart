@@ -75,22 +75,28 @@ class LoginView extends GetWidget<AuthController> {
                 SizedBox(
                   height: 30,
                 ),
-                CustomButtonWithSocial(
-                  text: "Sign In With Facebook",
-                  imagename: "facebook.png",
-                  onpress: () {
-                    controller.facebookSignInMethod();
-                  },
+                CustomText(
+                  text: "Or continue with",
+                  color: Colors.grey.shade400,
+                  alignment: Alignment.center,
                 ),
                 SizedBox(
-                  height: 30,
+                  height: 20,
                 ),
-                CustomButtonWithSocial(
-                  text: "Sign In With google",
-                  imagename: "google.png",
-                  onpress: () {
-                    controller.googleSignInMethod();
-                  },
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          controller.facebookSignInMethod();
+                        },
+                        icon: Image.asset("assets/images/facebook.png")),
+                    IconButton(
+                        onPressed: () {
+                          controller.googleSignInMethod();
+                        },
+                        icon: Image.asset("assets/images/google.png")),
+                  ],
                 ),
               ],
             ),
