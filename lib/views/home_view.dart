@@ -11,13 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomeView extends StatelessWidget {
-  final List<String> _CategoriesList = <String>[
-    'shoes',
-    'sport',
-    'home',
-    'football',
-    'fitness'
-  ];
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeViewModelService>(

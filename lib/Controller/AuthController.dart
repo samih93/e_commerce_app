@@ -1,6 +1,7 @@
 // @dart=2.9
 import 'package:e_commerce_app/models/UserModel.dart';
 import 'package:e_commerce_app/service/FireStoreUser.dart';
+import 'package:e_commerce_app/views/auth/ControlView.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:e_commerce_app/views/home_view.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,8 @@ class AuthController extends GetxController {
   FirebaseAuth _auth = FirebaseAuth.instance;
   FacebookLogin _facebookLogin = FacebookLogin();
   String email = "", password = "", name = "";
+
+  GoogleSignInAccount _googleuser;
 
   //ToDo:
   final _user = Rx<User>();
@@ -43,9 +46,7 @@ class AuthController extends GetxController {
   void googleSignInMethod() async {
     // sign in with google
     final GoogleSignInAccount googleuser = await _googleSignIn.signIn();
-    Get.offAll(HomeView());
-
-    //print(googleuser);
+    Get.offAll(() => ControlView());
 
     // save google email after signin in firebase
     GoogleSignInAuthentication googleSignInAuthentication =
@@ -55,7 +56,7 @@ class AuthController extends GetxController {
         accessToken: googleSignInAuthentication.accessToken);
     await _auth.signInWithCredential(credential);
 
-    //print("google user : $googleuser");
+    print("google user : ${googleuser.displayName}");
   }
 
   void facebookSignInMethod() async {
@@ -70,9 +71,10 @@ class AuthController extends GetxController {
 
   void SignInWithEmailAndPassword() async {
     try {
-      await _auth.signInWithEmailAndPassword(
-          email: email, password: password); // .then((value) => print(value));
-      Get.offAll(() => HomeView());
+      await _auth
+          .signInWithEmailAndPassword(email: email, password: password)
+          .then((value) => print(value)); // .then((value) => print(value));
+      Get.offAll(() => ControlView());
     } catch (e) {
       Get.snackbar('Error Login Account', e.toString(),
           colorText: Colors.black, snackPosition: SnackPosition.BOTTOM);

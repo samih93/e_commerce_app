@@ -1,6 +1,5 @@
 import 'package:e_commerce_app/Controller/AuthController.dart';
 import 'package:e_commerce_app/Controller/HomeController.dart';
-import 'package:e_commerce_app/service/ApplicationDb.dart';
 import 'package:e_commerce_app/service/HomeViewModelService.dart';
 import 'package:get/get.dart';
 
