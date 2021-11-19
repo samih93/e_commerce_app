@@ -1,10 +1,11 @@
+// @dart=2.9
+
 class UserModel {
   String userId, email, name, pic;
 
-
   UserModel({this.userId, this.email, this.name, this.pic});
 
-  fromjson(Map<dynamic, dynamic> Map) {
+  UserModel.fromjson(Map<dynamic, dynamic> Map) {
     if (Map == null) return;
 
     userId = Map["userId"];

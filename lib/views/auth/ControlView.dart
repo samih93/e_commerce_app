@@ -25,7 +25,7 @@ class ControlView extends GetWidget<AuthController> {
 
   Widget _bottomNavigationbar() {
     return GetBuilder<HomeController>(
-      init: HomeController(),
+      init: Get.find(),
       builder: (HomeViewController) => BottomNavigationBar(
         items: [
           BottomNavigationBarItem(

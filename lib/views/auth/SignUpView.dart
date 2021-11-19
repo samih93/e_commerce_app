@@ -1,3 +1,5 @@
+// @dart=2.9
+
 import 'package:e_commerce_app/Constant.dart';
 import 'package:e_commerce_app/Controller/AuthController.dart';
 import 'package:e_commerce_app/views/auth/LoginView.dart';

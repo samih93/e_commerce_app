@@ -1,3 +1,5 @@
+// @dart=2.9
+
 import 'package:e_commerce_app/models/Category.dart';
 import 'package:e_commerce_app/models/Product.dart';
 import 'package:e_commerce_app/service/ApplicationDb.dart';
@@ -41,7 +43,7 @@ class HomeViewModelService extends GetxController {
       }
       _IsLoding.value = false;
 
-      print(" product :${ProductList.length}");
+      //print(" product :${ProductList.length}");
       update();
     });
   }

@@ -1,3 +1,5 @@
+// @dart=2.9
+
 import 'package:e_commerce_app/widgets/CustumText.dart';
 import 'package:flutter/material.dart';
 
