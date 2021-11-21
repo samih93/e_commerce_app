@@ -1,6 +1,8 @@
+import 'package:e_commerce_app/Constant.dart';
 import 'package:e_commerce_app/Controller/AuthController.dart';
 import 'package:e_commerce_app/Controller/HomeController.dart';
 import 'package:e_commerce_app/views/auth/LoginView.dart';
+import 'package:e_commerce_app/widgets/CustumText.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -28,7 +30,11 @@ class ControlView extends GetWidget<AuthController> {
           BottomNavigationBarItem(
             activeIcon: Padding(
               padding: const EdgeInsets.only(top: 15),
-              child: Text("Explore"),
+              child: CustomText(
+                text: "Explore",
+                color: primarycolor,
+                alignment: Alignment.center,
+              ),
             ),
             label: "",
             icon: Padding(
@@ -43,7 +49,11 @@ class ControlView extends GetWidget<AuthController> {
           BottomNavigationBarItem(
             activeIcon: Padding(
               padding: const EdgeInsets.only(top: 15),
-              child: Text("card"),
+              child: CustomText(
+                text: "Card",
+                color: primarycolor,
+                alignment: Alignment.center,
+              ),
             ),
             label: "",
             icon: Padding(
@@ -58,7 +68,11 @@ class ControlView extends GetWidget<AuthController> {
           BottomNavigationBarItem(
             activeIcon: Padding(
               padding: const EdgeInsets.only(top: 15),
-              child: Text("Account"),
+              child: CustomText(
+                alignment: Alignment.center,
+                text: "Account",
+                color: primarycolor,
+              ),
             ),
             label: "",
             icon: Padding(

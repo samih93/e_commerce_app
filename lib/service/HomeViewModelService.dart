@@ -20,7 +20,15 @@ class HomeViewModelService extends GetxController {
 
   HomeViewModelService() {
     getCategories();
-    getProdcuts();
+    getProducts();
+  }
+
+  setfavorite(String docid, bool isfavorite) {
+    _ProductList.forEach((product) {
+      if (product.id == docid) product.isfavorite = !product.isfavorite;
+      ApplicationDb().setFavoriteProduct(docid, isfavorite);
+    });
+    update();
   }
 
   getCategories() async {
@@ -35,11 +43,12 @@ class HomeViewModelService extends GetxController {
     });
   }
 
-  getProdcuts() async {
+  getProducts() async {
     _IsLoding.value = true;
     await ApplicationDb().getProducts().then((value) {
       for (int i = 0; i < value.length; i++) {
         _ProductList.add(Product.fromJson(value[i].data()));
+        print("${_ProductList[i].name}  : ${_ProductList[i].isfavorite}");
       }
       _IsLoding.value = false;
 

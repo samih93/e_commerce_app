@@ -1,5 +1,6 @@
 // @dart=2.9
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_app/Constant.dart';
 import 'package:e_commerce_app/models/Category.dart';
 import 'package:e_commerce_app/models/Product.dart';
@@ -193,14 +194,38 @@ class HomeView extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        height: 10,
+                        height: 5,
                       ),
-                      CustomText(
-                        text:
-                            "${HomeViewModelService.ProductList[index].price} \$",
-                        color: primarycolor,
-                        alignment: Alignment.bottomLeft,
-                        fontSize: 15,
+                      Container(
+                        margin: EdgeInsets.only(right: 25),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            CustomText(
+                              text:
+                                  "${HomeViewModelService.ProductList[index].price} \$",
+                              color: primarycolor,
+                              alignment: Alignment.bottomLeft,
+                              fontSize: 15,
+                            ),
+                            GestureDetector(
+                              child: HomeViewModelService
+                                      .ProductList[index].isfavorite
+                                  ? Icon(
+                                      Icons.favorite,
+                                      color: Colors.red,
+                                    )
+                                  : Icon(Icons.favorite_border),
+                              onTap: () {
+                                HomeViewModelService.setfavorite(
+                                    HomeViewModelService.ProductList[index].id,
+                                    !HomeViewModelService
+                                        .ProductList[index].isfavorite);
+                                //print(HomeViewModelService.isfavorite);
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),

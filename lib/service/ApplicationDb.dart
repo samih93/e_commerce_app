@@ -18,4 +18,20 @@ class ApplicationDb extends GetxController {
     var value = await _productCollectionRef.get();
     return value.docs;
   }
+
+  Future<void> ReadAllproductName(String docId) async {
+    await _productCollectionRef.get().then((QuerySnapshot querysnapshot) {
+      querysnapshot.docs.forEach((doc) {
+        print(doc['name']);
+      });
+    });
+  }
+
+  Future<void> setFavoriteProduct(String docId, bool isfavorite) {
+    return _productCollectionRef
+        .doc(docId)
+        .update({'isfavorite': isfavorite})
+        .then((value) => print("product Updated"))
+        .catchError((error) => print("Failed to update user: $error"));
+  }
 }

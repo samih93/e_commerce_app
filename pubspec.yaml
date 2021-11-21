@@ -37,6 +37,10 @@ dependencies:
   get: ^3.22.1
   google_sign_in: ^4.5.6
   shared_preferences: ^2.0.8
+  flutter_badged: ^2.0.2
+  sqflite: ^2.0.0+4
+
+
 
 
 dev_dependencies:

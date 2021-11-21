@@ -4,6 +4,8 @@ import 'package:e_commerce_app/service/localStorageUserData.dart';
 import 'package:e_commerce_app/widgets/CustomButton.dart';
 import 'package:e_commerce_app/widgets/CustumText.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_badged/flutter_badge.dart';
+//import 'package:flutter_badged/flutter_badge.dart';
 import 'package:get/get.dart';
 
 class ProfileView extends StatelessWidget {
@@ -70,16 +72,44 @@ class ProfileView extends StatelessWidget {
                     ListTile(
                       title: Text("Orders"),
                       leading: Icon(Icons.list),
+                      trailing: FlutterBadge(
+                        icon: Icon(
+                          Icons.message,
+                          size: 30,
+                        ),
+                        itemCount: 0,
+                        hideZeroCount: false,
+                        badgeColor: primarycolor,
+                        borderRadius: 20.0,
+                      ),
                       onTap: () {},
                     ),
                     ListTile(
-                      title: Center(
-                        child: Text(
-                          "Sign Out",
+                      title: Text("Likes"),
+                      leading: Icon(Icons.favorite_border),
+                      trailing: FlutterBadge(
+                        icon: Icon(
+                          Icons.favorite_outlined,
+                          size: 30,
                         ),
+                        itemCount: 0,
+                        hideZeroCount: false,
+                        badgeColor: primarycolor,
+                        borderRadius: 20.0,
                       ),
-                      tileColor: primarycolor,
-                      onTap: () => ProfileController.SignOut(),
+                      onTap: () {},
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(30),
+                      child: ListTile(
+                        title: Center(
+                          child: Text(
+                            "Sign Out",
+                          ),
+                        ),
+                        tileColor: primarycolor,
+                        onTap: () => ProfileController.SignOut(),
+                      ),
                     ),
                   ],
                 ),
