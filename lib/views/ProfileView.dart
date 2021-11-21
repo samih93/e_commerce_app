@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/Constant.dart';
 import 'package:e_commerce_app/Controller/ProfileController.dart';
 import 'package:e_commerce_app/service/localStorageUserData.dart';
 import 'package:e_commerce_app/widgets/CustomButton.dart';
@@ -18,13 +19,13 @@ class ProfileView extends StatelessWidget {
             children: [
               Container(
                 padding: EdgeInsets.all(20),
-                color: Colors.blueAccent,
+                color: primarycolor,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      width: 80,
-                      height: 80,
+                      width: 70,
+                      height: 70,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         image: DecorationImage(
@@ -44,6 +45,7 @@ class ProfileView extends StatelessWidget {
                       text: ProfileController.userModel.name ??
                           ProfileController.userModel.name,
                       fontSize: 18,
+                      color: Colors.white,
                     ),
                     SizedBox(
                       height: 5,
@@ -51,16 +53,37 @@ class ProfileView extends StatelessWidget {
                     CustomText(
                       text: ProfileController.userModel.email ??
                           ProfileController.userModel.email,
-                      color: Colors.grey.shade800,
+                      color: Colors.white70,
                     ),
                   ],
                 ),
               ),
-              SizedBox(
-                height: 30,
+              Expanded(
+                child: ListView(
+                  scrollDirection: Axis.vertical,
+                  children: <Widget>[
+                    ListTile(
+                      title: Text("Shipping Address"),
+                      leading: Icon(Icons.add_location),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      title: Text("Orders"),
+                      leading: Icon(Icons.list),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      title: Center(
+                        child: Text(
+                          "Sign Out",
+                        ),
+                      ),
+                      tileColor: primarycolor,
+                      onTap: () => ProfileController.SignOut(),
+                    ),
+                  ],
+                ),
               ),
-              CustomButton(
-                  text: "Signout", onPress: () => ProfileController.SignOut()),
             ],
           ),
         ),
