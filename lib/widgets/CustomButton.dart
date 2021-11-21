@@ -3,7 +3,7 @@
 import 'package:e_commerce_app/Constant.dart';
 import 'package:flutter/material.dart';
 
-import 'CustumText.dart';
+import 'package:e_commerce_app/widgets/CustumText.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
