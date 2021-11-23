@@ -9,3 +9,4 @@ final String columnName = 'name';
 final String columnImage = 'image';
 final String columnPrice = 'price';
 final String columnQuantity = 'quantity';
+final String columnproductId = 'productId';

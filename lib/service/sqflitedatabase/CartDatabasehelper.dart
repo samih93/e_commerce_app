@@ -27,6 +27,7 @@ class CartDatabasehelper {
         $columnName TEXT NOT NULL ,
         $columnImage TEXT NOT NULL ,
         $columnQuantity TEXT NOT NULL ,
+        $columnproductId TEXT NOT NULL ,
         $columnPrice INTEGER NOT NULL)
           ''');
     });
@@ -44,5 +45,12 @@ class CartDatabasehelper {
         ? maps.map((Product) => CartProduct.fromJson(Product)).toList()
         : [];
     return list;
+  }
+
+  deleteProductFromdatabase(String productId) async {
+    var dbclient = await database;
+    await dbclient.rawDelete(
+        "DELETE FROM $tableCardProduct WHERE $columnproductId='$productId'");
+    print("Deleted");
   }
 }

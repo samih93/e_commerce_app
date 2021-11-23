@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/Controller/CartController.dart';
 import 'package:e_commerce_app/Controller/ProfileController.dart';
 import 'package:e_commerce_app/service/HomeViewModelService.dart';
 import 'package:e_commerce_app/helper/localStorageUserData.dart';
@@ -11,6 +12,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   Get.put(HomeViewModelService());
+  Get.put(CartController());
   runApp(MyApp());
 }
 

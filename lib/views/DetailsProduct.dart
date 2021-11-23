@@ -151,6 +151,7 @@ class DetailsProduct extends StatelessWidget {
                           text: "Add",
                           onPress: () {
                             CartController.addProduct(CartProduct(
+                                productId: product.id,
                                 name: product.name,
                                 image: product.image,
                                 price: product.price,

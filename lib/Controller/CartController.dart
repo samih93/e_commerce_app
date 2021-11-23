@@ -13,11 +13,19 @@ class CartController extends GetxController {
 
   List<CartProduct> get cardproductList => _cartproductList;
 
+  double _totalPrice = 0.0;
+  double get totalprice => _totalPrice;
+
   CartController() {
-    // getallproduct();
+    getallproduct();
   }
   addProduct(CartProduct model) async {
     var dbHelper = CartDatabasehelper.db;
+    if (_cartproductList.length > 0) {
+      for (int i = 0; i < _cartproductList.length; i++) {
+        if (_cartproductList[i].productId == model.productId) return;
+      }
+    }
     await dbHelper.insert(model);
     _cartproductList = await dbHelper.getallproduct();
     update();
@@ -27,9 +35,25 @@ class CartController extends GetxController {
     _loading.value = true;
     var dbHelper = CartDatabasehelper.db;
     _cartproductList = await dbHelper.getallproduct();
-    print(_cartproductList.length ?? 0);
+
+    print("lenght ${_cartproductList.length ?? 0}");
 
     _loading.value = false;
     update();
+  }
+
+  Future<void> deleteproductfromdatbase(String ProductId) async {
+    var dbHelper = CartDatabasehelper.db;
+    await dbHelper.deleteProductFromdatabase(ProductId);
+    _cartproductList = await dbHelper.getallproduct();
+    print("deleted");
+    update();
+  }
+
+  _getTotalPrice() {
+    for (int i = 0; i < _cartproductList.length; i++) {
+      _totalPrice += double.parse(_cartproductList[i].price) *
+          double.parse(_cartproductList[i].quantity.toString());
+    }
   }
 }
