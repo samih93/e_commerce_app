@@ -1,6 +1,6 @@
 import 'package:e_commerce_app/Controller/AuthController.dart';
 import 'package:e_commerce_app/models/UserModel.dart';
-import 'package:e_commerce_app/service/localStorageUserData.dart';
+import 'package:e_commerce_app/helper/localStorageUserData.dart';
 import 'package:e_commerce_app/views/auth/LoginView.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';

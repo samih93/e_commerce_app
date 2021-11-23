@@ -1,8 +1,11 @@
 // @dart=2.9
 
 import 'package:e_commerce_app/Constant.dart';
+import 'package:e_commerce_app/Controller/CartController.dart';
 import 'package:e_commerce_app/Controller/HomeController.dart';
+import 'package:e_commerce_app/models/CartProduct.dart';
 import 'package:e_commerce_app/models/Product.dart';
+import 'package:e_commerce_app/service/sqflitedatabase/CartDatabasehelper.dart';
 import 'package:e_commerce_app/views/auth/ControlView.dart';
 import 'package:e_commerce_app/views/home_view.dart';
 import 'package:e_commerce_app/widgets/CustomButton.dart';
@@ -12,6 +15,7 @@ import 'package:get/get.dart';
 
 class DetailsProduct extends StatelessWidget {
   Product product;
+  List<int> listOfsizeNumbers = <int>[40, 41, 42, 43, 44, 45];
   DetailsProduct({this.product});
   @override
   Widget build(BuildContext context) {
@@ -49,7 +53,7 @@ class DetailsProduct extends StatelessWidget {
                           height: 20,
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Container(
                               padding: EdgeInsets.all(15),
@@ -94,6 +98,10 @@ class DetailsProduct extends StatelessWidget {
                             ),
                           ],
                         ),
+                        // SizedBox(
+                        //   height: 15,
+                        // ),
+                        // _productsizes(),
                         SizedBox(
                           height: 30,
                         ),
@@ -135,11 +143,20 @@ class DetailsProduct extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Container(
-                      width: 150,
-                      child: CustomButton(
-                        text: "Add",
-                        onPress: () {},
+                    GetBuilder<CartController>(
+                      init: Get.find(),
+                      builder: (CartController) => Container(
+                        width: 150,
+                        child: CustomButton(
+                          text: "Add",
+                          onPress: () {
+                            CartController.addProduct(CartProduct(
+                                name: product.name,
+                                image: product.image,
+                                price: product.price,
+                                quantity: 1));
+                          },
+                        ),
                       ),
                     )
                   ],
@@ -149,4 +166,27 @@ class DetailsProduct extends StatelessWidget {
           ),
         ));
   }
+
+//   Widget _productsizes() {
+//     return Row(
+//       mainAxisAlignment: MainAxisAlignment.start,
+//       children: <Widget>[
+//         Container(
+//           padding: EdgeInsets.all(10),
+//           decoration: BoxDecoration(
+//             borderRadius: BorderRadius.circular(15),
+//             border: Border.all(color: Colors.grey.shade200),
+//           ),
+//           width: 42,
+//           height: 38,
+//           child: GestureDetector(
+//             onTap: () {
+//               print(listOfsizeNumbers[0].toString());
+//             },
+//             child: CustomText(text: listOfsizeNumbers[0].toString()),
+//           ),
+//         ),
+//       ],
+//     );
+//   }
 }

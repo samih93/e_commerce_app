@@ -1,6 +1,6 @@
 import 'package:e_commerce_app/Constant.dart';
 import 'package:e_commerce_app/Controller/ProfileController.dart';
-import 'package:e_commerce_app/service/localStorageUserData.dart';
+import 'package:e_commerce_app/helper/localStorageUserData.dart';
 import 'package:e_commerce_app/widgets/CustomButton.dart';
 import 'package:e_commerce_app/widgets/CustumText.dart';
 import 'package:flutter/material.dart';

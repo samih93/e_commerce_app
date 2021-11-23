@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:e_commerce_app/Constant.dart';
 import 'package:e_commerce_app/models/UserModel.dart';
 import 'package:e_commerce_app/service/FireStoreUser.dart';
-import 'package:e_commerce_app/service/localStorageUserData.dart';
+import 'package:e_commerce_app/helper/localStorageUserData.dart';
 import 'package:e_commerce_app/views/auth/ControlView.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:e_commerce_app/views/home_view.dart';
