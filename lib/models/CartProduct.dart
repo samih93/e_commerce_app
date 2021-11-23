@@ -20,7 +20,7 @@ class CartProduct {
     name = map['name'];
     image = map['image'];
     price = map['price'];
-    quantity = map['quantity'];
+    quantity = map['quantity'] as int;
     // cast bool fromjson to model
   }
 

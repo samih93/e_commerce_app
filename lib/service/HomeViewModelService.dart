@@ -48,7 +48,7 @@ class HomeViewModelService extends GetxController {
     await ApplicationDb().getProducts().then((value) {
       for (int i = 0; i < value.length; i++) {
         _ProductList.add(Product.fromJson(value[i].data()));
-        print("${_ProductList[i].name}  : ${_ProductList[i].isfavorite}");
+        // print("${_ProductList[i].name}  : ${_ProductList[i].isfavorite}");
       }
       _IsLoding.value = false;
 
