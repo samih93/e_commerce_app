@@ -19,8 +19,8 @@ class CartProduct {
 
     name = map['name'];
     image = map['image'];
-    price = map['price'];
-    quantity = map['quantity'] as int;
+    price = map['price'].toString();
+    quantity = int.parse(map['quantity'].toString());
     // cast bool fromjson to model
   }
 
@@ -29,7 +29,7 @@ class CartProduct {
       'name': name,
       'image': image,
       'price': price,
-      'quantity': quantity,
+      'quantity': quantity ?? 0,
     };
   }
 }

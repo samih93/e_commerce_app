@@ -26,7 +26,7 @@ class CartController extends GetxController {
     _loading.value = true;
     var dbHelper = CartDatabasehelper.db;
     _cartproductList = await dbHelper.getallproduct();
-    print(_cartproductList.length);
+    print(_cartproductList.length ?? 0);
 
     _loading.value = false;
     update();

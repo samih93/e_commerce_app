@@ -43,5 +43,6 @@ class CartDatabasehelper {
     List<CartProduct> list = maps.isNotEmpty
         ? maps.map((Product) => CartProduct.fromJson(Product)).toList()
         : [];
+    return list;
   }
 }
