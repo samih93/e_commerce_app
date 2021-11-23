@@ -14,11 +14,12 @@ class CartController extends GetxController {
   List<CartProduct> get cardproductList => _cartproductList;
 
   CartController() {
-    getallproduct();
+    // getallproduct();
   }
   addProduct(CartProduct model) async {
     var dbHelper = CartDatabasehelper.db;
     await dbHelper.insert(model);
+    _cartproductList = await dbHelper.getallproduct();
     update();
   }
 
