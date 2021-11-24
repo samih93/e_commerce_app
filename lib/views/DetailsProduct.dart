@@ -183,7 +183,9 @@ class DetailsProduct extends StatelessWidget {
   }
 
   _onAlertWithCustomImagePressed(context) {
+    var alertStyle = AlertStyle(animationDuration: Duration(milliseconds: 1));
     Alert(
+      style: alertStyle,
       context: context,
       title: "Item Added to Cart",
       image: Image.asset("assets/images/success.png"),

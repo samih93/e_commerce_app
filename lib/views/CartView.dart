@@ -175,7 +175,11 @@ class CartView extends StatelessWidget {
                                               ),
                                             ),
                                             onTap: () {
+                                              var alertStyle = AlertStyle(
+                                                  animationDuration: Duration(
+                                                      milliseconds: 1));
                                               Alert(
+                                                style: alertStyle,
                                                 context: context,
                                                 type: AlertType.error,
                                                 title: "Delete Item",

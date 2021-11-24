@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="app_name">E Commerce</string>
+
+    <string name="facebook_app_id">1250886668672151</string>
+
+ 
+    <string name="fb_login_protocol_scheme">fb1250886668672151</string>
+</resources>

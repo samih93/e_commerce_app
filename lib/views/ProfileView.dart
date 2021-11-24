@@ -15,13 +15,21 @@ class ProfileView extends StatelessWidget {
       init: ProfileController(),
       builder: (ProfileController) => Scaffold(
         body: Container(
-          padding: EdgeInsets.only(top: 22),
+          // padding: EdgeInsets.only(top: 22),
           child: Column(
             //ToDo:
             children: [
               Container(
                 padding: EdgeInsets.all(20),
-                color: primarycolor,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: <Color>[
+                      Colors.green.shade900,
+                      Colors.green.shade700,
+                      Colors.green.shade400,
+                    ],
+                  ),
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -70,11 +78,19 @@ class ProfileView extends StatelessWidget {
                       trailing: Icon(Icons.arrow_forward_ios_rounded),
                       onTap: () {},
                     ),
+                    Divider(
+                      color: Colors.grey,
+                      height: 2,
+                    ),
                     ListTile(
                       title: Text("Shipping Address"),
                       leading: Icon(Icons.location_on_outlined),
                       trailing: Icon(Icons.arrow_forward_ios_rounded),
                       onTap: () {},
+                    ),
+                    Divider(
+                      color: Colors.grey,
+                      height: 2,
                     ),
                     ListTile(
                       title: Text("Orders"),
@@ -91,6 +107,10 @@ class ProfileView extends StatelessWidget {
                       ),
                       onTap: () {},
                     ),
+                    Divider(
+                      color: Colors.grey,
+                      height: 2,
+                    ),
                     ListTile(
                       title: Text("Likes"),
                       leading: Icon(Icons.favorite_border),
@@ -105,6 +125,10 @@ class ProfileView extends StatelessWidget {
                         borderRadius: 20.0,
                       ),
                       onTap: () {},
+                    ),
+                    Divider(
+                      color: Colors.grey,
+                      height: 2,
                     ),
                     ListTile(
                       title: Text("Payment Method"),

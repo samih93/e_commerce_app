@@ -1,7 +1,5 @@
 // @dart=2.9
-import 'dart:convert';
 
-import 'package:e_commerce_app/Constant.dart';
 import 'package:e_commerce_app/models/UserModel.dart';
 import 'package:e_commerce_app/service/FireStoreUser.dart';
 import 'package:e_commerce_app/helper/localStorageUserData.dart';
@@ -12,12 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthController extends GetxController {
   GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
   FirebaseAuth _auth = FirebaseAuth.instance;
-  FacebookLogin _facebookLogin = FacebookLogin();
+  static final FacebookLogin facebookSignIn = new FacebookLogin();
   String email = "", password = "", name = "";
 
   final localStorageUserData local_StorageUserData = Get.find();
@@ -35,7 +32,7 @@ class AuthController extends GetxController {
 
     // any change in _auth bind the result to _user
     _user.bindStream(_auth.authStateChanges());
-    local_StorageUserData.getuserData.then((value) => print(value.name));
+    //local_StorageUserData.getuserData.then((value) => print(value.name));
   }
 
   @override
@@ -78,7 +75,7 @@ class AuthController extends GetxController {
   }
 
   void facebookSignInMethod() async {
-    FacebookLoginResult result = await _facebookLogin.logIn(['email']);
+    final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
 
     final accessToken = result.accessToken.token;
     if (result.status == FacebookLoginStatus.loggedIn) {
