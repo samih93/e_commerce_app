@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 class CartProduct {
   String name, image, price, productId, description, size;
+  //ToDo : isfavorite
   int quantity;
   bool ischecked = false;
   Color color;
