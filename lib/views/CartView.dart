@@ -6,6 +6,7 @@ import 'package:e_commerce_app/widgets/CustomButton.dart';
 import 'package:e_commerce_app/widgets/CustumText.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class CartView extends StatelessWidget {
   @override
@@ -174,10 +175,44 @@ class CartView extends StatelessWidget {
                                               ),
                                             ),
                                             onTap: () {
-                                              cartcontroller.deleteproduct(
-                                                  cartcontroller
-                                                      .cardproductList[index]
-                                                      .productId);
+                                              Alert(
+                                                context: context,
+                                                type: AlertType.error,
+                                                title: "Delete Item",
+                                                desc:
+                                                    "Are You Sure You Want To Delete This Item.",
+                                                buttons: [
+                                                  DialogButton(
+                                                    child: Text(
+                                                      "Cancel",
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 18),
+                                                    ),
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    color: Colors.blue.shade400,
+                                                  ),
+                                                  DialogButton(
+                                                    child: Text(
+                                                      "Delete",
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 18),
+                                                    ),
+                                                    onPressed: () {
+                                                      cartcontroller.deleteproduct(
+                                                          cartcontroller
+                                                              .cardproductList[
+                                                                  index]
+                                                              .productId);
+                                                      Navigator.pop(context);
+                                                    },
+                                                    color: Colors.red.shade400,
+                                                  ),
+                                                ],
+                                              ).show();
                                             }),
                                       ),
                                     ],

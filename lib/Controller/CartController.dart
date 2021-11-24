@@ -57,16 +57,17 @@ class CartController extends GetxController {
     update();
   }
 
-  addProduct(CartProduct model) async {
+  Future<bool> addProduct(CartProduct model) async {
     dbHelper = CartDatabasehelper.db;
     if (_cartproductList.length > 0) {
       for (int i = 0; i < _cartproductList.length; i++) {
-        if (_cartproductList[i].productId == model.productId) return;
+        if (_cartproductList[i].productId == model.productId) return true;
       }
     }
     await dbHelper.insert(model);
     _cartproductList = await dbHelper.getallproduct();
     update();
+    return false;
   }
 
   Future<void> updateProductQuatity(String productId, int quantity) async {

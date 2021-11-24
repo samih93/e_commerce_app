@@ -6,12 +6,15 @@ import 'package:e_commerce_app/Controller/HomeController.dart';
 import 'package:e_commerce_app/models/CartProduct.dart';
 import 'package:e_commerce_app/models/Product.dart';
 import 'package:e_commerce_app/service/sqflitedatabase/CartDatabasehelper.dart';
+import 'package:e_commerce_app/views/CartView.dart';
 import 'package:e_commerce_app/views/auth/ControlView.dart';
 import 'package:e_commerce_app/views/home_view.dart';
 import 'package:e_commerce_app/widgets/CustomButton.dart';
 import 'package:e_commerce_app/widgets/CustumText.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:toast/toast.dart';
 
 class DetailsProduct extends StatelessWidget {
   Product product;
@@ -149,16 +152,24 @@ class DetailsProduct extends StatelessWidget {
                         width: 150,
                         child: CustomButton(
                           text: "Add",
-                          onPress: () {
-                            CartController.addProduct(CartProduct(
-                                productId: product.id,
-                                name: product.name,
-                                image: product.image,
-                                price: product.price,
-                                size: product.size,
-                                color: product.color,
-                                description: product.description,
-                                quantity: 1));
+                          onPress: () async {
+                            bool isAdded = await CartController.addProduct(
+                                CartProduct(
+                                    productId: product.id,
+                                    name: product.name,
+                                    image: product.image,
+                                    price: product.price,
+                                    size: product.size,
+                                    color: product.color,
+                                    description: product.description,
+                                    quantity: 1));
+                            if (!isAdded) {
+                              _onAlertWithCustomImagePressed(context);
+                            } else {
+                              Toast.show("Already Added", context,
+                                  duration: Toast.LENGTH_SHORT,
+                                  gravity: Toast.CENTER);
+                            }
                           },
                         ),
                       ),
@@ -169,6 +180,24 @@ class DetailsProduct extends StatelessWidget {
             ],
           ),
         ));
+  }
+
+  _onAlertWithCustomImagePressed(context) {
+    Alert(
+      context: context,
+      title: "Item Added to Cart",
+      image: Image.asset("assets/images/success.png"),
+      buttons: [
+        DialogButton(
+          child: Text(
+            "Go To Cart",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () => Get.off(CartView()),
+          width: 120,
+        )
+      ],
+    ).show();
   }
 
 //   Widget _productsizes() {

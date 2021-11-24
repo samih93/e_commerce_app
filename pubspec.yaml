@@ -40,6 +40,8 @@ dependencies:
   shared_preferences: ^2.0.8
   sqflite: ^2.0.0+4
   path: ^1.8.0
+  rflutter_alert: ^2.0.4
+  toast: ^0.1.5
 
 dev_dependencies:
   flutter_test:
