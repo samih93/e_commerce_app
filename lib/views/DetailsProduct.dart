@@ -155,6 +155,9 @@ class DetailsProduct extends StatelessWidget {
                                 name: product.name,
                                 image: product.image,
                                 price: product.price,
+                                size: product.size,
+                                color: product.color,
+                                description: product.description,
                                 quantity: 1));
                           },
                         ),

@@ -65,8 +65,15 @@ class ProfileView extends StatelessWidget {
                   scrollDirection: Axis.vertical,
                   children: <Widget>[
                     ListTile(
+                      title: Text("Profile"),
+                      leading: Icon(Icons.account_box),
+                      trailing: Icon(Icons.arrow_forward_ios_rounded),
+                      onTap: () {},
+                    ),
+                    ListTile(
                       title: Text("Shipping Address"),
-                      leading: Icon(Icons.add_location),
+                      leading: Icon(Icons.location_on_outlined),
+                      trailing: Icon(Icons.arrow_forward_ios_rounded),
                       onTap: () {},
                     ),
                     ListTile(
@@ -99,19 +106,25 @@ class ProfileView extends StatelessWidget {
                       ),
                       onTap: () {},
                     ),
-                    Container(
-                      margin: EdgeInsets.all(30),
-                      child: ListTile(
-                        title: Center(
-                          child: Text(
-                            "Sign Out",
-                          ),
-                        ),
-                        tileColor: primarycolor,
-                        onTap: () => ProfileController.SignOut(),
-                      ),
+                    ListTile(
+                      title: Text("Payment Method"),
+                      leading: Icon(Icons.payment),
+                      trailing: Icon(Icons.arrow_forward_ios_rounded),
+                      onTap: () {},
                     ),
                   ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.all(15),
+                child: ListTile(
+                  title: Center(
+                    child: Text(
+                      "Sign Out",
+                    ),
+                  ),
+                  tileColor: primarycolor,
+                  onTap: () => ProfileController.SignOut(),
                 ),
               ),
             ],

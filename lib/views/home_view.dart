@@ -158,19 +158,21 @@ class HomeView extends StatelessWidget {
                   width: MediaQuery.of(context).size.width * .6,
                   child: Column(
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          color: Colors.grey.shade100,
-                        ),
-                        height: 230,
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: new Image.network(
-                            HomeViewModelService.ProductList[index].image
-                                .toString(),
-                            //whatever image you can put here
-                            fit: BoxFit.fill,
+                      Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            color: Colors.grey.shade100,
+                          ),
+                          height: 230,
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: new Image.network(
+                              HomeViewModelService.ProductList[index].image
+                                  .toString(),
+                              //whatever image you can put here
+                              fit: BoxFit.fill,
+                            ),
                           ),
                         ),
                       ),
@@ -183,15 +185,13 @@ class HomeView extends StatelessWidget {
                       SizedBox(
                         height: 5,
                       ),
-                      Expanded(
-                        child: CustomText(
-                          text: HomeViewModelService
-                              .ProductList[index].description,
-                          alignment: Alignment.bottomLeft,
-                          color: Colors.grey[800],
-                          fontSize: 15,
-                          maxLine: 1,
-                        ),
+                      CustomText(
+                        text:
+                            HomeViewModelService.ProductList[index].description,
+                        alignment: Alignment.bottomLeft,
+                        color: Colors.grey[800],
+                        fontSize: 15,
+                        maxLine: 3,
                       ),
                       SizedBox(
                         height: 5,

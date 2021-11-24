@@ -32,6 +32,7 @@ class ControlView extends GetWidget<AuthController> {
               padding: const EdgeInsets.only(top: 15),
               child: CustomText(
                 text: "Explore",
+                fontSize: 20,
                 color: primarycolor,
                 alignment: Alignment.center,
               ),
@@ -51,6 +52,7 @@ class ControlView extends GetWidget<AuthController> {
               padding: const EdgeInsets.only(top: 15),
               child: CustomText(
                 text: "Card",
+                fontSize: 20,
                 color: primarycolor,
                 alignment: Alignment.center,
               ),
@@ -71,6 +73,7 @@ class ControlView extends GetWidget<AuthController> {
               child: CustomText(
                 alignment: Alignment.center,
                 text: "Account",
+                fontSize: 20,
                 color: primarycolor,
               ),
             ),

@@ -28,14 +28,12 @@ class CartDatabasehelper {
         $columnImage TEXT NOT NULL ,
         $columnQuantity TEXT NOT NULL ,
         $columnproductId TEXT NOT NULL ,
+        $columnSize TEXT NOT NULL ,
+        $columnColor TEXT NOT NULL ,
+        $columnDescription TEXT NOT NULL ,
         $columnPrice INTEGER NOT NULL)
           ''');
     });
-  }
-
-  insert(CartProduct model) async {
-    var dbclient = await database;
-    await dbclient.insert(tableCardProduct, model.toJson());
   }
 
   Future<List<CartProduct>> getallproduct() async {
@@ -47,7 +45,27 @@ class CartDatabasehelper {
     return list;
   }
 
-  deleteProductFromdatabase(String productId) async {
+  insert(CartProduct model) async {
+    var dbclient = await database;
+    await dbclient.insert(tableCardProduct, model.toJson());
+    //  print("model.json " + model.toJson());
+  }
+
+  updateProductQuatity({String productId, int quatity}) async {
+    var dbclient = await database;
+    await dbclient.rawDelete(
+        "UPDATE  $tableCardProduct SET $columnQuantity= $quatity where  $columnproductId='$productId'");
+    print("Updated");
+  }
+
+  updateProduct(CartProduct model) async {
+    var dbclient = await database;
+    await dbclient.update(tableCardProduct, model.toJson(),
+        where: '$columnproductId =?', whereArgs: [model.productId]);
+    print("Updated");
+  }
+
+  delete(String productId) async {
     var dbclient = await database;
     await dbclient.rawDelete(
         "DELETE FROM $tableCardProduct WHERE $columnproductId='$productId'");
