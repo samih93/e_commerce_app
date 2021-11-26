@@ -18,7 +18,6 @@ import 'package:toast/toast.dart';
 
 class DetailsProduct extends StatelessWidget {
   Product product;
-  List<int> listOfsizeNumbers = <int>[40, 41, 42, 43, 44, 45];
   DetailsProduct({this.product});
   @override
   Widget build(BuildContext context) {
@@ -55,56 +54,40 @@ class DetailsProduct extends StatelessWidget {
                         SizedBox(
                           height: 20,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.all(15),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                border: Border.all(color: Colors.grey.shade200),
-                              ),
-                              width: MediaQuery.of(context).size.width * .44,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  CustomText(text: "Size"),
-                                  CustomText(
-                                    text: product.size,
-                                  ),
-                                ],
-                              ),
+                        Container(
+                          padding: EdgeInsets.only(top: 15, bottom: 5),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            border: Border.all(color: Colors.grey.shade200),
+                          ),
+                          child: GetBuilder<CartController>(
+                            init: Get.find(),
+                            builder: (cartcontroller) => Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                CustomText(
+                                  text: "Size",
+                                  alignment: Alignment.centerLeft,
+                                  fontSize: 20,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                CustomText(
+                                  text: cartcontroller.selectedSize,
+                                  color: Colors.grey,
+                                )
+                                // CustomText(
+                                //   text: product.size,
+                                // ),
+                              ],
                             ),
-                            Container(
-                              padding: EdgeInsets.all(15),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                border: Border.all(color: Colors.grey.shade200),
-                              ),
-                              width: MediaQuery.of(context).size.width * .44,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  CustomText(text: "Color"),
-                                  Container(
-                                    width: 30,
-                                    height: 20,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: product.color,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
-                        // SizedBox(
-                        //   height: 15,
-                        // ),
-                        // _productsizes(),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        _productsizes(product.sizes),
                         SizedBox(
                           height: 30,
                         ),
@@ -153,22 +136,34 @@ class DetailsProduct extends StatelessWidget {
                         child: CustomButton(
                           text: "Add",
                           onPress: () async {
-                            bool isAdded = await CartController.addProduct(
-                                CartProduct(
-                                    productId: product.id,
-                                    name: product.name,
-                                    image: product.image,
-                                    price: product.price,
-                                    size: product.size,
-                                    color: product.color,
-                                    description: product.description,
-                                    quantity: 1));
-                            if (!isAdded) {
-                              _onAlertWithCustomImagePressed(context);
+                            print(CartController.selectedSize);
+                            print(product.id);
+                            if (CartController.selectedSize != "") {
+                              bool isAdded = await CartController.addProduct(
+                                  CartProduct(
+                                      productId: product.id,
+                                      name: product.name,
+                                      image: product.image,
+                                      price: product.price,
+                                      size: CartController.selectedSize,
+                                      color: product.color,
+                                      description: product.description,
+                                      quantity: 1));
+                              if (!isAdded) {
+                                _onAlertWithCustomImagePressed(context);
+                              } else {
+                                Toast.show("Already Added", context,
+                                    duration: Toast.LENGTH_SHORT,
+                                    gravity: Toast.CENTER);
+                              }
                             } else {
-                              Toast.show("Already Added", context,
-                                  duration: Toast.LENGTH_SHORT,
-                                  gravity: Toast.CENTER);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                    backgroundColor: primarycolor,
+                                    content:
+                                        Text("Select size befor add to cart")),
+                              );
+                              return false;
                             }
                           },
                         ),
@@ -202,26 +197,41 @@ class DetailsProduct extends StatelessWidget {
     ).show();
   }
 
-//   Widget _productsizes() {
-//     return Row(
-//       mainAxisAlignment: MainAxisAlignment.start,
-//       children: <Widget>[
-//         Container(
-//           padding: EdgeInsets.all(10),
-//           decoration: BoxDecoration(
-//             borderRadius: BorderRadius.circular(15),
-//             border: Border.all(color: Colors.grey.shade200),
-//           ),
-//           width: 42,
-//           height: 38,
-//           child: GestureDetector(
-//             onTap: () {
-//               print(listOfsizeNumbers[0].toString());
-//             },
-//             child: CustomText(text: listOfsizeNumbers[0].toString()),
-//           ),
-//         ),
-//       ],
-//     );
-//   }
+  Widget _productsizes(List<String> sizes) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: <Widget>[
+        for (int i = 0; i < sizes.length; i++)
+          Row(
+            children: [
+              GetBuilder<CartController>(
+                init: Get.find(),
+                builder: (cartController) => GestureDetector(
+                  onTap: () => cartController.onselectsize(sizes[i].toString()),
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    width: 40,
+                    height: 35,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.grey.shade300,
+                      border: cartController.selectedSize == sizes[i]
+                          ? Border.all(color: primarycolor)
+                          : Border.all(color: Colors.grey),
+                    ),
+                    child: CustomText(
+                      text: sizes[i],
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+            ],
+          ),
+      ],
+    );
+  }
 }

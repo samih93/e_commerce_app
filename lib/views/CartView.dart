@@ -5,25 +5,37 @@ import 'package:e_commerce_app/views/DetailsProduct.dart';
 import 'package:e_commerce_app/widgets/CustomButton.dart';
 import 'package:e_commerce_app/widgets/CustumText.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 class CartView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: GetBuilder<CartController>(
-        init: Get.find(),
-        builder: (cartcontroller) => cartcontroller.loading == true
-            ? Center(child: CircularProgressIndicator())
-            : cartcontroller.cardproductList.length == 0
-                ? Center(
-                    child: CustomText(
-                    alignment: Alignment.center,
-                    text: "Your Cart Is Empty",
-                    fontSize: 22,
-                  ))
-                : Column(
+    return GetBuilder<CartController>(
+      init: Get.find(),
+      builder: (cartcontroller) => cartcontroller.loading == true
+          ? Center(child: CircularProgressIndicator())
+          : cartcontroller.cardproductList.length == 0
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      "assets/svg/emty card.svg",
+                      alignment: Alignment.center,
+                      width: 200,
+                      height: 240,
+                    ),
+                    SizedBox(height: 15),
+                    CustomText(
+                      text: "Cart Is Empty",
+                      fontSize: 25,
+                      alignment: Alignment.center,
+                    ),
+                  ],
+                )
+              : Scaffold(
+                  body: Column(
                     children: [
                       Expanded(
                         child: Container(
@@ -33,26 +45,27 @@ class CartView extends StatelessWidget {
                             itemBuilder: (context, index) {
                               return GestureDetector(
                                 onTap: () {
-                                  Get.off(DetailsProduct(
-                                    product: Product(
-                                        id: cartcontroller
-                                            .cardproductList[index].productId,
-                                        name: cartcontroller
-                                            .cardproductList[index].name,
-                                        image: cartcontroller
-                                            .cardproductList[index].image,
-                                        description: cartcontroller
-                                            .cardproductList[index].description,
-                                        color: cartcontroller
-                                            .cardproductList[index].color,
-                                        size: cartcontroller
-                                            .cardproductList[index].size,
-                                        price: cartcontroller
-                                            .cardproductList[index].price),
-                                  ));
+                                  //TODo:
+                                  // Get.off(DetailsProduct(
+                                  //   product: Product(
+                                  //       id: cartcontroller
+                                  //           .cardproductList[index].productId,
+                                  //       name: cartcontroller
+                                  //           .cardproductList[index].name,
+                                  //       image: cartcontroller
+                                  //           .cardproductList[index].image,
+                                  //       description: cartcontroller
+                                  //           .cardproductList[index].description,
+                                  //       color: cartcontroller
+                                  //           .cardproductList[index].color,
+                                  //       sizes: [],
+                                  //       //     cartcontroller.listOfSizesOfproduct,
+                                  //       price: cartcontroller
+                                  //           .cardproductList[index].price),
+                                  // ));
                                 },
                                 child: Container(
-                                  height: 120,
+                                  height: 140,
                                   child: Row(
                                     children: [
                                       Container(
@@ -97,6 +110,12 @@ class CartView extends StatelessWidget {
                                                   .cardproductList[index].name,
                                               overflow: TextOverflow.ellipsis,
                                             ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            CustomText(
+                                                text:
+                                                    "Size : ${cartcontroller.cardproductList[index].size}"),
                                             SizedBox(
                                               height: 10,
                                             ),
@@ -258,7 +277,7 @@ class CartView extends StatelessWidget {
                       ),
                     ],
                   ),
-      ),
+                ),
     );
   }
 }

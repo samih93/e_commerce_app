@@ -19,13 +19,13 @@ class ApplicationDb extends GetxController {
     return value.docs;
   }
 
-  Future<void> ReadAllproductName(String docId) async {
-    await _productCollectionRef.get().then((QuerySnapshot querysnapshot) {
-      querysnapshot.docs.forEach((doc) {
-        print(doc['name']);
-      });
-    });
-  }
+  // Future<void> ReadAllproductName(String docId) async {
+  //   await _productCollectionRef.get().then((QuerySnapshot querysnapshot) {
+  //     querysnapshot.docs.forEach((doc) {
+  //       print(doc['name']);
+  //     });
+  //   });
+  // }
 
   Future<void> setFavoriteProduct(String docId, bool isfavorite) {
     return _productCollectionRef

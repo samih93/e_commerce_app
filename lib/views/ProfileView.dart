@@ -39,7 +39,8 @@ class ProfileView extends StatelessWidget {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         image: DecorationImage(
-                            image: ProfileController.userModel.pic != ""
+                            image: ProfileController.userModel != null &&
+                                    ProfileController.userModel.pic != ""
                                 ? NetworkImage(ProfileController.userModel.pic)
                                 : AssetImage(
                                     "assets/images/default profile.png",
@@ -52,8 +53,9 @@ class ProfileView extends StatelessWidget {
                       height: 40,
                     ),
                     CustomText(
-                      text: ProfileController.userModel.name ??
-                          ProfileController.userModel.name,
+                      text: ProfileController.userModel != null
+                          ? ProfileController.userModel.name ?? ""
+                          : "",
                       fontSize: 18,
                       color: Colors.white,
                     ),
@@ -61,8 +63,9 @@ class ProfileView extends StatelessWidget {
                       height: 5,
                     ),
                     CustomText(
-                      text: ProfileController.userModel.email ??
-                          ProfileController.userModel.email,
+                      text: ProfileController.userModel != null
+                          ? ProfileController.userModel.email ?? ""
+                          : "",
                       color: Colors.white70,
                     ),
                   ],

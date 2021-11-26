@@ -1,9 +1,11 @@
 import 'package:e_commerce_app/Constant.dart';
 import 'package:e_commerce_app/Controller/AuthController.dart';
+import 'package:e_commerce_app/Controller/CartController.dart';
 import 'package:e_commerce_app/Controller/HomeController.dart';
 import 'package:e_commerce_app/views/auth/LoginView.dart';
 import 'package:e_commerce_app/widgets/CustumText.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_badged/flutter_badge.dart';
 import 'package:get/get.dart';
 
 class ControlView extends GetWidget<AuthController> {
@@ -58,12 +60,17 @@ class ControlView extends GetWidget<AuthController> {
               ),
             ),
             label: "",
-            icon: Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: Image.asset(
-                "assets/icons/Icon_Cart.png",
-                fit: BoxFit.fill,
-                width: 20,
+            icon: GetBuilder<CartController>(
+              init: Get.find(),
+              builder: (cartController) => FlutterBadge(
+                icon: Image.asset(
+                  "assets/icons/Icon_Cart.png",
+                  fit: BoxFit.fill,
+                ),
+                itemCount: cartController.cardproductList.length ?? 0,
+                hideZeroCount: false,
+                badgeColor: primarycolor,
+                borderRadius: 20.0,
               ),
             ),
           ),

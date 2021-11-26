@@ -29,10 +29,11 @@ class AuthController extends GetxController {
   void onInit() async {
     // TODO: implement onInit
     super.onInit();
-
     // any change in _auth bind the result to _user
     _user.bindStream(_auth.authStateChanges());
-    //local_StorageUserData.getuserData.then((value) => print(value.name));
+    if (_auth.currentUser != null) {
+      _getCurrentUser(_auth.currentUser.uid);
+    }
   }
 
   @override
@@ -71,7 +72,7 @@ class AuthController extends GetxController {
     //     email: googleuser.email,
     //     name: googleuser.displayName,
     //     pic: googleuser.photoUrl));
-    print("google user : ${googleuser}");
+    // print("google user : ${googleuser}");
   }
 
   void facebookSignInMethod() async {
@@ -80,7 +81,10 @@ class AuthController extends GetxController {
     final accessToken = result.accessToken.token;
     if (result.status == FacebookLoginStatus.loggedIn) {
       final facebookcredential = FacebookAuthProvider.credential(accessToken);
-      await _auth.signInWithCredential(facebookcredential);
+      await _auth.signInWithCredential(facebookcredential).then((user) {
+        SaveUserToFireStore(user);
+      });
+      Get.offAll(() => ControlView());
     }
   }
 
@@ -88,11 +92,8 @@ class AuthController extends GetxController {
     try {
       await _auth
           .signInWithEmailAndPassword(email: email, password: password)
-          .then((value) async {
-        await FireStoreUser().getCurrentUser(value.user.uid).then((value) {
-          print(value.data());
-          saveUserDataTosharedPreference(UserModel.fromjson(value.data()));
-        });
+          .then((user) async {
+        _getCurrentUser(user.user.uid);
       }); // .then((value) => print(value));
       Get.offAll(() => ControlView());
     } catch (e) {
@@ -108,7 +109,7 @@ class AuthController extends GetxController {
           .then((user) {
         SaveUserToFireStore(user);
       }); // .then((value) => print(value));
-      Get.offAll(() => HomeView());
+      Get.offAll(() => ControlView());
     } catch (e) {
       Get.snackbar('Error Login Account', e.toString(),
           colorText: Colors.black, snackPosition: SnackPosition.BOTTOM);
@@ -119,18 +120,20 @@ class AuthController extends GetxController {
     UserModel userModel = UserModel(
         userId: user.user.uid,
         email: user.user.email,
-        name: user.user.displayName ?? "",
+        name: user.user.displayName ?? name,
         pic: user.user.photoURL ?? "");
     await FireStoreUser().AddUserToFireStore(userModel);
-    saveUserDataTosharedPreference(userModel);
+    _getCurrentUser(user.user.uid);
   }
 
   saveUserDataTosharedPreference(UserModel userModel) async {
     local_StorageUserData.setUser(userModel);
-    //print("User data Set To Shared preference");
-    //  SharedPreferences pref = await SharedPreferences.getInstance();
-    //  print(pref.containsKey(localUserData));
-    // print(json.decode(pref.getString(localUserData)));
-    // print(user);
+  }
+
+  void _getCurrentUser(String uid) async {
+    await FireStoreUser().getCurrentUser(uid).then((value) {
+      print(value.data());
+      saveUserDataTosharedPreference(UserModel.fromjson(value.data()));
+    });
   }
 }

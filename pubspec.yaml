@@ -42,6 +42,8 @@ dependencies:
   path: ^1.8.0
   rflutter_alert: ^2.0.4
   toast: ^0.1.5
+  flutter_svg: ^0.23.0+1
+
 
 dev_dependencies:
   flutter_test:
@@ -60,6 +62,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/svg/
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

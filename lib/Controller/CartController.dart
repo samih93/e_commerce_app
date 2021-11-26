@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:e_commerce_app/models/CartProduct.dart';
+import 'package:e_commerce_app/models/Product.dart';
+import 'package:e_commerce_app/service/ApplicationDb.dart';
 import 'package:e_commerce_app/service/sqflitedatabase/CartDatabasehelper.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -14,10 +16,39 @@ class CartController extends GetxController {
   List<CartProduct> get cardproductList => _cartproductList;
 
   double get totalprice => _getTotalPrice();
+
   var dbHelper = CartDatabasehelper.db;
+
+  String _selectedSize = "";
+  String get selectedSize => _selectedSize;
+
+  //List<String> _listOfSizesOfproduct = [];
 
   CartController() {
     getallproduct();
+  }
+
+  onselectsize(String size) {
+    _selectedSize = size;
+    update();
+  }
+
+  List<String> getSizesOfProduct(String productId) {
+    List<Product> ProductList = <Product>[];
+    List<String> sizes = <String>[];
+
+    ApplicationDb().getProducts().then((value) {
+      for (int i = 0; i < value.length; i++) {
+        //print(value[i].data());
+        ProductList.add(Product.fromJson(value[i].data()));
+      }
+      ProductList.forEach((element) {
+        if (element.id == productId) {
+          sizes = element.sizes;
+        }
+      });
+    });
+    return sizes;
   }
 
   getallproduct() async {
