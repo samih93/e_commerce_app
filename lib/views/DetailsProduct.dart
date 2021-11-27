@@ -5,7 +5,7 @@ import 'package:e_commerce_app/Controller/CartController.dart';
 import 'package:e_commerce_app/Controller/HomeController.dart';
 import 'package:e_commerce_app/models/CartProduct.dart';
 import 'package:e_commerce_app/models/Product.dart';
-import 'package:e_commerce_app/service/sqflitedatabase/CartDatabasehelper.dart';
+import 'package:e_commerce_app/service/sqflitedatabase/EcommerceDatabasehelper.dart';
 import 'package:e_commerce_app/views/CartView.dart';
 import 'package:e_commerce_app/views/auth/ControlView.dart';
 import 'package:e_commerce_app/views/home_view.dart';
@@ -58,7 +58,6 @@ class DetailsProduct extends StatelessWidget {
                           padding: EdgeInsets.only(top: 15, bottom: 5),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
-                            border: Border.all(color: Colors.grey.shade200),
                           ),
                           child: GetBuilder<CartController>(
                             init: Get.find(),

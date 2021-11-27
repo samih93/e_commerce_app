@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 class Product {
   String id, name, image, description, price;
   Color color;
-  bool isfavorite;
+  bool isfavorite = false;
   List<String> sizes;
   //Color color;
 

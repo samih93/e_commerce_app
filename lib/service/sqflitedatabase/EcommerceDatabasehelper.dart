@@ -1,14 +1,14 @@
 import 'package:e_commerce_app/Constant.dart';
 import 'package:e_commerce_app/models/CartProduct.dart';
-import 'package:e_commerce_app/models/Product.dart';
+import 'package:e_commerce_app/models/favoriteProduct.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-class CartDatabasehelper {
+class EcommerceDatabasehelper {
   // intsance wahad men hyda l class
-  CartDatabasehelper._();
+  EcommerceDatabasehelper._();
 
-  static final CartDatabasehelper db = CartDatabasehelper._();
+  static final EcommerceDatabasehelper db = EcommerceDatabasehelper._();
 
   static Database _database;
 
@@ -19,7 +19,7 @@ class CartDatabasehelper {
   }
 
   initDb() async {
-    String path = join(await getDatabasesPath(), "CardProduct.db");
+    String path = join(await getDatabasesPath(), "ECommerce.db");
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
       await db.execute('''
@@ -32,6 +32,12 @@ class CartDatabasehelper {
         $columnColor TEXT NOT NULL ,
         $columnDescription TEXT NOT NULL ,
         $columnPrice INTEGER NOT NULL)
+          ''');
+      await db.execute('''
+      CREATE TABLE $tableFavoriteProduct (
+        $columnfavoriteProductId TEXT NOT NULL,
+        $columnisFavorite INTEGER NOT NULL
+        )
           ''');
     });
   }
@@ -73,5 +79,37 @@ class CartDatabasehelper {
     await dbclient.rawDelete(
         "DELETE FROM $tableCardProduct WHERE $columnproductId='$productId'");
     print("Deleted");
+  }
+
+  // add product favorite to sqllite
+  Future<List<favoriteProduct>> addfavoriteproduct(
+      favoriteProduct model) async {
+    var dbclient = await database;
+    await dbclient.insert(tableFavoriteProduct, model.toJson());
+    print("Product Added to favorite");
+    return getallfavoriteproducts();
+  }
+
+  Future<List<favoriteProduct>> updatefavoriteProduct(
+      favoriteProduct model) async {
+    var dbclient = await database;
+    await dbclient.update(tableFavoriteProduct, model.toJson(),
+        where: '$columnfavoriteProductId =?', whereArgs: [model.productId]);
+    print("Updated successfully");
+    return getallfavoriteproducts();
+  }
+
+  Future<List<favoriteProduct>> getallfavoriteproducts() async {
+    var dbclient = await database;
+    List<Map> maps = await dbclient.query(tableFavoriteProduct);
+    List<favoriteProduct> list = maps.isNotEmpty
+        ? maps
+            .map((favproduct) => favoriteProduct.fromJson(favproduct))
+            .toList()
+        : [];
+    list.forEach((element) {
+      print(element.productId);
+    });
+    return list;
   }
 }

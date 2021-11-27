@@ -217,10 +217,11 @@ class HomeView extends StatelessWidget {
                                     )
                                   : Icon(Icons.favorite_border),
                               onTap: () {
-                                HomeViewModelService.setfavorite(
+                                HomeViewModelService.addProductTofavorite(
                                     HomeViewModelService.ProductList[index].id,
                                     !HomeViewModelService
                                         .ProductList[index].isfavorite);
+
                                 //print(HomeViewModelService.isfavorite);
                               },
                             ),

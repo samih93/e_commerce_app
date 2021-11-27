@@ -2,8 +2,9 @@ import 'dart:ui';
 
 import 'package:e_commerce_app/models/CartProduct.dart';
 import 'package:e_commerce_app/models/Product.dart';
+import 'package:e_commerce_app/models/favoriteProduct.dart';
 import 'package:e_commerce_app/service/ApplicationDb.dart';
-import 'package:e_commerce_app/service/sqflitedatabase/CartDatabasehelper.dart';
+import 'package:e_commerce_app/service/sqflitedatabase/EcommerceDatabasehelper.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,7 @@ class CartController extends GetxController {
 
   double get totalprice => _getTotalPrice();
 
-  var dbHelper = CartDatabasehelper.db;
+  var dbHelper = EcommerceDatabasehelper.db;
 
   String _selectedSize = "";
   String get selectedSize => _selectedSize;
@@ -53,7 +54,7 @@ class CartController extends GetxController {
 
   getallproduct() async {
     _loading.value = true;
-    dbHelper = CartDatabasehelper.db;
+    dbHelper = EcommerceDatabasehelper.db;
     _cartproductList = await dbHelper.getallproduct();
 
     print("lenght ${_cartproductList.length ?? 0}");
@@ -89,7 +90,7 @@ class CartController extends GetxController {
   }
 
   Future<bool> addProduct(CartProduct model) async {
-    dbHelper = CartDatabasehelper.db;
+    dbHelper = EcommerceDatabasehelper.db;
     if (_cartproductList.length > 0) {
       for (int i = 0; i < _cartproductList.length; i++) {
         if (_cartproductList[i].productId == model.productId) return true;
@@ -102,20 +103,21 @@ class CartController extends GetxController {
   }
 
   Future<void> updateProductQuatity(String productId, int quantity) async {
-    dbHelper = CartDatabasehelper.db;
+    dbHelper = EcommerceDatabasehelper.db;
     await dbHelper.updateProductQuatity(
         quatity: quantity, productId: productId);
     print("Updated");
   }
 
   Future<void> deleteproduct(String ProductId) async {
-    dbHelper = CartDatabasehelper.db;
+    dbHelper = EcommerceDatabasehelper.db;
     await dbHelper.delete(ProductId);
     _cartproductList = await dbHelper.getallproduct();
     //  print("deleted");
     update();
   }
 
+// onchage checkbox in cart view
   onchangeCheckbox(index, value) {
     _cartproductList[index].ischecked = value;
     update();
