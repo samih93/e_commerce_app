@@ -1,6 +1,7 @@
 import 'package:e_commerce_app/Constant.dart';
 import 'package:e_commerce_app/Controller/ProfileController.dart';
 import 'package:e_commerce_app/helper/localStorageUserData.dart';
+import 'package:e_commerce_app/service/HomeViewModelService.dart';
 import 'package:e_commerce_app/widgets/CustomButton.dart';
 import 'package:e_commerce_app/widgets/CustumText.dart';
 import 'package:flutter/material.dart';
@@ -114,20 +115,26 @@ class ProfileView extends StatelessWidget {
                       color: Colors.grey,
                       height: 2,
                     ),
-                    ListTile(
-                      title: Text("Likes"),
-                      leading: Icon(Icons.favorite_border),
-                      trailing: FlutterBadge(
-                        icon: Icon(
-                          Icons.favorite_outlined,
-                          size: 30,
+                    GetBuilder<HomeViewModelService>(
+                      init: Get.find(),
+                      builder: (homeViewModelService) => ListTile(
+                        title: Text("Wish List"),
+                        leading: Icon(Icons.favorite_border),
+                        trailing: FlutterBadge(
+                          icon: Icon(
+                            Icons.favorite_outlined,
+                            size: 30,
+                          ),
+                          itemCount: homeViewModelService.favoriteproduct !=
+                                  null
+                              ? homeViewModelService.favoriteproduct.length ?? 0
+                              : 0,
+                          hideZeroCount: false,
+                          badgeColor: primarycolor,
+                          borderRadius: 20.0,
                         ),
-                        itemCount: 0,
-                        hideZeroCount: false,
-                        badgeColor: primarycolor,
-                        borderRadius: 20.0,
+                        onTap: () {},
                       ),
-                      onTap: () {},
                     ),
                     Divider(
                       color: Colors.grey,

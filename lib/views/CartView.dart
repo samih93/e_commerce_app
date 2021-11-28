@@ -16,23 +16,25 @@ class CartView extends StatelessWidget {
       init: Get.find(),
       builder: (cartcontroller) => cartcontroller.loading == true
           ? Center(child: CircularProgressIndicator())
-          : cartcontroller.cardproductList.length == 0
-              ? Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      "assets/svg/emty card.svg",
-                      alignment: Alignment.center,
-                      width: 200,
-                      height: 240,
-                    ),
-                    SizedBox(height: 15),
-                    CustomText(
-                      text: "Cart Is Empty",
-                      fontSize: 25,
-                      alignment: Alignment.center,
-                    ),
-                  ],
+          : cartcontroller.cartproductList.length == 0
+              ? Scaffold(
+                  body: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(
+                        "assets/svg/emty card.svg",
+                        alignment: Alignment.center,
+                        width: 200,
+                        height: 240,
+                      ),
+                      SizedBox(height: 15),
+                      CustomText(
+                        text: "Cart Is Empty",
+                        fontSize: 25,
+                        alignment: Alignment.center,
+                      ),
+                    ],
+                  ),
                 )
               : Scaffold(
                   body: Column(
@@ -41,7 +43,7 @@ class CartView extends StatelessWidget {
                         child: Container(
                           padding: EdgeInsets.all(8),
                           child: ListView.separated(
-                            itemCount: cartcontroller.cardproductList.length,
+                            itemCount: cartcontroller.cartproductList.length,
                             itemBuilder: (context, index) {
                               return GestureDetector(
                                 onTap: () {
@@ -75,7 +77,7 @@ class CartView extends StatelessWidget {
                                         padding: EdgeInsets.all(8),
                                         child: Checkbox(
                                             value: cartcontroller
-                                                .cardproductList[index]
+                                                .cartproductList[index]
                                                 .ischecked,
                                             onChanged: (bool value) {
                                               cartcontroller.onchangeCheckbox(
@@ -87,11 +89,11 @@ class CartView extends StatelessWidget {
                                             MediaQuery.of(context).size.width *
                                                 .3,
                                         child: cartcontroller
-                                                    .cardproductList[index]
+                                                    .cartproductList[index]
                                                     .image !=
                                                 ""
                                             ? Image.network(cartcontroller
-                                                .cardproductList[index].image)
+                                                .cartproductList[index].image)
                                             : Image.asset(
                                                 "assets/icons/chaire.png"),
                                       ),
@@ -107,7 +109,7 @@ class CartView extends StatelessWidget {
                                           children: [
                                             Text(
                                               cartcontroller
-                                                  .cardproductList[index].name,
+                                                  .cartproductList[index].name,
                                               overflow: TextOverflow.ellipsis,
                                             ),
                                             SizedBox(
@@ -115,14 +117,14 @@ class CartView extends StatelessWidget {
                                             ),
                                             CustomText(
                                                 text:
-                                                    "Size : ${cartcontroller.cardproductList[index].size}"),
+                                                    "Size : ${cartcontroller.cartproductList[index].size}"),
                                             SizedBox(
                                               height: 10,
                                             ),
                                             CustomText(
                                               text: "\$ " +
                                                   cartcontroller
-                                                      .cardproductList[index]
+                                                      .cartproductList[index]
                                                       .price,
                                               color: primarycolor,
                                             ),
@@ -153,7 +155,7 @@ class CartView extends StatelessWidget {
                                                   ),
                                                   CustomText(
                                                     text: cartcontroller
-                                                        .cardproductList[index]
+                                                        .cartproductList[index]
                                                         .quantity
                                                         .toString(),
                                                     alignment: Alignment.center,
@@ -227,7 +229,7 @@ class CartView extends StatelessWidget {
                                                     onPressed: () {
                                                       cartcontroller.deleteproduct(
                                                           cartcontroller
-                                                              .cardproductList[
+                                                              .cartproductList[
                                                                   index]
                                                               .productId);
                                                       Navigator.pop(context);

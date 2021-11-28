@@ -5,6 +5,7 @@ import 'package:e_commerce_app/models/Product.dart';
 import 'package:e_commerce_app/models/favoriteProduct.dart';
 import 'package:e_commerce_app/service/ApplicationDb.dart';
 import 'package:e_commerce_app/service/sqflitedatabase/EcommerceDatabasehelper.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -20,6 +21,7 @@ class HomeViewModelService extends GetxController {
 
   List<Product> get ProductList => _ProductList;
 
+  List<favoriteProduct> get favoriteproduct => _favoriteproduct;
   List<favoriteProduct> _favoriteproduct = [];
 
   var dbHelper = EcommerceDatabasehelper.db;
@@ -29,39 +31,42 @@ class HomeViewModelService extends GetxController {
     getProducts();
   }
 
-  setfavorite(String docid, bool isfavorite) {
-    _ProductList.forEach((product) {
-      if (product.id == docid) product.isfavorite = !product.isfavorite;
-      ApplicationDb().setFavoriteProduct(docid, isfavorite);
-    });
-    update();
-  }
+// set favorite product to firestore but not recomanded
+  // setfavorite(String docid, bool isfavorite) {
+  //   _ProductList.forEach((product) {
+  //     if (product.id == docid) product.isfavorite = !product.isfavorite;
+  //     ApplicationDb().setFavoriteProduct(docid, isfavorite);
+  //   });
+  //   update();
+  // }
 
   addProductTofavorite(String productId, bool isfavorite) async {
     dbHelper = EcommerceDatabasehelper.db;
-    _favoriteproduct = await dbHelper.getallfavoriteproducts();
 
     print("lenght of favorite ${_favoriteproduct.length ?? 0}");
     if (_favoriteproduct.length > 0) {
-      for (int i = 0; i < _favoriteproduct.length; i++) {
-        if (_favoriteproduct[i].productId == productId) {
-          //update to favorite product
-          _favoriteproduct = await dbHelper.updatefavoriteProduct(
-              new favoriteProduct(
-                  productId: productId, isfavorite: isfavorite));
-        } else {
-          _favoriteproduct = await dbHelper.addfavoriteproduct(
-              new favoriteProduct(
-                  productId: productId, isfavorite: isfavorite));
-        }
+      var contain = _favoriteproduct
+          .where((favproduct) => favproduct.productId == productId);
+      // product not exist
+      if (contain.isEmpty) {
+        print("not exist");
+        _favoriteproduct = await dbHelper.addfavoriteproduct(
+            new favoriteProduct(productId: productId, isfavorite: isfavorite));
+      } else {
+        print("Exist");
+        _favoriteproduct = await dbHelper.updatefavoriteProduct(
+            new favoriteProduct(productId: productId, isfavorite: isfavorite));
       }
     } else {
+      // no data in favorite product
       _favoriteproduct = await dbHelper.addfavoriteproduct(
           new favoriteProduct(productId: productId, isfavorite: isfavorite));
     }
-    _favoriteproduct.forEach((element) {
-      print(element.productId + " ---- " + element.isfavorite.toString());
-    });
+    //update to favorite product
+
+    // _favoriteproduct.forEach((element) {
+    //   print(element.productId + " ---- " + element.isfavorite.toString());
+    // });
     Notify_productlist();
     update();
   }
@@ -80,6 +85,14 @@ class HomeViewModelService extends GetxController {
 
   getProducts() async {
     _IsLoding.value = true;
+    _favoriteproduct = await dbHelper.getallfavoriteproducts();
+    //print(_favoriteproduct.length);
+    // _favoriteproduct.forEach((element) {
+    //   print("HomeView   ---" +
+    //       element.productId +
+    //       " : " +
+    //       element.isfavorite.toString());
+    // });
     await ApplicationDb().getProducts().then((value) {
       for (int i = 0; i < value.length; i++) {
         //print(value[i].data());
@@ -94,15 +107,13 @@ class HomeViewModelService extends GetxController {
   }
 
   Notify_productlist() {
+    print(_favoriteproduct.length);
     if (_ProductList.length > 0)
       _ProductList.forEach((product) async {
-        _favoriteproduct = await dbHelper.getallfavoriteproducts();
         if (_favoriteproduct.length > 0)
           _favoriteproduct.forEach((favproduct) {
             if (product.id == favproduct.productId) {
               product.isfavorite = favproduct.isfavorite;
-            } else {
-              product.isfavorite = false;
             }
           });
       });

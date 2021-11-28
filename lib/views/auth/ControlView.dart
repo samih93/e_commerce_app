@@ -67,8 +67,8 @@ class ControlView extends GetWidget<AuthController> {
                   "assets/icons/Icon_Cart.png",
                   fit: BoxFit.fill,
                 ),
-                itemCount: cartController.cardproductList != null
-                    ? cartController.cardproductList.length ?? 0
+                itemCount: cartController.cartproductList != null
+                    ? cartController.cartproductList.length ?? 0
                     : 0,
                 hideZeroCount: false,
                 badgeColor: primarycolor,

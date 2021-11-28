@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:e_commerce_app/Constant.dart';
 import 'package:e_commerce_app/models/CartProduct.dart';
 import 'package:e_commerce_app/models/favoriteProduct.dart';
@@ -20,6 +22,7 @@ class EcommerceDatabasehelper {
 
   initDb() async {
     String path = join(await getDatabasesPath(), "ECommerce.db");
+    print(path);
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
       await db.execute('''
@@ -107,9 +110,12 @@ class EcommerceDatabasehelper {
             .map((favproduct) => favoriteProduct.fromJson(favproduct))
             .toList()
         : [];
-    list.forEach((element) {
-      print(element.productId);
-    });
+    // list.forEach((element) {
+    //   print("get favprod   ---" +
+    //       element.productId +
+    //       " : " +
+    //       element.isfavorite.toString());
+    // });
     return list;
   }
 }

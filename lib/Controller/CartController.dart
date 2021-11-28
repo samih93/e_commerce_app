@@ -12,9 +12,9 @@ class CartController extends GetxController {
   ValueNotifier<bool> _loading = ValueNotifier(false);
   ValueNotifier<bool> get loading => _loading;
 
-  List<CartProduct> _cartproductList;
+  List<CartProduct> _cartproductList = [];
 
-  List<CartProduct> get cardproductList => _cartproductList;
+  List<CartProduct> get cartproductList => _cartproductList;
 
   double get totalprice => _getTotalPrice();
 
@@ -31,6 +31,11 @@ class CartController extends GetxController {
 
   onselectsize(String size) {
     _selectedSize = size;
+    update();
+  }
+
+  onInitializeSize() {
+    _selectedSize = "";
     update();
   }
 

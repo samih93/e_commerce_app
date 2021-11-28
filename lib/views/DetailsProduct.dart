@@ -12,6 +12,7 @@ import 'package:e_commerce_app/views/home_view.dart';
 import 'package:e_commerce_app/widgets/CustomButton.dart';
 import 'package:e_commerce_app/widgets/CustumText.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_badged/flutter_badge.dart';
 import 'package:get/get.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:toast/toast.dart';
@@ -19,14 +20,49 @@ import 'package:toast/toast.dart';
 class DetailsProduct extends StatelessWidget {
   Product product;
   DetailsProduct({this.product});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          actions: [
+            GetBuilder<CartController>(
+              init: Get.find(),
+              builder: (cartController) => Row(
+                children: [
+                  GestureDetector(
+                    onTap: () => Get.to(() => CartView()),
+                    child: FlutterBadge(
+                      icon: Image.asset(
+                        "assets/icons/Icon_Cart.png",
+                        fit: BoxFit.fill,
+                      ),
+                      itemCount: cartController.cartproductList != null
+                          ? cartController.cartproductList.length ?? 0
+                          : 0,
+                      hideZeroCount: false,
+                      badgeColor: primarycolor,
+                      borderRadius: 20.0,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  GestureDetector(
+                      onTap: () => Get.off(() => ControlView()),
+                      child: Icon(
+                        Icons.home,
+                        color: primarycolor,
+                        size: 30,
+                      )),
+                ],
+              ),
+            )
+          ],
           backgroundColor: Colors.transparent,
           leading: IconButton(
               icon: Icon(Icons.arrow_back),
-              onPressed: () => Get.to(ControlView()) //Get.off(page),
+              onPressed: () => Get.off(ControlView()) //Get.off(page),
               ),
         ),
         body: Container(
@@ -135,7 +171,6 @@ class DetailsProduct extends StatelessWidget {
                         child: CustomButton(
                           text: "Add",
                           onPress: () async {
-                            print(CartController.selectedSize);
                             print(product.id);
                             if (CartController.selectedSize != "") {
                               bool isAdded = await CartController.addProduct(
@@ -150,6 +185,8 @@ class DetailsProduct extends StatelessWidget {
                                       quantity: 1));
                               if (!isAdded) {
                                 _onAlertWithCustomImagePressed(context);
+                                // reset selected size to nothing if on click on product
+                                CartController.onInitializeSize();
                               } else {
                                 Toast.show("Already Added", context,
                                     duration: Toast.LENGTH_SHORT,
@@ -197,40 +234,38 @@ class DetailsProduct extends StatelessWidget {
   }
 
   Widget _productsizes(List<String> sizes) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: <Widget>[
-        for (int i = 0; i < sizes.length; i++)
-          Row(
-            children: [
-              GetBuilder<CartController>(
-                init: Get.find(),
-                builder: (cartController) => GestureDetector(
-                  onTap: () => cartController.onselectsize(sizes[i].toString()),
-                  child: Container(
-                    padding: EdgeInsets.all(10),
-                    width: 40,
-                    height: 35,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Colors.grey.shade300,
-                      border: cartController.selectedSize == sizes[i]
-                          ? Border.all(color: primarycolor)
-                          : Border.all(color: Colors.grey),
-                    ),
-                    child: CustomText(
-                      text: sizes[i],
-                      fontSize: 14,
-                    ),
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Wrap(
+        crossAxisAlignment: WrapCrossAlignment.start,
+        children: List.generate(
+          sizes.length,
+          (index) => GetBuilder<CartController>(
+            init: Get.find(),
+            builder: (cartController) => GestureDetector(
+              onTap: () => cartController.onselectsize(sizes[index].toString()),
+              child: Container(
+                margin: EdgeInsets.all(5),
+                child: FittedBox(
+                  child: Text(
+                    sizes[index],
+                    style: TextStyle(fontSize: 5),
                   ),
                 ),
+                width: 34,
+                height: 30,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.grey.shade300,
+                  border: cartController.selectedSize == sizes[index]
+                      ? Border.all(color: primarycolor, width: 2)
+                      : Border.all(color: Colors.grey),
+                ),
               ),
-              SizedBox(
-                width: 10,
-              ),
-            ],
+            ),
           ),
-      ],
+        ),
+      ),
     );
   }
 }
