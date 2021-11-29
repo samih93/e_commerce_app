@@ -28,6 +28,7 @@ class HomeViewModelService extends GetxController {
 
   HomeViewModelService() {
     getCategories();
+    // getProducts(null);
     getProducts();
   }
 
@@ -40,27 +41,27 @@ class HomeViewModelService extends GetxController {
   //   update();
   // }
 
-  addProductTofavorite(String productId, bool isfavorite) async {
+  addProductTofavorite(Product product, bool isfavorite) async {
     dbHelper = EcommerceDatabasehelper.db;
 
     print("lenght of favorite ${_favoriteproduct.length ?? 0}");
     if (_favoriteproduct.length > 0) {
       var contain = _favoriteproduct
-          .where((favproduct) => favproduct.productId == productId);
+          .where((favproduct) => favproduct.product.id == product.id);
       // product not exist
       if (contain.isEmpty) {
         print("not exist");
         _favoriteproduct = await dbHelper.addfavoriteproduct(
-            new favoriteProduct(productId: productId, isfavorite: isfavorite));
+            new favoriteProduct(product: product, isfavorite: isfavorite));
       } else {
         print("Exist");
         _favoriteproduct = await dbHelper.updatefavoriteProduct(
-            new favoriteProduct(productId: productId, isfavorite: isfavorite));
+            new favoriteProduct(product: product, isfavorite: isfavorite));
       }
     } else {
       // no data in favorite product
       _favoriteproduct = await dbHelper.addfavoriteproduct(
-          new favoriteProduct(productId: productId, isfavorite: isfavorite));
+          new favoriteProduct(product: product, isfavorite: isfavorite));
     }
     //update to favorite product
 
@@ -112,7 +113,7 @@ class HomeViewModelService extends GetxController {
       _ProductList.forEach((product) async {
         if (_favoriteproduct.length > 0)
           _favoriteproduct.forEach((favproduct) {
-            if (product.id == favproduct.productId) {
+            if (product.id == favproduct.product.id) {
               product.isfavorite = favproduct.isfavorite;
             }
           });

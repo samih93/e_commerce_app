@@ -1,18 +1,33 @@
+import 'package:e_commerce_app/models/Product.dart';
+
 class favoriteProduct {
-  String productId;
+  Product product;
   bool isfavorite;
 
-  favoriteProduct({this.productId, this.isfavorite});
+  favoriteProduct({this.product, this.isfavorite});
 
   favoriteProduct.fromJson(Map<String, dynamic> map) {
     if (map == null) {
       return;
     }
-    productId = map["productId"];
+    product =
+        Product(); // without this have no access to all parameter in product
+    product.id = map["productId"];
+    product.name = map["name"];
+    product.image = map["image"];
+    product.description = map["description"];
+    product.price = map["price"].toString();
     isfavorite = map["isFavorite"] == 1 ? true : false;
   }
 
   toJson() {
-    return {"productId": productId, "isFavorite": isfavorite};
+    return {
+      "productId": product.id,
+      "name": product.name,
+      "image": product.image,
+      "description": product.description,
+      "price": product.price,
+      "isFavorite": isfavorite
+    };
   }
 }

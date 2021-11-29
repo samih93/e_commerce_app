@@ -1,19 +1,20 @@
 // @dart=2.9
 
 class Category {
-  String name, image;
+  String categoryId, name, image;
 
-  Category({this.name, this.image});
+  Category({this.categoryId, this.name, this.image});
 
   Category.fromjson(Map<dynamic, dynamic> map) {
     if (map == null) {
       return;
     }
+    this.categoryId = map['categoryId'];
     this.name = map['name'];
     this.image = map['image'];
   }
 
   tojson() {
-    return {'name': name, 'image': image};
+    return {'categoryId': categoryId, 'name': name, 'image': image};
   }
 }

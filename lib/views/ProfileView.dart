@@ -1,13 +1,14 @@
 import 'package:e_commerce_app/Constant.dart';
 import 'package:e_commerce_app/Controller/ProfileController.dart';
-import 'package:e_commerce_app/helper/localStorageUserData.dart';
 import 'package:e_commerce_app/service/HomeViewModelService.dart';
-import 'package:e_commerce_app/widgets/CustomButton.dart';
+
 import 'package:e_commerce_app/widgets/CustumText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_badged/flutter_badge.dart';
 //import 'package:flutter_badged/flutter_badge.dart';
 import 'package:get/get.dart';
+
+import 'WishList.dart';
 
 class ProfileView extends StatelessWidget {
   @override
@@ -125,15 +126,22 @@ class ProfileView extends StatelessWidget {
                             Icons.favorite_outlined,
                             size: 30,
                           ),
-                          itemCount: homeViewModelService.favoriteproduct !=
-                                  null
-                              ? homeViewModelService.favoriteproduct.length ?? 0
-                              : 0,
+                          itemCount:
+                              homeViewModelService.favoriteproduct != null
+                                  ? homeViewModelService.favoriteproduct
+                                          .where((element) =>
+                                              element.isfavorite == true)
+                                          .length ??
+                                      0
+                                  : 0,
                           hideZeroCount: false,
                           badgeColor: primarycolor,
                           borderRadius: 20.0,
                         ),
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(
+                              WishList(homeViewModelService.favoriteproduct));
+                        },
                       ),
                     ),
                     Divider(

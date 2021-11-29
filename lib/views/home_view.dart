@@ -104,21 +104,27 @@ class HomeView extends StatelessWidget {
             itemBuilder: (context, index) {
               return Column(
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: Colors.grey.shade200,
-                    ),
-                    height: 60,
-                    width: 60,
-                    //ToDo:
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: new Image.network(
-                        HomeViewModelService.CategoryList[index].image
-                            .toString(),
-                        //whatever image you can put here
-                        fit: BoxFit.fill,
+                  GestureDetector(
+                    onTap: () {
+                      // HomeViewModelService.getProducts(
+                      //     HomeViewModelService.CategoryList[index].categoryId);
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: Colors.grey.shade200,
+                      ),
+                      height: 60,
+                      width: 60,
+                      //ToDo:
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: new Image.network(
+                          HomeViewModelService.CategoryList[index].image
+                              .toString(),
+                          //whatever image you can put here
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     ),
                   ),
@@ -218,7 +224,7 @@ class HomeView extends StatelessWidget {
                                   : Icon(Icons.favorite_border),
                               onTap: () {
                                 HomeViewModelService.addProductTofavorite(
-                                    HomeViewModelService.ProductList[index].id,
+                                    HomeViewModelService.ProductList[index],
                                     !HomeViewModelService
                                         .ProductList[index].isfavorite);
 

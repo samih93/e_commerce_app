@@ -19,6 +19,12 @@ class ApplicationDb extends GetxController {
     return value.docs;
   }
 
+//ToDo:
+  // Future<List<QueryDocumentSnapshot>> getProductsBycategoryId() async {
+  //   var value = await _productCollectionRef.get();
+  //   return value.docs;
+  // }
+
   // Future<void> ReadAllproductName(String docId) async {
   //   await _productCollectionRef.get().then((QuerySnapshot querysnapshot) {
   //     querysnapshot.docs.forEach((doc) {

@@ -191,6 +191,7 @@ class DetailsProduct extends StatelessWidget {
                                 Toast.show("Already Added", context,
                                     duration: Toast.LENGTH_SHORT,
                                     gravity: Toast.CENTER);
+                                CartController.onInitializeSize();
                               }
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(

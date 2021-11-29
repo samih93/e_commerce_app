@@ -39,6 +39,10 @@ class EcommerceDatabasehelper {
       await db.execute('''
       CREATE TABLE $tableFavoriteProduct (
         $columnfavoriteProductId TEXT NOT NULL,
+        $columnName TEXT NOT NULL,
+        $columnImage TEXT NOT NULL,
+        $columnDescription TEXT NOT NULL,
+        $columnPrice INTEGER NOT NULL,
         $columnisFavorite INTEGER NOT NULL
         )
           ''');
@@ -97,7 +101,7 @@ class EcommerceDatabasehelper {
       favoriteProduct model) async {
     var dbclient = await database;
     await dbclient.update(tableFavoriteProduct, model.toJson(),
-        where: '$columnfavoriteProductId =?', whereArgs: [model.productId]);
+        where: '$columnfavoriteProductId =?', whereArgs: [model.product.id]);
     print("Updated successfully");
     return getallfavoriteproducts();
   }
@@ -105,6 +109,9 @@ class EcommerceDatabasehelper {
   Future<List<favoriteProduct>> getallfavoriteproducts() async {
     var dbclient = await database;
     List<Map> maps = await dbclient.query(tableFavoriteProduct);
+    maps.forEach((element) {
+      print(element);
+    });
     List<favoriteProduct> list = maps.isNotEmpty
         ? maps
             .map((favproduct) => favoriteProduct.fromJson(favproduct))
