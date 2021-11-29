@@ -10,6 +10,10 @@ class HomeController extends GetxController {
 
   get currentscreen => _currentScreen;
 
+  setcurrentscreen(Widget newscreen) {
+    _currentScreen = newscreen;
+  }
+
   get navigatorvalue => _navigatorValue;
   void changeSelectedValue(int selectedValue) {
     _navigatorValue = selectedValue;

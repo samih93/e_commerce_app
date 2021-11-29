@@ -10,10 +10,9 @@ import 'package:flutter_badged/flutter_badge.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:toast/toast.dart';
 
 class WishList extends StatelessWidget {
-  List<favoriteProduct> favProductlist;
-  WishList(this.favProductlist);
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeViewModelService>(
@@ -112,7 +111,7 @@ class WishList extends StatelessWidget {
                               // ));
                             },
                             child: Container(
-                              height: 140,
+                              height: 120,
                               child: Row(
                                 children: [
                                   Container(
@@ -167,57 +166,71 @@ class WishList extends StatelessWidget {
                                   // ),
                                   Expanded(
                                     flex: 1,
-                                    child: GestureDetector(
-                                        child: Container(
-                                          child: Icon(
-                                            Icons.delete,
-                                            color: primarycolor,
-                                          ),
-                                        ),
-                                        onTap: () {
-                                          var alertStyle = AlertStyle(
-                                              animationDuration:
-                                                  Duration(milliseconds: 1));
-                                          Alert(
-                                            style: alertStyle,
-                                            context: context,
-                                            type: AlertType.error,
-                                            title: "Delete Item",
-                                            desc:
-                                                "Are You Sure You Want To Delete This Item.",
-                                            buttons: [
-                                              DialogButton(
-                                                child: Text(
-                                                  "Cancel",
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 18),
+                                    child: GetBuilder<HomeViewModelService>(
+                                      init: Get.find(),
+                                      builder: (homeViewModelService) =>
+                                          GestureDetector(
+                                              child: Container(
+                                                child: Icon(
+                                                  Icons.delete,
+                                                  color: primarycolor,
                                                 ),
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                color: Colors.blue.shade400,
                                               ),
-                                              DialogButton(
-                                                child: Text(
-                                                  "Delete",
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 18),
-                                                ),
-                                                onPressed: () {
-                                                  // cartcontroller.deleteproduct(
-                                                  //     cartcontroller
-                                                  //         .cartproductList[
-                                                  //             index]
-                                                  //         .productId);
-                                                  // Navigator.pop(context);
-                                                },
-                                                color: Colors.red.shade400,
-                                              ),
-                                            ],
-                                          ).show();
-                                        }),
+                                              onTap: () {
+                                                var alertStyle = AlertStyle(
+                                                    animationDuration: Duration(
+                                                        milliseconds: 1));
+                                                Alert(
+                                                  style: alertStyle,
+                                                  context: context,
+                                                  type: AlertType.error,
+                                                  title: "Delete Item",
+                                                  desc:
+                                                      "Are You Sure You Want To remove This Item from Wish List",
+                                                  buttons: [
+                                                    DialogButton(
+                                                      child: Text(
+                                                        "Cancel",
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 18),
+                                                      ),
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      color:
+                                                          Colors.blue.shade400,
+                                                    ),
+                                                    DialogButton(
+                                                      child: Text(
+                                                        "Delete",
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 18),
+                                                      ),
+                                                      onPressed: () {
+                                                        homeViewModelService
+                                                            .addProductTofavorite(
+                                                                homeViewModelService
+                                                                        .ProductList[
+                                                                    index],
+                                                                false);
+                                                        Navigator.pop(context);
+                                                        Toast.show(
+                                                            "Item Removed from favorite",
+                                                            context,
+                                                            duration: 2,
+                                                            backgroundColor:
+                                                                Colors.red,
+                                                            gravity: Toast.TOP);
+                                                      },
+                                                      color:
+                                                          Colors.red.shade400,
+                                                    ),
+                                                  ],
+                                                ).show();
+                                              }),
+                                    ),
                                   ),
                                 ],
                               ),

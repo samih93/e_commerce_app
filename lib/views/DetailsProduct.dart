@@ -5,6 +5,7 @@ import 'package:e_commerce_app/Controller/CartController.dart';
 import 'package:e_commerce_app/Controller/HomeController.dart';
 import 'package:e_commerce_app/models/CartProduct.dart';
 import 'package:e_commerce_app/models/Product.dart';
+import 'package:e_commerce_app/service/HomeViewModelService.dart';
 import 'package:e_commerce_app/service/sqflitedatabase/EcommerceDatabasehelper.dart';
 import 'package:e_commerce_app/views/CartView.dart';
 import 'package:e_commerce_app/views/auth/ControlView.dart';
@@ -19,199 +20,268 @@ import 'package:toast/toast.dart';
 
 class DetailsProduct extends StatelessWidget {
   Product product;
+
   DetailsProduct({this.product});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          actions: [
-            GetBuilder<CartController>(
-              init: Get.find(),
-              builder: (cartController) => Row(
-                children: [
-                  GestureDetector(
-                    onTap: () => Get.to(() => CartView()),
-                    child: FlutterBadge(
-                      icon: Image.asset(
-                        "assets/icons/Icon_Cart.png",
-                        fit: BoxFit.fill,
-                      ),
-                      itemCount: cartController.cartproductList != null
-                          ? cartController.cartproductList.length ?? 0
-                          : 0,
-                      hideZeroCount: false,
-                      badgeColor: primarycolor,
-                      borderRadius: 20.0,
+      appBar: AppBar(
+        backgroundColor: primarycolor,
+        leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            ),
+            onPressed: () => Get.off(ControlView()) //Get.off(page),
+            ),
+        actions: [
+          GetBuilder<CartController>(
+            init: Get.find(),
+            builder: (cartController) => Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                GetBuilder<HomeViewModelService>(
+                  init: Get.find(),
+                  builder: (homeViewModelService) => GestureDetector(
+                    child: product.isfavorite
+                        ? Icon(
+                            Icons.favorite,
+                            color: Colors.red,
+                          )
+                        : Icon(Icons.favorite_border),
+                    onTap: () {
+                      homeViewModelService.addProductTofavorite(
+                          product, !product.isfavorite);
+                      if (!product.isfavorite == true) {
+                        Toast.show("Item Added To favorite", context,
+                            duration: 2,
+                            backgroundColor: Colors.red,
+                            gravity: Toast.TOP);
+                      } else {
+                        Toast.show("Item Removed from favorite", context,
+                            duration: 2,
+                            backgroundColor: Colors.red,
+                            gravity: Toast.TOP);
+                      }
+
+                      //print(HomeViewModelService.isfavorite);
+                    },
+                  ),
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                GestureDetector(
+                  onTap: () => Get.to(() => CartView()),
+                  child: FlutterBadge(
+                    icon: Image.asset(
+                      "assets/icons/Icon_Cart.png",
+                      fit: BoxFit.fill,
                     ),
+                    itemCount: cartController.cartproductList != null
+                        ? cartController.cartproductList.length ?? 0
+                        : 0,
+                    hideZeroCount: false,
+                    badgeColor: Colors.green.shade300,
+                    borderRadius: 20.0,
                   ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  GestureDetector(
-                      onTap: () => Get.off(() => ControlView()),
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                GestureDetector(
+                    onTap: () => Get.off(() => ControlView()),
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 5.0, right: 5),
                       child: Icon(
                         Icons.home,
-                        color: primarycolor,
+                        color: Colors.white,
                         size: 30,
-                      )),
-                ],
-              ),
-            )
-          ],
-          backgroundColor: Colors.transparent,
-          leading: IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () => Get.off(ControlView()) //Get.off(page),
-              ),
-        ),
-        body: Container(
-          child: Column(
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: 270,
-                child: Image.network(
-                  product.image,
-                  fit: BoxFit.fill,
+                      ),
+                    )),
+              ],
+            ),
+          )
+        ],
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  backgroundColor: Colors.transparent,
+                  titleSpacing: 3,
+                  pinned: false,
+                  expandedHeight: 180,
+                  //floating: true,
+                  flexibleSpace: FlexibleSpaceBar(
+                    // title: Text(
+                    //   product.name.toString(),
+                    //   style: TextStyle(
+                    //     color: Colors.white,
+                    //   ),
+                    // ),
+                    background: product.image != ""
+                        ? Image.network(
+                            product.image,
+                            fit: BoxFit.fill,
+                          )
+                        : Image.asset(
+                            'assets/icons/chaire.png',
+                            fit: BoxFit.fill,
+                          ),
+                  ),
                 ),
-                // width: MediaQuery.of(context).size.width,
-              ),
-              Expanded(
-                child: SingleChildScrollView(
+                SliverFillRemaining(
                   child: Container(
-                    padding: EdgeInsets.all(12),
                     child: Column(
                       children: [
-                        CustomText(
-                          text: product.name,
-                          fontSize: 25,
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
+                        // Container(
+                        //   width: MediaQuery.of(context).size.width,
+                        //   height: 270,
+                        //   child: Image.network(
+                        //     product.image,
+                        //     fit: BoxFit.fill,
+                        //   ),
+                        //   // width: MediaQuery.of(context).size.width,
+                        // ),
                         Container(
-                          padding: EdgeInsets.only(top: 15, bottom: 5),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: GetBuilder<CartController>(
-                            init: Get.find(),
-                            builder: (cartcontroller) => Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                CustomText(
-                                  text: "Size",
-                                  alignment: Alignment.centerLeft,
-                                  fontSize: 20,
+                          padding: EdgeInsets.all(12),
+                          child: Column(
+                            children: [
+                              CustomText(
+                                text: product.name,
+                                fontSize: 25,
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(top: 15, bottom: 5),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
                                 ),
-                                SizedBox(
-                                  width: 10,
+                                child: GetBuilder<CartController>(
+                                  init: Get.find(),
+                                  builder: (cartcontroller) => Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      CustomText(
+                                        text: "Size",
+                                        alignment: Alignment.centerLeft,
+                                        fontSize: 20,
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      CustomText(
+                                        text: cartcontroller.selectedSize,
+                                        color: Colors.grey,
+                                      )
+                                      // CustomText(
+                                      //   text: product.size,
+                                      // ),
+                                    ],
+                                  ),
                                 ),
-                                CustomText(
-                                  text: cartcontroller.selectedSize,
-                                  color: Colors.grey,
-                                )
-                                // CustomText(
-                                //   text: product.size,
-                                // ),
-                              ],
-                            ),
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              _productsizes(product.sizes),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              CustomText(
+                                text: "Details",
+                                fontSize: 20,
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              CustomText(
+                                text: product.description,
+                                maxLine: 10,
+                                fontSize: 20,
+                                color: Colors.grey[600],
+                              ),
+                            ],
                           ),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        _productsizes(product.sizes),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        CustomText(
-                          text: "Details",
-                          fontSize: 20,
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        CustomText(
-                          text: product.description,
-                          maxLine: 10,
-                          fontSize: 20,
-                          color: Colors.grey[600],
                         ),
                       ],
                     ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(25),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              ],
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
                   children: [
-                    Container(
-                      child: Column(
-                        children: [
-                          CustomText(text: "Price", color: Colors.grey[400]),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          CustomText(
-                            text: "${product.price} \$",
-                            fontSize: 20,
-                            color: primarycolor,
-                          )
-                        ],
-                      ),
+                    CustomText(text: "Price", color: Colors.grey[400]),
+                    SizedBox(
+                      height: 10,
                     ),
-                    GetBuilder<CartController>(
-                      init: Get.find(),
-                      builder: (CartController) => Container(
-                        width: 150,
-                        child: CustomButton(
-                          text: "Add",
-                          onPress: () async {
-                            print(product.id);
-                            if (CartController.selectedSize != "") {
-                              bool isAdded = await CartController.addProduct(
-                                  CartProduct(
-                                      productId: product.id,
-                                      name: product.name,
-                                      image: product.image,
-                                      price: product.price,
-                                      size: CartController.selectedSize,
-                                      color: product.color,
-                                      description: product.description,
-                                      quantity: 1));
-                              if (!isAdded) {
-                                _onAlertWithCustomImagePressed(context);
-                                // reset selected size to nothing if on click on product
-                                CartController.onInitializeSize();
-                              } else {
-                                Toast.show("Already Added", context,
-                                    duration: Toast.LENGTH_SHORT,
-                                    gravity: Toast.CENTER);
-                                CartController.onInitializeSize();
-                              }
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                    backgroundColor: primarycolor,
-                                    content:
-                                        Text("Select size befor add to cart")),
-                              );
-                              return false;
-                            }
-                          },
-                        ),
-                      ),
+                    CustomText(
+                      text: "${product.price} \$",
+                      fontSize: 20,
+                      color: primarycolor,
                     )
                   ],
                 ),
-              ),
-            ],
+                GetBuilder<CartController>(
+                  init: Get.find(),
+                  builder: (CartController) => Container(
+                    width: 150,
+                    child: CustomButton(
+                      text: "Add",
+                      onPress: () async {
+                        if (CartController.selectedSize != "") {
+                          bool isAdded = await CartController.addProduct(
+                              CartProduct(
+                                  productId: product.id,
+                                  name: product.name,
+                                  image: product.image,
+                                  price: product.price,
+                                  size: CartController.selectedSize,
+                                  color: product.color,
+                                  description: product.description,
+                                  quantity: 1));
+                          if (!isAdded) {
+                            _onAlertWithCustomImagePressed(context);
+                            // reset selected size to nothing if on click on product
+                            CartController.onInitializeSize();
+                          } else {
+                            Toast.show("Already Added", context,
+                                duration: 2,
+                                backgroundColor: Colors.red,
+                                gravity: Toast.TOP);
+                            CartController.onInitializeSize();
+                          }
+                        } else {
+                          Toast.show("Select size befor add to cart", context,
+                              duration: 2,
+                              backgroundColor: Colors.red,
+                              gravity: Toast.TOP);
+
+                          return false;
+                        }
+                      },
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
-        ));
+        ],
+      ),
+    );
   }
 
   _onAlertWithCustomImagePressed(context) {

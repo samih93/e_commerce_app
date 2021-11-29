@@ -21,8 +21,9 @@ class HomeViewModelService extends GetxController {
 
   List<Product> get ProductList => _ProductList;
 
-  List<favoriteProduct> get favoriteproduct => _favoriteproduct;
   List<favoriteProduct> _favoriteproduct = [];
+  List<favoriteProduct> get favoriteproduct =>
+      _favoriteproduct.where((element) => element.isfavorite == true).toList();
 
   var dbHelper = EcommerceDatabasehelper.db;
 
@@ -44,7 +45,7 @@ class HomeViewModelService extends GetxController {
   addProductTofavorite(Product product, bool isfavorite) async {
     dbHelper = EcommerceDatabasehelper.db;
 
-    print("lenght of favorite ${_favoriteproduct.length ?? 0}");
+    //print("lenght of favorite ${_favoriteproduct.length ?? 0}");
     if (_favoriteproduct.length > 0) {
       var contain = _favoriteproduct
           .where((favproduct) => favproduct.product.id == product.id);
@@ -108,7 +109,7 @@ class HomeViewModelService extends GetxController {
   }
 
   Notify_productlist() {
-    print(_favoriteproduct.length);
+    // print(_favoriteproduct.length);
     if (_ProductList.length > 0)
       _ProductList.forEach((product) async {
         if (_favoriteproduct.length > 0)
