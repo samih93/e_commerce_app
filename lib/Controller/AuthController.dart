@@ -132,7 +132,7 @@ class AuthController extends GetxController {
 
   void _getCurrentUser(String uid) async {
     await FireStoreUser().getCurrentUser(uid).then((value) {
-      print(value.data());
+      //  print(value.data());
       saveUserDataTosharedPreference(UserModel.fromjson(value.data()));
     });
   }

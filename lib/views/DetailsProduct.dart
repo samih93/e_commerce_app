@@ -112,7 +112,6 @@ class DetailsProduct extends StatelessWidget {
               slivers: [
                 SliverAppBar(
                   backgroundColor: Colors.transparent,
-                  titleSpacing: 3,
                   pinned: false,
                   expandedHeight: 180,
                   //floating: true,
@@ -179,6 +178,7 @@ class DetailsProduct extends StatelessWidget {
                                       CustomText(
                                         text: cartcontroller.selectedSize,
                                         color: Colors.grey,
+                                        fontSize: 22,
                                       )
                                       // CustomText(
                                       //   text: product.size,

@@ -43,6 +43,8 @@ dependencies:
   rflutter_alert: ^2.0.4
   toast: ^0.1.5
   flutter_svg: ^0.23.0+1
+  convex_bottom_bar: ^3.0.0
+
 
 
 dev_dependencies:

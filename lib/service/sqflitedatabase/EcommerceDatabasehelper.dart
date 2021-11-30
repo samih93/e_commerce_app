@@ -110,9 +110,9 @@ class EcommerceDatabasehelper {
   Future<List<favoriteProduct>> getallfavoriteproducts() async {
     var dbclient = await database;
     List<Map> maps = await dbclient.query(tableFavoriteProduct);
-    maps.forEach((element) {
-      print(element);
-    });
+    // maps.forEach((element) {
+    //   print(element);
+    // });
     List<favoriteProduct> list = maps.isNotEmpty
         ? maps
             .map((favproduct) => favoriteProduct.fromJson(favproduct))

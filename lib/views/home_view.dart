@@ -22,41 +22,44 @@ class HomeView extends StatelessWidget {
       builder: (HomeViewModelService) => HomeViewModelService.IsLoding.value
           ? Center(child: CircularProgressIndicator())
           : Scaffold(
-              body: SingleChildScrollView(
-                child: Container(
-                  padding: EdgeInsets.only(top: 60, right: 20, left: 20),
-                  child: Column(
-                    children: [
-                      _SearchTextField(),
-                      SizedBox(
-                        height: 40,
-                      ),
-                      CustomText(
-                        text: "Categories",
-                        fontSize: 18,
-                      ),
-                      _Categories(),
-                      SizedBox(
-                        height: 50,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          CustomText(
-                            text: "Best Selling",
-                            fontSize: 15,
-                          ),
-                          CustomText(
-                            text: "See All",
-                            fontSize: 15,
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      _Products(),
-                    ],
+              body: Padding(
+                padding: const EdgeInsets.only(bottom: 30.0),
+                child: SingleChildScrollView(
+                  child: Container(
+                    padding: EdgeInsets.only(top: 60, right: 20, left: 20),
+                    child: Column(
+                      children: [
+                        _SearchTextField(),
+                        SizedBox(
+                          height: 40,
+                        ),
+                        CustomText(
+                          text: "Categories",
+                          fontSize: 18,
+                        ),
+                        _Categories(),
+                        SizedBox(
+                          height: 50,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            CustomText(
+                              text: "Best Selling",
+                              fontSize: 15,
+                            ),
+                            CustomText(
+                              text: "See All",
+                              fontSize: 15,
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        _Products(),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -158,8 +161,7 @@ class HomeView extends StatelessWidget {
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () => Get.off(DetailsProduct(
-                    product:
-                        HomeViewModelService.ProductList[index] as Product)),
+                    product: HomeViewModelService.ProductList[index])),
                 child: Container(
                   width: MediaQuery.of(context).size.width * .6,
                   child: Column(
