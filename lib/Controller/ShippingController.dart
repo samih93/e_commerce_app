@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class ShippingController extends GetxController {
-  String firstname, lastname, address, state, city, postcode;
+  String firstname, lastname, address, state, city, postcode, country, phone;
 
-  var country = TextEditingController();
+  var countryTextEditingcontroller = TextEditingController();
 
   GlobalKey<FormState> formstate = GlobalKey();
 }
