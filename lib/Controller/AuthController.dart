@@ -12,6 +12,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthController extends GetxController {
+  bool _isloading = false;
+  bool get isloading => _isloading;
   GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
   FirebaseAuth _auth = FirebaseAuth.instance;
   static final FacebookLogin facebookSignIn = new FacebookLogin();
@@ -49,6 +51,7 @@ class AuthController extends GetxController {
   }
 
   void googleSignInMethod() async {
+    _isloading = true;
     // sign in with google
     final GoogleSignInAccount googleuser = await _googleSignIn.signIn();
 
@@ -61,6 +64,7 @@ class AuthController extends GetxController {
     await _auth.signInWithCredential(credential).then((user) {
       SaveUserToFireStore(user);
     });
+    _isloading = false;
     Get.offAll(() => ControlView());
 
     // saveUserTosharedPreference(new UserModel(

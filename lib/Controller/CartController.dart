@@ -90,7 +90,7 @@ class CartController extends GetxController {
     }
     // updateProduct(
     //     _cartproductList[index].productId, _cartproductList[index].quantity);
-    dbHelper.updateProduct(_cartproductList[index]);
+    dbHelper.updatecartProduct(_cartproductList[index]);
     update();
   }
 
@@ -101,7 +101,7 @@ class CartController extends GetxController {
         if (_cartproductList[i].productId == model.productId) return true;
       }
     }
-    await dbHelper.insert(model);
+    await dbHelper.insertcartproduct(model);
     _cartproductList = await dbHelper.getallproduct();
     update();
     return false;
@@ -116,7 +116,7 @@ class CartController extends GetxController {
 
   Future<void> deleteproduct(String ProductId) async {
     dbHelper = EcommerceDatabasehelper.db;
-    await dbHelper.delete(ProductId);
+    await dbHelper.deletecartproduct(ProductId);
     _cartproductList = await dbHelper.getallproduct();
     //  print("deleted");
     update();

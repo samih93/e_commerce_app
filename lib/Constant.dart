@@ -21,3 +21,14 @@ final String columnDescription = 'description';
 final String tableFavoriteProduct = "favoriteProduct";
 final String columnfavoriteProductId = "productId";
 final String columnisFavorite = "isFavorite";
+
+//Address
+final String tableAddress = "address";
+final String columnfirstname = "firstname";
+final String columnlastname = "lastname";
+final String columnaddress = "address";
+final String columnstate = "state";
+final String columncity = "city";
+final String columnpostcode = "postcode";
+final String columncountry = "country";
+final String columnphone = "phone";

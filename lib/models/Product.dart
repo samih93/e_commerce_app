@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'dart:ffi';
 
+import 'package:e_commerce_app/Constant.dart';
 import 'package:e_commerce_app/helper/extention.dart';
 import 'package:flutter/material.dart';
 
@@ -36,15 +37,15 @@ class Product {
     } else {
       listOfsize = null;
     }
-    id = map['productId'];
-    name = map['name'];
-    image = map['image'];
-    description = map['description'];
-    color = HexColor.fromHex(map['color']);
+    id = map["productId"];
+    name = map["name"];
+    image = map["image"];
+    description = map["description"];
+    color = HexColor.fromHex(map["color"]);
     sizes = listOfsize;
-    price = map['price'];
+    price = map["price"];
     // cast bool fromjson to model
-    isfavorite = map['isfavorite'];
+    isfavorite = map["isfavorite"];
   }
 
   toJson() {

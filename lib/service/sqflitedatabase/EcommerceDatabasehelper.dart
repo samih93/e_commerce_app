@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:e_commerce_app/Constant.dart';
+import 'package:e_commerce_app/models/Address.dart';
 import 'package:e_commerce_app/models/CartProduct.dart';
 import 'package:e_commerce_app/models/favoriteProduct.dart';
 import 'package:flutter/cupertino.dart';
@@ -47,6 +48,19 @@ class EcommerceDatabasehelper {
         $columnisFavorite INTEGER NOT NULL
         )
           ''');
+
+      await db.execute('''
+      CREATE TABLE $tableAddress (
+        $columnfirstname TEXT NOT NULL,
+        $columnlastname TEXT NOT NULL,
+        $columnaddress TEXT NOT NULL,
+        $columnstate TEXT NOT NULL,
+        $columncity TEXT NOT NULL,
+        $columnpostcode TEXT NOT NULL,
+        $columncountry TEXT NOT NULL,
+        $columnphone TEXT NOT NULL
+        )
+          ''');
     });
   }
 
@@ -62,7 +76,7 @@ class EcommerceDatabasehelper {
     return list;
   }
 
-  insert(CartProduct model) async {
+  insertcartproduct(CartProduct model) async {
     var dbclient = await database;
     await dbclient.insert(tableCardProduct, model.toJson());
     //  print("model.json " + model.toJson());
@@ -75,14 +89,14 @@ class EcommerceDatabasehelper {
     print("Updated");
   }
 
-  updateProduct(CartProduct model) async {
+  updatecartProduct(CartProduct model) async {
     var dbclient = await database;
     await dbclient.update(tableCardProduct, model.toJson(),
         where: '$columnproductId =?', whereArgs: [model.productId]);
     print("Updated");
   }
 
-  delete(String productId) async {
+  deletecartproduct(String productId) async {
     var dbclient = await database;
     await dbclient.rawDelete(
         "DELETE FROM $tableCardProduct WHERE $columnproductId='$productId'");
@@ -125,5 +139,23 @@ class EcommerceDatabasehelper {
     //       element.isfavorite.toString());
     // });
     return list;
+  }
+
+  insertaddress(Address model) async {
+    var dbclient = await database;
+    print("model.json " + model.toJson());
+
+    //await dbclient.insert(tableAddress, model.toJson());
+    //print("model.json " + model.toJson());
+  }
+
+  Future<Address> getAddress() async {
+    var dbclient = await database;
+    List<Map> maps = await dbclient.query(tableCardProduct);
+    Address address = maps.isNotEmpty
+        ? maps.map((Product) => CartProduct.fromJson(Product))
+        : Address();
+    print(address.firstname);
+    return address;
   }
 }

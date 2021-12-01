@@ -1,5 +1,6 @@
 import 'package:e_commerce_app/Constant.dart';
 import 'package:e_commerce_app/Controller/ShippingController.dart';
+import 'package:e_commerce_app/models/Address.dart';
 import 'package:e_commerce_app/widgets/CustomButton.dart';
 import 'package:e_commerce_app/widgets/CustomTextFormField.dart';
 import 'package:e_commerce_app/widgets/CustumText.dart';
@@ -36,7 +37,7 @@ class ShippingAddress extends StatelessWidget {
                     onSave: (value) {
                       shippingController.firstname = value;
                     },
-                    hint: 'First Name ...',
+                    hint: "FirstName...",
                     text: '',
                   ),
                   SizedBox(
@@ -123,7 +124,7 @@ class ShippingAddress extends StatelessWidget {
                             onTap: () {
                               countryCodeselected();
                             },
-                            // initialValue: shippingController.country.toString(),
+                            // initialValue: shippingController.address.country.toString(),
                           ),
                         ),
                         SizedBox(
@@ -164,7 +165,7 @@ class ShippingAddress extends StatelessWidget {
                       }
                     },
                     onSave: (value) {
-                      shippingController.lastname = value;
+                      shippingController.postcode = value;
                     },
                     hint: 'Postcode ...',
                     text: '',
@@ -173,7 +174,21 @@ class ShippingAddress extends StatelessWidget {
                     margin: EdgeInsets.only(top: 20),
                     child: CustomButton(
                       text: "save",
-                      onPress: () {},
+                      onPress: () {
+                        // save form state to save all field
+                        shippingController.formstate.currentState.save();
+
+                        shippingController.insertAddress(Address(
+                          firstname: shippingController.firstname,
+                          lastname: shippingController.lastname,
+                          address: shippingController.address,
+                          state: shippingController.state,
+                          city: shippingController.city,
+                          postcode: shippingController.postcode,
+                          country: shippingController.country,
+                          phone: shippingController.phone,
+                        ));
+                      },
                     ),
                   ),
                 ],
@@ -186,7 +201,7 @@ class ShippingAddress extends StatelessWidget {
   }
 
   void countryCodeselected() {
-    ShippingController shippingController = Get.find();
+    ShippingController shippingController = ShippingController();
     showCountryPicker(
       context: _context,
       //Optional.  Can be used to exclude(remove) one ore more country from the countries list (optional).
@@ -199,6 +214,7 @@ class ShippingAddress extends StatelessWidget {
         var countrycode = country.displayName.split("(");
         shippingController.countryTextEditingcontroller.text =
             "(" + countrycode[1];
+        shippingController.country = "(" + countrycode[1];
         //print(shippingController.country);
       },
       // Optional. Sets the theme for the country list picker.
