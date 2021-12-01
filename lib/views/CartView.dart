@@ -43,7 +43,8 @@ class CartView extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Container(
-                            padding: EdgeInsets.all(8),
+                            padding:
+                                EdgeInsets.only(left: 8, right: 8, top: 20),
                             child: ListView.separated(
                               itemCount: cartcontroller.cartproductList.length,
                               itemBuilder: (context, index) {

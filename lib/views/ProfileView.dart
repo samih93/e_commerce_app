@@ -1,6 +1,7 @@
 import 'package:e_commerce_app/Constant.dart';
 import 'package:e_commerce_app/Controller/ProfileController.dart';
 import 'package:e_commerce_app/service/HomeViewModelService.dart';
+import 'package:e_commerce_app/views/ShippingAddressView.dart';
 
 import 'package:e_commerce_app/widgets/CustumText.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,6 @@ class ProfileView extends StatelessWidget {
         body: Padding(
           padding: const EdgeInsets.only(bottom: 15.0),
           child: Container(
-            // padding: EdgeInsets.only(top: 22),
             child: Column(
               //ToDo:
               children: [
@@ -38,6 +38,7 @@ class ProfileView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
+                        margin: EdgeInsets.only(top: 10),
                         width: 70,
                         height: 70,
                         decoration: BoxDecoration(
@@ -91,11 +92,10 @@ class ProfileView extends StatelessWidget {
                         height: 2,
                       ),
                       ListTile(
-                        title: Text("Shipping Address"),
-                        leading: Icon(Icons.location_on_outlined),
-                        trailing: Icon(Icons.arrow_forward_ios_rounded),
-                        onTap: () {},
-                      ),
+                          title: Text("Shipping Address"),
+                          leading: Icon(Icons.location_on_outlined),
+                          trailing: Icon(Icons.arrow_forward_ios_rounded),
+                          onTap: () => Get.to(ShippingAddress())),
                       Divider(
                         color: Colors.grey,
                         height: 2,

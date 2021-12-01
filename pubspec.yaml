@@ -44,8 +44,7 @@ dependencies:
   toast: ^0.1.5
   flutter_svg: ^0.23.0+1
   convex_bottom_bar: ^3.0.0
-
-
+  country_picker: ^2.0.9
 
 dev_dependencies:
   flutter_test:

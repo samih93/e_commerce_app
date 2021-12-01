@@ -1,5 +1,6 @@
 import 'package:e_commerce_app/Controller/CartController.dart';
 import 'package:e_commerce_app/Controller/ProfileController.dart';
+import 'package:e_commerce_app/Controller/ShippingController.dart';
 import 'package:e_commerce_app/service/HomeViewModelService.dart';
 import 'package:e_commerce_app/helper/localStorageUserData.dart';
 import 'package:e_commerce_app/views/auth/ControlView.dart';
@@ -13,6 +14,7 @@ void main() async {
   await Firebase.initializeApp();
   Get.put(HomeViewModelService());
   Get.put(CartController());
+  Get.put(ShippingController());
   runApp(MyApp());
 }
 

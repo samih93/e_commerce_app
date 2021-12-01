@@ -1,5 +1,7 @@
 // @dart=2.9
 
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -36,7 +38,7 @@ class CustomTextFormField extends StatelessWidget {
             decoration: InputDecoration(
               hintText: hint,
               hintStyle: TextStyle(
-                color: Colors.black,
+                color: Colors.grey,
               ),
               fillColor: Colors.white,
             ),
