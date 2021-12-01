@@ -1,5 +1,6 @@
 import 'package:e_commerce_app/Constant.dart';
 import 'package:e_commerce_app/Controller/ShippingController.dart';
+import 'package:e_commerce_app/widgets/CustomButton.dart';
 import 'package:e_commerce_app/widgets/CustomTextFormField.dart';
 import 'package:e_commerce_app/widgets/CustumText.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +8,10 @@ import 'package:get/get.dart';
 import 'package:country_picker/country_picker.dart';
 
 class ShippingAddress extends StatelessWidget {
+  BuildContext _context;
   @override
   Widget build(BuildContext context) {
+    _context = context;
     return Scaffold(
       appBar: AppBar(
         title: CustomText(text: "Shipping Address"),
@@ -34,10 +37,10 @@ class ShippingAddress extends StatelessWidget {
                       shippingController.firstname = value;
                     },
                     hint: 'First Name ...',
-                    text: 'First Name*',
+                    text: '',
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   CustomTextFormField(
                     //  controller: ,
@@ -50,10 +53,10 @@ class ShippingAddress extends StatelessWidget {
                       shippingController.lastname = value;
                     },
                     hint: 'Last Name ...',
-                    text: 'Last Name*',
+                    text: '',
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   CustomTextFormField(
                     //  controller: ,
@@ -66,10 +69,10 @@ class ShippingAddress extends StatelessWidget {
                       shippingController.address = value;
                     },
                     hint: 'Address  ...',
-                    text: 'Address*',
+                    text: '',
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   CustomTextFormField(
                     //  controller: ,
@@ -82,10 +85,10 @@ class ShippingAddress extends StatelessWidget {
                       shippingController.state = value;
                     },
                     hint: 'State  ...',
-                    text: 'State*',
+                    text: '',
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   CustomTextFormField(
                     validator: (input) {
@@ -97,16 +100,16 @@ class ShippingAddress extends StatelessWidget {
                       shippingController.city = value;
                     },
                     hint: 'City  ...',
-                    text: 'City*',
+                    text: '',
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   Container(
                     child: Row(
                       children: [
                         Container(
-                          width: MediaQuery.of(context).size.width * .3,
+                          width: MediaQuery.of(context).size.width * .22,
                           child: TextFormField(
                             controller:
                                 shippingController.countryTextEditingcontroller,
@@ -118,65 +121,40 @@ class ShippingAddress extends StatelessWidget {
                               fillColor: Colors.white,
                             ),
                             onTap: () {
-                              showCountryPicker(
-                                context: context,
-                                //Optional.  Can be used to exclude(remove) one ore more country from the countries list (optional).
-                                exclude: <String>['KN', 'MF'],
-                                //Optional. Shows phone code before the country name.
-                                showPhoneCode: true,
-                                onSelect: (Country country) {
-                                  // print('Select country: ${country.displayName}');
-                                  shippingController
-                                      .countryTextEditingcontroller
-                                      .text = country.displayName;
-                                  //print(shippingController.country);
-                                },
-                                // Optional. Sets the theme for the country list picker.
-                                countryListTheme: CountryListThemeData(
-                                  // Optional. Sets the border radius for the bottomsheet.
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(40.0),
-                                    topRight: Radius.circular(40.0),
-                                  ),
-                                  // Optional. Styles the search field.
-                                  inputDecoration: InputDecoration(
-                                    labelText: 'Search',
-                                    hintText: 'Start typing to search',
-                                    prefixIcon: const Icon(Icons.search),
-                                    border: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: const Color(0xFF8C98A8)
-                                            .withOpacity(0.2),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              );
+                              countryCodeselected();
                             },
                             // initialValue: shippingController.country.toString(),
                           ),
                         ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * .05,
+                        ),
                         Container(
-                          width: MediaQuery.of(context).size.width * .6,
-                          child: CustomTextFormField(
+                          width: MediaQuery.of(context).size.width * .64,
+                          child: TextFormField(
                             //  controller: ,
                             validator: (input) {
                               if (input.isEmpty) {
                                 return 'Phone is required';
                               }
                             },
-                            onSave: (value) {
+                            onSaved: (value) {
                               shippingController.phone = value;
                             },
-                            hint: 'Phone ...',
-                            text: 'Phone*',
+                            decoration: InputDecoration(
+                              hintText: "phone ...",
+                              hintStyle: TextStyle(
+                                color: Colors.grey,
+                              ),
+                              fillColor: Colors.white,
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   CustomTextFormField(
                     //  controller: ,
@@ -189,10 +167,55 @@ class ShippingAddress extends StatelessWidget {
                       shippingController.lastname = value;
                     },
                     hint: 'Postcode ...',
-                    text: 'Postcode*',
+                    text: '',
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 20),
+                    child: CustomButton(
+                      text: "save",
+                      onPress: () {},
+                    ),
                   ),
                 ],
               ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void countryCodeselected() {
+    ShippingController shippingController = Get.find();
+    showCountryPicker(
+      context: _context,
+      //Optional.  Can be used to exclude(remove) one ore more country from the countries list (optional).
+      exclude: <String>['KN', 'MF'],
+      //Optional. Shows phone code before the country name.
+      showPhoneCode: true,
+
+      onSelect: (Country country) {
+        // print('Select country: ${country.displayName}');
+        var countrycode = country.displayName.split("(");
+        shippingController.countryTextEditingcontroller.text =
+            "(" + countrycode[1];
+        //print(shippingController.country);
+      },
+      // Optional. Sets the theme for the country list picker.
+      countryListTheme: CountryListThemeData(
+        // Optional. Sets the border radius for the bottomsheet.
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(40.0),
+          topRight: Radius.circular(40.0),
+        ),
+        // Optional. Styles the search field.
+        inputDecoration: InputDecoration(
+          labelText: 'Search',
+          hintText: 'Start typing to search',
+          prefixIcon: const Icon(Icons.search),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: const Color(0xFF8C98A8).withOpacity(0.2),
             ),
           ),
         ),
