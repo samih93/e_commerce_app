@@ -9,6 +9,7 @@ class CustomTextFormField extends StatelessWidget {
   final String text;
 
   final String hint;
+  final String initialvalue;
 
   final String Function(String) onSave;
   final String Function(String) validator;
@@ -16,6 +17,7 @@ class CustomTextFormField extends StatelessWidget {
   CustomTextFormField({
     this.text,
     this.hint,
+    this.initialvalue,
     this.onSave,
     this.validator,
   });
@@ -31,6 +33,7 @@ class CustomTextFormField extends StatelessWidget {
             color: Colors.grey.shade900,
           ),
           TextFormField(
+            initialValue: initialvalue,
             onSaved: onSave,
             validator: validator,
             decoration: InputDecoration(

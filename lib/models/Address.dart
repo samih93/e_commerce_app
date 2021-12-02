@@ -1,33 +1,48 @@
+import 'dart:convert';
+import 'dart:ffi';
+import 'package:flutter/material.dart';
+
 class Address {
-  String firstname, lastname, address, state, city, country, phone, postcode;
+  String id,
+      firstname,
+      lastname,
+      location,
+      state,
+      city,
+      country,
+      phone,
+      postcode;
 
   Address(
-      {this.firstname,
+      {this.id,
+      this.firstname,
       this.lastname,
-      this.address,
+      this.location,
       this.state,
       this.city,
-      this.postcode,
       this.country,
-      this.phone});
+      this.phone,
+      this.postcode});
 
   Address.fromJson(Map<dynamic, dynamic> map) {
     if (map == null) return;
-    this.firstname = map["firstname"];
-    this.lastname = map["lastname"];
-    this.address = map["address"];
-    this.state = map["state"];
-    this.city = map["city"];
-    this.postcode = map["postcode"];
-    this.country = map["country"];
-    this.phone = map["phone"];
+    id = map["id"];
+    firstname = map["firstname"];
+    lastname = map["lastname"];
+    location = map["location"];
+    state = map["state"];
+    city = map["city"];
+    postcode = map["postcode"];
+    country = map["country"];
+    phone = map["phone"];
   }
 
   toJson() {
     return {
+      "id": id,
       'firstname': firstname,
       'lastname': lastname,
-      'address': address,
+      'location': location,
       'state': state,
       'city': city,
       'postcode': postcode,

@@ -51,9 +51,10 @@ class EcommerceDatabasehelper {
 
       await db.execute('''
       CREATE TABLE $tableAddress (
+        $columnAddressId INTEGER NOT NULL,
         $columnfirstname TEXT NOT NULL,
         $columnlastname TEXT NOT NULL,
-        $columnaddress TEXT NOT NULL,
+        $columnlocation TEXT NOT NULL,
         $columnstate TEXT NOT NULL,
         $columncity TEXT NOT NULL,
         $columnpostcode TEXT NOT NULL,
@@ -143,19 +144,30 @@ class EcommerceDatabasehelper {
 
   insertaddress(Address model) async {
     var dbclient = await database;
-    print("model.json " + model.toJson());
-
-    //await dbclient.insert(tableAddress, model.toJson());
-    //print("model.json " + model.toJson());
+    await dbclient.insert(tableAddress, model.toJson());
+    print("Address inserted");
   }
 
-  Future<Address> getAddress() async {
+  Future<List<Address>> updateaddress(Address model) async {
     var dbclient = await database;
-    List<Map> maps = await dbclient.query(tableCardProduct);
-    Address address = maps.isNotEmpty
-        ? maps.map((Product) => CartProduct.fromJson(Product))
-        : Address();
-    print(address.firstname);
-    return address;
+    await dbclient.update(tableAddress, model.toJson(),
+        where: '$columnAddressId =?', whereArgs: [model.id]);
+    print("Address Updated");
+    return getAddress();
+  }
+
+  Future<List<Address>> getAddress() async {
+    var dbclient = await database;
+    List<Map> maps = await dbclient.query(tableAddress, limit: 1);
+    List<Address> list_address = maps.isNotEmpty
+        ? maps.map((add_data) => Address.fromJson(add_data)).toList()
+        : [];
+
+    // address.forEach((element) {
+    //   print("from database helper " + element.firstname);
+    // });
+
+    return list_address;
+    //print("from get address" + address.firstname);
   }
 }

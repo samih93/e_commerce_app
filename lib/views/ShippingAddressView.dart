@@ -7,6 +7,7 @@ import 'package:e_commerce_app/widgets/CustumText.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:country_picker/country_picker.dart';
+import 'package:toast/toast.dart';
 
 class ShippingAddress extends StatelessWidget {
   BuildContext _context;
@@ -28,6 +29,9 @@ class ShippingAddress extends StatelessWidget {
               child: Column(
                 children: [
                   CustomTextFormField(
+                    initialvalue: shippingController.addressmodel != null
+                        ? shippingController.addressmodel.firstname ?? ""
+                        : "",
                     //  controller: ,
                     validator: (input) {
                       if (input.isEmpty) {
@@ -44,6 +48,9 @@ class ShippingAddress extends StatelessWidget {
                     height: 10,
                   ),
                   CustomTextFormField(
+                    initialvalue: shippingController.addressmodel != null
+                        ? shippingController.addressmodel.lastname ?? ""
+                        : "",
                     //  controller: ,
                     validator: (input) {
                       if (input.isEmpty) {
@@ -60,6 +67,9 @@ class ShippingAddress extends StatelessWidget {
                     height: 10,
                   ),
                   CustomTextFormField(
+                    initialvalue: shippingController.addressmodel != null
+                        ? shippingController.addressmodel.location ?? ""
+                        : "",
                     //  controller: ,
                     validator: (input) {
                       if (input.isEmpty) {
@@ -76,6 +86,9 @@ class ShippingAddress extends StatelessWidget {
                     height: 10,
                   ),
                   CustomTextFormField(
+                    initialvalue: shippingController.addressmodel != null
+                        ? shippingController.addressmodel.state ?? ""
+                        : "",
                     //  controller: ,
                     validator: (input) {
                       if (input.isEmpty) {
@@ -92,6 +105,9 @@ class ShippingAddress extends StatelessWidget {
                     height: 10,
                   ),
                   CustomTextFormField(
+                    initialvalue: shippingController.addressmodel != null
+                        ? shippingController.addressmodel.city ?? ""
+                        : "",
                     validator: (input) {
                       if (input.isEmpty) {
                         return 'City is required';
@@ -133,6 +149,10 @@ class ShippingAddress extends StatelessWidget {
                         Container(
                           width: MediaQuery.of(context).size.width * .64,
                           child: TextFormField(
+                            initialValue: shippingController.addressmodel !=
+                                    null
+                                ? shippingController.addressmodel.phone ?? ""
+                                : "",
                             //  controller: ,
                             validator: (input) {
                               if (input.isEmpty) {
@@ -158,6 +178,9 @@ class ShippingAddress extends StatelessWidget {
                     height: 10,
                   ),
                   CustomTextFormField(
+                    initialvalue: shippingController.addressmodel != null
+                        ? shippingController.addressmodel.postcode ?? ""
+                        : "",
                     //  controller: ,
                     validator: (input) {
                       if (input.isEmpty) {
@@ -173,21 +196,38 @@ class ShippingAddress extends StatelessWidget {
                   Container(
                     margin: EdgeInsets.only(top: 20),
                     child: CustomButton(
-                      text: "save",
+                      text: shippingController.list_of_address.length == 0
+                          ? "Add"
+                          : "Update",
                       onPress: () {
                         // save form state to save all field
                         shippingController.formstate.currentState.save();
-
                         shippingController.insertAddress(Address(
+                          id: shippingController.addressmodel.id,
                           firstname: shippingController.firstname,
                           lastname: shippingController.lastname,
-                          address: shippingController.address,
+                          location: shippingController.address,
                           state: shippingController.state,
                           city: shippingController.city,
                           postcode: shippingController.postcode,
                           country: shippingController.country,
                           phone: shippingController.phone,
                         ));
+
+                        // Toast if added or updated
+                        // if (shippingController.list_of_address.length == 0) {
+                        //   Toast.show("Address Added", context,
+                        //       duration: 2,
+                        //       textColor: Colors.white,
+                        //       backgroundColor: primarycolor,
+                        //       gravity: Toast.CENTER);
+                        // } else {
+                        //   Toast.show("Address Updated", context,
+                        //       duration: 2,
+                        //       textColor: Colors.white,
+                        //       backgroundColor: primarycolor,
+                        //       gravity: Toast.CENTER);
+                        // }
                       },
                     ),
                   ),
@@ -201,7 +241,7 @@ class ShippingAddress extends StatelessWidget {
   }
 
   void countryCodeselected() {
-    ShippingController shippingController = ShippingController();
+    ShippingController shippingController = Get.find();
     showCountryPicker(
       context: _context,
       //Optional.  Can be used to exclude(remove) one ore more country from the countries list (optional).
@@ -212,9 +252,10 @@ class ShippingAddress extends StatelessWidget {
       onSelect: (Country country) {
         // print('Select country: ${country.displayName}');
         var countrycode = country.displayName.split("(");
+        "(" + countrycode[1];
         shippingController.countryTextEditingcontroller.text =
             "(" + countrycode[1];
-        shippingController.country = "(" + countrycode[1];
+        //shippingController.country = "(" + countrycode[1];
         //print(shippingController.country);
       },
       // Optional. Sets the theme for the country list picker.

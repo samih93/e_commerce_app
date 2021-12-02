@@ -45,6 +45,7 @@ dependencies:
   flutter_svg: ^0.23.0+1
   convex_bottom_bar: ^3.0.0
   country_picker: ^2.0.9
+  uuid: ^3.0.5
 
 dev_dependencies:
   flutter_test:

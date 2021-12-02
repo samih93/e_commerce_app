@@ -24,9 +24,10 @@ final String columnisFavorite = "isFavorite";
 
 //Address
 final String tableAddress = "address";
+final String columnAddressId = "id";
 final String columnfirstname = "firstname";
 final String columnlastname = "lastname";
-final String columnaddress = "address";
+final String columnlocation = "location";
 final String columnstate = "state";
 final String columncity = "city";
 final String columnpostcode = "postcode";
