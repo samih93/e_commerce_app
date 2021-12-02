@@ -37,10 +37,27 @@ class CartView extends StatelessWidget {
                   ),
                 )
               : Scaffold(
+                  backgroundColor: Colors.grey.shade200,
                   body: Padding(
                     padding: const EdgeInsets.only(bottom: 15.0),
                     child: Column(
                       children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 35, left: 10, right: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              CustomText(
+                                text: "Cart",
+                                fontSize: 30,
+                              ),
+                              Icon(
+                                Icons.delete,
+                              ),
+                            ],
+                          ),
+                        ),
                         Expanded(
                           child: Container(
                             padding:
@@ -71,6 +88,10 @@ class CartView extends StatelessWidget {
                                   },
                                   child: Container(
                                     height: 140,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.white,
+                                    ),
                                     child: Row(
                                       children: [
                                         Container(
@@ -263,7 +284,7 @@ class CartView extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          color: Colors.grey.shade100,
+                          color: Colors.grey.shade200,
                           padding: EdgeInsets.only(
                               left: 20, right: 20, top: 5, bottom: 5),
                           child: Row(
