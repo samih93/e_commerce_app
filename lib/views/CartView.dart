@@ -37,7 +37,7 @@ class CartView extends StatelessWidget {
                   ),
                 )
               : Scaffold(
-                  backgroundColor: Colors.grey.shade200,
+                  backgroundColor: Colors.white,
                   body: Padding(
                     padding: const EdgeInsets.only(bottom: 15.0),
                     child: Column(
@@ -91,6 +91,9 @@ class CartView extends StatelessWidget {
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
                                       color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(blurRadius: 10),
+                                      ],
                                     ),
                                     child: Row(
                                       children: [
@@ -284,7 +287,7 @@ class CartView extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          color: Colors.grey.shade200,
+                          color: Colors.white,
                           padding: EdgeInsets.only(
                               left: 20, right: 20, top: 5, bottom: 5),
                           child: Row(

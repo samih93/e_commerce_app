@@ -27,15 +27,16 @@ class WishList extends StatelessWidget {
                   GestureDetector(
                     onTap: () => Get.to(() => CartView()),
                     child: FlutterBadge(
-                      icon: Image.asset(
-                        "assets/icons/Icon_Cart.png",
-                        fit: BoxFit.fill,
+                      icon: Icon(
+                        Icons.shopping_bag,
+                        color: Colors.white,
                       ),
                       itemCount: cartController.cartproductList != null
                           ? cartController.cartproductList.length ?? 0
                           : 0,
                       hideZeroCount: false,
-                      badgeColor: primarycolor,
+                      badgeColor: Colors.red,
+                      badgeTextColor: Colors.white,
                       borderRadius: 20.0,
                     ),
                   ),
@@ -46,14 +47,14 @@ class WishList extends StatelessWidget {
                       onTap: () => Get.off(() => ControlView()),
                       child: Icon(
                         Icons.home,
-                        color: primarycolor,
+                        color: Colors.white,
                         size: 30,
                       )),
                 ],
               ),
             )
           ],
-          backgroundColor: Colors.transparent,
+          backgroundColor: primarycolor,
           leading: IconButton(
               icon: Icon(Icons.arrow_back),
               onPressed: () => Get.off(ControlView()) //Get.off(page),
@@ -111,6 +112,13 @@ class WishList extends StatelessWidget {
                               // ));
                             },
                             child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(blurRadius: 10),
+                                ],
+                              ),
                               height: 120,
                               child: Row(
                                 children: [
