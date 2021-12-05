@@ -19,7 +19,7 @@ class LoginView extends GetWidget<AuthController> {
         backgroundColor: Colors.white,
       ),
       body: Padding(
-        padding: const EdgeInsets.only(top: 10, right: 20, left: 20),
+        padding: const EdgeInsets.all(20),
         child: Form(
           key: _formkey,
           child: SingleChildScrollView(
@@ -45,18 +45,38 @@ class LoginView extends GetWidget<AuthController> {
                 SizedBox(
                   height: 20,
                 ),
-                CustomTextFormField(
-                  text: 'Email',
-                  hint: "..........@gmail.com",
-                  onSave: (Value) => controller.email = Value,
-                  validator: (value) {},
+                TextFormField(
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    labelText: "Email Address",
+                    border: OutlineInputBorder(),
+                    prefixIcon: Icon(Icons.email),
+                  ),
+                  onSaved: (Value) => controller.email = Value,
                 ),
                 SizedBox(height: 30),
-                CustomTextFormField(
-                  text: 'Password',
-                  hint: "*********",
-                  onSave: (Value) => controller.password = Value,
-                  validator: (Value) {},
+                GetBuilder<AuthController>(
+                  init: Get.find(),
+                  builder: (authcontroller) => TextFormField(
+                    obscureText: authcontroller.showpassword,
+                    decoration: InputDecoration(
+                      labelText: "Password",
+                      border: OutlineInputBorder(),
+                      prefixIcon: Icon(Icons.lock),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          authcontroller.showpassword
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                        ),
+                        onPressed: () {
+                          authcontroller.onchangepasswordvisibility();
+                          print(authcontroller.showpassword);
+                        },
+                      ),
+                    ),
+                    onSaved: (Value) => controller.password = Value,
+                  ),
                 ),
                 SizedBox(height: 15),
                 CustomText(

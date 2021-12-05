@@ -18,6 +18,8 @@ class AuthController extends GetxController {
   FirebaseAuth _auth = FirebaseAuth.instance;
   static final FacebookLogin facebookSignIn = new FacebookLogin();
   String email = "", password = "", name = "";
+  bool _showpassword = true;
+  bool get showpassword => _showpassword;
 
   final localStorageUserData local_StorageUserData = Get.find();
 
@@ -48,6 +50,11 @@ class AuthController extends GetxController {
   void onClose() {
     // TODO: implement onClose
     super.onClose();
+  }
+
+  void onchangepasswordvisibility() {
+    _showpassword = !_showpassword;
+    update();
   }
 
   void googleSignInMethod() async {
