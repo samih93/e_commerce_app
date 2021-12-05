@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 
-const primarycolor = Color.fromRGBO(0, 197, 105, 1);
+//const primarycolor = Color.fromRGBO(0, 197, 105, 1);
+const primarycolor = Colors.teal;
 
 const localUserData = "user";
+
+List<Color> primarygradient = <Color>[
+  Colors.teal.shade900,
+  Colors.teal.shade700,
+  Colors.teal.shade400,
+];
 
 // cart Product model
 

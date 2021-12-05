@@ -49,7 +49,8 @@ class CartView extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               CustomText(
-                                text: "Cart",
+                                text:
+                                    "Cart ( ${cartcontroller.cartproductList.length} )",
                                 fontSize: 30,
                               ),
                               Icon(

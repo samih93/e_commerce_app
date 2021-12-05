@@ -26,13 +26,7 @@ class ProfileView extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: <Color>[
-                        Colors.green.shade900,
-                        Colors.green.shade700,
-                        Colors.green.shade400,
-                      ],
-                    ),
+                    gradient: LinearGradient(colors: primarygradient),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
