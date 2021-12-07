@@ -14,19 +14,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomeView extends StatelessWidget {
+  BuildContext _context;
   @override
   Widget build(BuildContext context) {
+    _context = context;
     return GetBuilder<HomeViewModelService>(
       init: Get
           .find(), // HomeViewModelService() --> loading from scratch but .find retreive it from memory
-      builder: (HomeViewModelService) => HomeViewModelService.IsLoding.value
+      builder: (homeViewModelService) => homeViewModelService.IsLoding.value
           ? Center(child: CircularProgressIndicator())
           : Scaffold(
               body: Padding(
-                padding: const EdgeInsets.only(bottom: 30.0),
+                padding: const EdgeInsets.only(
+                    top: 40, left: 15, right: 15, bottom: 50),
                 child: SingleChildScrollView(
                   child: Container(
-                    padding: EdgeInsets.only(top: 60, right: 20, left: 20),
                     child: Column(
                       children: [
                         _SearchTextField(),
@@ -57,7 +59,18 @@ class HomeView extends StatelessWidget {
                         SizedBox(
                           height: 20,
                         ),
-                        _Products(),
+                        //_Products(),
+                        ListView.separated(
+                            scrollDirection: Axis.vertical,
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return _ProductItem(
+                                  homeViewModelService.ProductList[index]);
+                            },
+                            separatorBuilder: (context, index) =>
+                                SizedBox(height: 10),
+                            itemCount: homeViewModelService.ProductList.length)
                       ],
                     ),
                   ),
@@ -143,105 +156,131 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Widget _Products() {
-    return Container(
-      height: 305,
-      child: GetBuilder<HomeViewModelService>(
-        init: HomeViewModelService(),
-        //   circular progress bar into product
-
-        // builder: (HomeViewModelService) => HomeViewModelService.IsLoding.value
-        //     ? Center(child: CircularProgressIndicator())
-        builder: (HomeViewModelService) => ListView.separated(
-            separatorBuilder: (context, index) => SizedBox(
-                  width: 20,
-                ),
-            itemCount: HomeViewModelService.ProductList.length,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () => Get.off(DetailsProduct(
-                    product: HomeViewModelService.ProductList[index])),
-                child: Container(
-                  width: MediaQuery.of(context).size.width * .6,
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            color: Colors.grey.shade100,
-                          ),
-                          height: 230,
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: new Image.network(
-                              HomeViewModelService.ProductList[index].image
-                                  .toString(),
-                              //whatever image you can put here
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 5),
-                      CustomText(
-                        text: HomeViewModelService.ProductList[index].name,
-                        alignment: Alignment.bottomLeft,
-                        fontSize: 20,
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      CustomText(
-                        text:
-                            HomeViewModelService.ProductList[index].description,
-                        alignment: Alignment.bottomLeft,
-                        color: Colors.grey[800],
-                        fontSize: 15,
-                        maxLine: 3,
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(right: 25),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            CustomText(
-                              text:
-                                  "${HomeViewModelService.ProductList[index].price} \$",
-                              color: primarycolor,
-                              alignment: Alignment.bottomLeft,
-                              fontSize: 15,
-                            ),
-                            GestureDetector(
-                              child: HomeViewModelService
-                                      .ProductList[index].isfavorite
-                                  ? Icon(
-                                      Icons.favorite,
-                                      color: Colors.red,
-                                    )
-                                  : Icon(Icons.favorite_border),
-                              onTap: () {
-                                HomeViewModelService.addProductTofavorite(
-                                    HomeViewModelService.ProductList[index],
-                                    !HomeViewModelService
-                                        .ProductList[index].isfavorite);
-
-                                //print(HomeViewModelService.isfavorite);
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+  Widget _ProductItem(Product product) {
+    return GetBuilder<HomeViewModelService>(
+      init: Get.find(),
+      builder: (homeViewModelService) => Column(
+        children: [
+          GestureDetector(
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(blurRadius: 10),
+                ],
+              ),
+              width: MediaQuery.of(_context).size.width * .9,
+              child: Column(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: Colors.grey.shade100,
+                    ),
+                    height: 230,
+                    child: new Image.network(
+                      product.image.toString(),
+                      //whatever image you can put here
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                ),
-              );
-            }),
+                  SizedBox(height: 5),
+                  Container(
+                    padding: EdgeInsets.all(20),
+                    child: Column(
+                      children: [
+                        CustomText(
+                          text: product.name,
+                          alignment: Alignment.bottomLeft,
+                          fontSize: 20,
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        CustomText(
+                          text: product.description,
+                          alignment: Alignment.bottomLeft,
+                          color: Colors.grey[800],
+                          fontSize: 15,
+                          maxLine: 3,
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(right: 25),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              CustomText(
+                                text: "${product.price} \$",
+                                color: primarycolor,
+                                alignment: Alignment.bottomLeft,
+                                fontSize: 15,
+                              ),
+                              GestureDetector(
+                                child: product.isfavorite
+                                    ? Icon(
+                                        Icons.favorite,
+                                        color: Colors.red,
+                                      )
+                                    : Icon(Icons.favorite_border),
+                                onTap: () {
+                                  homeViewModelService.addProductTofavorite(
+                                      product, !product.isfavorite);
+
+                                  //print(HomeViewModelService.isfavorite);
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            onTap: () => Get.off(DetailsProduct(product: product)),
+          ),
+        ],
       ),
     );
   }
+
+  Widget buildproductItem() => Container(
+        width: 60,
+        child: Column(
+          children: [
+            Stack(
+              alignment: Alignment.bottomRight,
+              children: [
+                CircleAvatar(
+                  radius: 30,
+                  backgroundImage: AssetImage("assets/icons/chaire.png"),
+                ),
+                // CircleAvatar(
+                //   radius: 8,
+                //   backgroundColor: Colors.white,
+                // ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.only(bottom: 4, end: 4),
+                  child: CircleAvatar(
+                    radius: 7,
+                    backgroundColor: Colors.green,
+                  ),
+                )
+              ],
+            ),
+            Text(
+              "samih ahmad damaj",
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
+        ),
+      );
 }

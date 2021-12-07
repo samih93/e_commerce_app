@@ -75,15 +75,12 @@ class DetailsProduct extends StatelessWidget {
                 GestureDetector(
                   onTap: () => Get.to(() => CartView()),
                   child: FlutterBadge(
-                    icon: Image.asset(
-                      "assets/icons/Icon_Cart.png",
-                      fit: BoxFit.fill,
-                    ),
+                    icon: Icon(Icons.shopping_bag),
                     itemCount: cartController.cartproductList != null
                         ? cartController.cartproductList.length ?? 0
                         : 0,
                     hideZeroCount: false,
-                    badgeColor: Colors.green.shade300,
+                    badgeColor: Colors.red.shade300,
                     borderRadius: 20.0,
                   ),
                 ),
