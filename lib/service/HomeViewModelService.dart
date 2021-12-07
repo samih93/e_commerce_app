@@ -25,12 +25,21 @@ class HomeViewModelService extends GetxController {
   List<favoriteProduct> get favoriteproduct =>
       _favoriteproduct.where((element) => element.isfavorite == true).toList();
 
+// for view list or grid
+  bool _isList = true;
+  bool get isList => _isList;
+
   var dbHelper = EcommerceDatabasehelper.db;
 
   HomeViewModelService() {
     getCategories();
     // getProducts(null);
     getProducts();
+  }
+
+  onchangeListView() {
+    _isList = !isList;
+    update();
   }
 
 // set favorite product to firestore but not recomanded

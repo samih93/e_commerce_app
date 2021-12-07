@@ -106,6 +106,7 @@ class DetailsProduct extends StatelessWidget {
         children: [
           Expanded(
             child: CustomScrollView(
+              shrinkWrap: true,
               slivers: [
                 SliverAppBar(
                   backgroundColor: Colors.transparent,

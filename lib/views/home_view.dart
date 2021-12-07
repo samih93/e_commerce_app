@@ -12,6 +12,7 @@ import 'package:e_commerce_app/widgets/CustumText.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:e_commerce_app/widgets/animatedIcon.dart';
 
 class HomeView extends StatelessWidget {
   BuildContext _context;
@@ -24,9 +25,10 @@ class HomeView extends StatelessWidget {
       builder: (homeViewModelService) => homeViewModelService.IsLoding.value
           ? Center(child: CircularProgressIndicator())
           : Scaffold(
+              backgroundColor: Colors.grey.shade300,
               body: Padding(
                 padding: const EdgeInsets.only(
-                    top: 40, left: 15, right: 15, bottom: 50),
+                    top: 40, left: 8, right: 8, bottom: 50),
                 child: SingleChildScrollView(
                   child: Container(
                     child: Column(
@@ -47,30 +49,48 @@ class HomeView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             CustomText(
-                              text: "Best Selling",
+                              text: "Products",
                               fontSize: 15,
                             ),
-                            CustomText(
-                              text: "See All",
-                              fontSize: 15,
-                            ),
+                            AnimIconBox(
+                                name: 'list_view',
+                                iconData: AnimatedIcons.list_view),
                           ],
                         ),
                         SizedBox(
                           height: 20,
                         ),
                         //_Products(),
-                        ListView.separated(
-                            scrollDirection: Axis.vertical,
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              return _ProductItem(
-                                  homeViewModelService.ProductList[index]);
-                            },
-                            separatorBuilder: (context, index) =>
-                                SizedBox(height: 10),
-                            itemCount: homeViewModelService.ProductList.length)
+                        !homeViewModelService.isList
+                            ? GridView.builder(
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  mainAxisSpacing: 10,
+                                  crossAxisSpacing: 10,
+                                  childAspectRatio: 0.75,
+                                ),
+                                scrollDirection: Axis.vertical,
+                                physics: NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  return _ProductItem(
+                                      homeViewModelService.ProductList[index]);
+                                },
+                                itemCount:
+                                    homeViewModelService.ProductList.length)
+                            : ListView.separated(
+                                scrollDirection: Axis.vertical,
+                                physics: NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  return _ProductItem(
+                                      homeViewModelService.ProductList[index]);
+                                },
+                                separatorBuilder: (context, index) =>
+                                    SizedBox(height: 10),
+                                itemCount:
+                                    homeViewModelService.ProductList.length)
                       ],
                     ),
                   ),
@@ -84,16 +104,16 @@ class HomeView extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: Colors.grey.shade200,
+        color: Colors.grey.shade400,
       ),
       child: TextFormField(
         decoration: InputDecoration(
-          border: InputBorder.none,
-          prefixIcon: Icon(
-            Icons.search,
-            color: Colors.black,
-          ),
-        ),
+            border: InputBorder.none,
+            prefixIcon: Icon(
+              Icons.search,
+              color: Colors.black,
+            ),
+            hintText: "Search ... "),
       ),
     );
   }
@@ -164,22 +184,22 @@ class HomeView extends StatelessWidget {
           GestureDetector(
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
+                //borderRadius: BorderRadius.circular(10),
                 color: Colors.white,
-                boxShadow: [
-                  BoxShadow(blurRadius: 10),
-                ],
+                // boxShadow: [
+                //   BoxShadow(blurRadius: 4),
+                // ],
               ),
-              width: MediaQuery.of(_context).size.width * .9,
+              //width: double.infinity,
               child: Column(
                 children: [
                   Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
+                      // borderRadius: BorderRadius.circular(50),
                       color: Colors.grey.shade100,
                     ),
-                    height: 230,
+                    height: 100,
                     child: new Image.network(
                       product.image.toString(),
                       //whatever image you can put here
@@ -188,7 +208,7 @@ class HomeView extends StatelessWidget {
                   ),
                   SizedBox(height: 5),
                   Container(
-                    padding: EdgeInsets.all(20),
+                    padding: EdgeInsets.all(10),
                     child: Column(
                       children: [
                         CustomText(
@@ -204,13 +224,12 @@ class HomeView extends StatelessWidget {
                           alignment: Alignment.bottomLeft,
                           color: Colors.grey[800],
                           fontSize: 15,
-                          maxLine: 3,
+                          maxLine: 2,
                         ),
                         SizedBox(
                           height: 5,
                         ),
                         Container(
-                          margin: EdgeInsets.only(right: 25),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -250,37 +269,37 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Widget buildproductItem() => Container(
-        width: 60,
-        child: Column(
-          children: [
-            Stack(
-              alignment: Alignment.bottomRight,
-              children: [
-                CircleAvatar(
-                  radius: 30,
-                  backgroundImage: AssetImage("assets/icons/chaire.png"),
-                ),
-                // CircleAvatar(
-                //   radius: 8,
-                //   backgroundColor: Colors.white,
-                // ),
-                Padding(
-                  padding: const EdgeInsetsDirectional.only(bottom: 4, end: 4),
-                  child: CircleAvatar(
-                    radius: 7,
-                    backgroundColor: Colors.green,
-                  ),
-                )
-              ],
-            ),
-            Text(
-              "samih ahmad damaj",
-              textAlign: TextAlign.center,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ],
-        ),
-      );
+  // Widget buildproductItem() => Container(
+  //       width: 60,
+  //       child: Column(
+  //         children: [
+  //           Stack(
+  //             alignment: Alignment.bottomRight,
+  //             children: [
+  //               CircleAvatar(
+  //                 radius: 30,
+  //                 backgroundImage: AssetImage("assets/icons/chaire.png"),
+  //               ),
+  //               // CircleAvatar(
+  //               //   radius: 8,
+  //               //   backgroundColor: Colors.white,
+  //               // ),
+  //               Padding(
+  //                 padding: const EdgeInsetsDirectional.only(bottom: 4, end: 4),
+  //                 child: CircleAvatar(
+  //                   radius: 7,
+  //                   backgroundColor: Colors.green,
+  //                 ),
+  //               )
+  //             ],
+  //           ),
+  //           Text(
+  //             "samih ahmad damaj",
+  //             textAlign: TextAlign.center,
+  //             maxLines: 2,
+  //             overflow: TextOverflow.ellipsis,
+  //           ),
+  //         ],
+  //       ),
+  //     );
 }
