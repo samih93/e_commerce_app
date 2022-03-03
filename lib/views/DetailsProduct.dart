@@ -111,7 +111,7 @@ class DetailsProduct extends StatelessWidget {
                 SliverAppBar(
                   backgroundColor: Colors.transparent,
                   pinned: false,
-                  expandedHeight: 180,
+                  expandedHeight: 195,
                   //floating: true,
                   flexibleSpace: FlexibleSpaceBar(
                     // title: Text(
