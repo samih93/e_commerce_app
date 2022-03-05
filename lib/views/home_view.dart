@@ -75,7 +75,8 @@ class HomeView extends StatelessWidget {
                                 shrinkWrap: true,
                                 itemBuilder: (context, index) {
                                   return _ProductItem(
-                                      homeViewModelService.ProductList[index]);
+                                      homeViewModelService.ProductList[index],
+                                      false);
                                 },
                                 itemCount:
                                     homeViewModelService.ProductList.length)
@@ -85,7 +86,8 @@ class HomeView extends StatelessWidget {
                                 shrinkWrap: true,
                                 itemBuilder: (context, index) {
                                   return _ProductItem(
-                                      homeViewModelService.ProductList[index]);
+                                      homeViewModelService.ProductList[index],
+                                      true);
                                 },
                                 separatorBuilder: (context, index) =>
                                     SizedBox(height: 10),
@@ -176,7 +178,7 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Widget _ProductItem(Product product) {
+  Widget _ProductItem(Product product, bool isList) {
     return GetBuilder<HomeViewModelService>(
       init: Get.find(),
       builder: (homeViewModelService) => Column(
@@ -199,7 +201,7 @@ class HomeView extends StatelessWidget {
                       // borderRadius: BorderRadius.circular(50),
                       color: Colors.grey.shade100,
                     ),
-                    height: 100,
+                    height: isList ? 260 : 147,
                     child: new Image.network(
                       product.image.toString(),
                       //whatever image you can put here
