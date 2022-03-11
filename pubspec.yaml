@@ -46,6 +46,7 @@ dependencies:
   convex_bottom_bar: ^3.0.0
   country_picker: ^2.0.9
   uuid: ^3.0.5
+  smooth_page_indicator: ^1.0.0+2
 
 dev_dependencies:
   flutter_test:

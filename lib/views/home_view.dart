@@ -201,9 +201,9 @@ class HomeView extends StatelessWidget {
                       // borderRadius: BorderRadius.circular(50),
                       color: Colors.grey.shade100,
                     ),
-                    height: isList ? 260 : 147,
+                    height: isList ? 260 : 110,
                     child: new Image.network(
-                      product.image.toString(),
+                      product.images.first.toString(),
                       //whatever image you can put here
                       fit: BoxFit.cover,
                     ),

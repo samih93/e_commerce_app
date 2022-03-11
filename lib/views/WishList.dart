@@ -128,12 +128,14 @@ class WishList extends StatelessWidget {
                                     child: homeViewModelService
                                                 .favoriteproduct[index]
                                                 .product
-                                                .image !=
+                                                .images
+                                                .first !=
                                             ""
                                         ? Image.network(homeViewModelService
                                             .favoriteproduct[index]
                                             .product
-                                            .image)
+                                            .images
+                                            .first)
                                         : Image.asset(
                                             "assets/icons/chaire.png"),
                                   ),
