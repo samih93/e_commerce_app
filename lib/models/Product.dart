@@ -48,6 +48,7 @@ class Product {
 
     id = map["productId"];
     name = map["name"];
+    image = map['image'];
     images = listofimages;
     description = map["description"];
     color = HexColor.fromHex(map["color"]);
