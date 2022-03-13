@@ -122,8 +122,12 @@ class CartView extends StatelessWidget {
                                                       .cartproductList[index]
                                                       .image !=
                                                   ""
-                                              ? Image.network(cartcontroller
-                                                  .cartproductList[index].image)
+                                              ? Image.network(
+                                                  cartcontroller
+                                                      .cartproductList[index]
+                                                      .image,
+                                                  fit: BoxFit.cover,
+                                                )
                                               : Image.asset(
                                                   "assets/icons/chaire.png"),
                                         ),

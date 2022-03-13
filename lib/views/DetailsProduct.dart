@@ -240,7 +240,7 @@ class DetailsProduct extends StatelessWidget {
                                   image: product.images.first,
                                   price: product.price,
                                   size: CartController.selectedSize,
-                                  color: product.color,
+                                  color: Colors.red,
                                   description: product.description,
                                   quantity: 1));
                           if (!isAdded) {
