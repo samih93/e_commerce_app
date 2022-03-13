@@ -2,6 +2,7 @@
 
 class Category {
   String categoryId, name, image;
+  bool isselected = false;
 
   Category({this.categoryId, this.name, this.image});
 

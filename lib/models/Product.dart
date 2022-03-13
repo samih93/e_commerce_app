@@ -11,6 +11,7 @@ class Product {
   Color color;
   bool isfavorite = false;
   List<String> sizes;
+  String categoryId;
   //Color color;
 
   Product(
@@ -55,6 +56,7 @@ class Product {
     sizes = listOfsize;
     price = map["price"];
     isfavorite = map["isfavorite"];
+    categoryId = map["categoryId"];
   }
 
   toJson() {

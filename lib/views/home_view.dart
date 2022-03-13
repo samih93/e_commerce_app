@@ -16,6 +16,8 @@ import 'package:e_commerce_app/widgets/animatedIcon.dart';
 
 class HomeView extends StatelessWidget {
   BuildContext _context;
+  HomeViewModelService homeViewModelService_Needed =
+      Get.find<HomeViewModelService>();
   @override
   Widget build(BuildContext context) {
     _context = context;
@@ -41,7 +43,7 @@ class HomeView extends StatelessWidget {
                           text: "Categories",
                           fontSize: 18,
                         ),
-                        _Categories(),
+                        _Categories(homeViewModelService.CategoryList),
                         SizedBox(
                           height: 50,
                         ),
@@ -61,38 +63,45 @@ class HomeView extends StatelessWidget {
                           height: 20,
                         ),
                         //_Products(),
-                        !homeViewModelService.isList
-                            ? GridView.builder(
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  mainAxisSpacing: 10,
-                                  crossAxisSpacing: 10,
-                                  childAspectRatio: 0.75,
-                                ),
-                                scrollDirection: Axis.vertical,
-                                physics: NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemBuilder: (context, index) {
-                                  return _ProductItem(
-                                      homeViewModelService.ProductList[index],
-                                      false);
-                                },
-                                itemCount:
-                                    homeViewModelService.ProductList.length)
-                            : ListView.separated(
-                                scrollDirection: Axis.vertical,
-                                physics: NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemBuilder: (context, index) {
-                                  return _ProductItem(
-                                      homeViewModelService.ProductList[index],
-                                      true);
-                                },
-                                separatorBuilder: (context, index) =>
-                                    SizedBox(height: 10),
-                                itemCount:
-                                    homeViewModelService.ProductList.length)
+                        homeViewModelService.ProductList.length > 0
+                            ? !homeViewModelService.isList
+                                ? GridView.builder(
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      mainAxisSpacing: 10,
+                                      crossAxisSpacing: 10,
+                                      childAspectRatio: 0.75,
+                                    ),
+                                    scrollDirection: Axis.vertical,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) {
+                                      return _ProductItem(
+                                          homeViewModelService
+                                              .ProductList[index],
+                                          false);
+                                    },
+                                    itemCount:
+                                        homeViewModelService.ProductList.length)
+                                : ListView.separated(
+                                    scrollDirection: Axis.vertical,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) {
+                                      return _ProductItem(
+                                          homeViewModelService
+                                              .ProductList[index],
+                                          true);
+                                    },
+                                    separatorBuilder: (context, index) =>
+                                        SizedBox(height: 10),
+                                    itemCount:
+                                        homeViewModelService.ProductList.length)
+                            : Text(
+                                "No Products",
+                                style: TextStyle(color: Colors.grey),
+                              ),
                       ],
                     ),
                   ),
@@ -109,6 +118,7 @@ class HomeView extends StatelessWidget {
         color: Colors.grey.shade400,
       ),
       child: TextFormField(
+        style: TextStyle(fontSize: 23),
         decoration: InputDecoration(
             border: InputBorder.none,
             prefixIcon: Icon(
@@ -120,63 +130,54 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Widget _Categories() {
+  Widget _Categories(List<Category> list) {
     return Container(
       height: 100,
-      child: GetBuilder<HomeViewModelService>(
-        init: HomeViewModelService(),
-
-        //   circular progress bar into category
-        // GetBuilder<HomeViewModelService>(init: HomeViewModelService(),builder: )(HomeViewModelService) => HomeViewModelService.IsLoding.value
-        //     ? Center(
-        //         child: CircularProgressIndicator(
-        //           color: Colors.blue,
-        //         ),
-        //       )
-        builder: (HomeViewModelService) => ListView.separated(
-            separatorBuilder: (context, index) => SizedBox(
-                  width: 20,
-                ),
-            itemCount: HomeViewModelService.CategoryList.length,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) {
-              return Column(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      // HomeViewModelService.getProducts(
-                      //     HomeViewModelService.CategoryList[index].categoryId);
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: Colors.grey.shade200,
-                      ),
-                      height: 60,
-                      width: 60,
-                      //ToDo:
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: new Image.network(
-                          HomeViewModelService.CategoryList[index].image
-                              .toString(),
-                          //whatever image you can put here
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 15),
-                  CustomText(
-                    text: HomeViewModelService.CategoryList[index].name,
-                    fontSize: 15,
-                  ),
-                ],
-              );
-            }),
-      ),
+      child: ListView.separated(
+          separatorBuilder: (context, index) => SizedBox(
+                width: 20,
+              ),
+          itemCount: list.length,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            return _categoryItem(list[index]);
+          }),
     );
   }
+
+  _categoryItem(Category item) => InkWell(
+        onTap: () {
+          homeViewModelService_Needed.filterbyCategory(item.categoryId);
+          // print(item.categoryId);
+        },
+        child: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: item.isselected ? primarycolor : Colors.grey.shade200,
+              ),
+              height: 60,
+              width: 60,
+              //ToDo:
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: new Image.network(
+                  item.image.toString(),
+                  //whatever image you can put here
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ),
+            SizedBox(height: 15),
+            CustomText(
+              text: item.name,
+              fontSize: 15,
+              color: item.isselected ? primarycolor : Colors.black,
+            ),
+          ],
+        ),
+      );
 
   Widget _ProductItem(Product product, bool isList) {
     return GetBuilder<HomeViewModelService>(

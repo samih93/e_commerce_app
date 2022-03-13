@@ -18,6 +18,7 @@ class HomeViewModelService extends GetxController {
   List<Category> get CategoryList => _CategoryList;
 
   var _ProductList = <Product>[];
+  var _allProduct = <Product>[];
 
   List<Product> get ProductList => _ProductList;
 
@@ -35,10 +36,38 @@ class HomeViewModelService extends GetxController {
     getCategories();
     // getProducts(null);
     getProducts();
+    _allProduct = _ProductList;
   }
 
   onchangeListView() {
     _isList = !isList;
+    update();
+  }
+
+  filterbyCategory(String categoryId) {
+    // _ProductList.where((element) => element.categoryId == categoryId).toList();
+    //NOTE make isselected category equal true and filter data depends on category if selected or not
+    _CategoryList.forEach((element) {
+      if (element.categoryId == categoryId) {
+        element.isselected = !element.isselected;
+        if (element.isselected == true) {
+          _ProductList = _allProduct
+              .where((element) => element.categoryId == categoryId)
+              .toList();
+        } else {
+          //NOTE if no category selected clear filter
+          _ProductList = _allProduct;
+        }
+      }
+    });
+
+// NOTE unselect other categories
+    _CategoryList.forEach((element) {
+      if (element.categoryId != categoryId) {
+        element.isselected = false;
+      }
+    });
+
     update();
   }
 
