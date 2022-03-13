@@ -51,7 +51,7 @@ class Product {
     image = map['image'];
     images = listofimages;
     description = map["description"];
-    color = HexColor.fromHex(map["color"]);
+    //color = HexColor.fromHex(map["color"]);
     sizes = listOfsize;
     price = map["price"];
     isfavorite = map["isfavorite"];

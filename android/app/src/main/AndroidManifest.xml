@@ -8,7 +8,7 @@
         <provider android:authorities="com.facebook.orca.provider.PlatformProvider" /> <!-- allows sharing to Messenger app -->
     </queries>
    <application
-        android:label="Shop"
+        android:label="Shop APP"
         android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
         <activity

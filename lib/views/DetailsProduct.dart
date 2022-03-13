@@ -126,7 +126,7 @@ class DetailsProduct extends StatelessWidget {
                                 context, product.images[index]),
                             itemCount: product.images.length),
                       ),
-                      if (product.images.length > 0)
+                      if (product.images.length > 1)
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: SmoothPageIndicator(
@@ -335,7 +335,7 @@ class DetailsProduct extends StatelessWidget {
         child: image != ""
             ? Image.network(
                 image,
-                fit: BoxFit.fill,
+                fit: BoxFit.cover,
               )
             : Image.asset(
                 'assets/icons/chaire.png',

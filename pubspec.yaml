@@ -48,6 +48,7 @@ dependencies:
   uuid: ^3.0.5
   smooth_page_indicator: ^1.0.0+2
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

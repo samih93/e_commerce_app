@@ -114,9 +114,10 @@ class HomeViewModelService extends GetxController {
         print(element.toJson());
       });
       _IsLoding.value = false;
+      update();
+
       Notify_productlist();
       //print(" product :${ProductList.length}");
-      update();
     });
   }
 
@@ -131,5 +132,6 @@ class HomeViewModelService extends GetxController {
             }
           });
       });
+    update();
   }
 }

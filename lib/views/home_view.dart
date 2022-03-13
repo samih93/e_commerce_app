@@ -212,9 +212,10 @@ class HomeView extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.all(10),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CustomText(
-                          text: product.name,
+                          text: product.name.toString().trim(),
                           alignment: Alignment.bottomLeft,
                           fontSize: 20,
                         ),
@@ -222,7 +223,7 @@ class HomeView extends StatelessWidget {
                           height: 5,
                         ),
                         CustomText(
-                          text: product.description,
+                          text: product.description.toString().trim(),
                           alignment: Alignment.bottomLeft,
                           color: Colors.grey[800],
                           fontSize: 15,
