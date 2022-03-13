@@ -1,13 +1,13 @@
 // @dart=2.9
 
 import 'dart:convert';
-import 'dart:ffi';
 
 import 'package:e_commerce_app/helper/extention.dart';
 import 'package:flutter/material.dart';
 
 class Product {
   String id, name, image, description, price;
+  List<String> images;
   Color color;
   bool isfavorite = false;
   List<String> sizes;
@@ -16,7 +16,7 @@ class Product {
   Product(
       {this.id,
       this.name,
-      this.image,
+      this.images,
       this.description,
       this.color,
       this.sizes,
@@ -36,9 +36,20 @@ class Product {
     } else {
       listOfsize = null;
     }
+    List<String> listofimages = [];
+
+    if (map['images'] != null) {
+      map['images'].forEach((content) {
+        listofimages.add(content);
+      });
+    } else {
+      listofimages = null;
+    }
+
     id = map["productId"];
     name = map["name"];
-    image = map["image"];
+    image = map['image'];
+    images = listofimages;
     description = map["description"];
     color = HexColor.fromHex(map["color"]);
     sizes = listOfsize;
@@ -50,7 +61,7 @@ class Product {
     return {
       'productId': id,
       'name': name,
-      'image': image,
+      'images': images,
       'description': description,
       'color': color,
       'size': sizes,

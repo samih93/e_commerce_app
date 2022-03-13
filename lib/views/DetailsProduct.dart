@@ -16,12 +16,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_badged/flutter_badge.dart';
 import 'package:get/get.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:toast/toast.dart';
 
 class DetailsProduct extends StatelessWidget {
   Product product;
 
   DetailsProduct({this.product});
+
+  var boardContorller = PageController();
 
   @override
   Widget build(BuildContext context) {
@@ -105,114 +108,103 @@ class DetailsProduct extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            child: CustomScrollView(
-              shrinkWrap: true,
-              slivers: [
-                SliverAppBar(
-                  backgroundColor: Colors.transparent,
-                  pinned: false,
-                  expandedHeight: 195,
-                  //floating: true,
-                  flexibleSpace: FlexibleSpaceBar(
-                    // title: Text(
-                    //   product.name.toString(),
-                    //   style: TextStyle(
-                    //     color: Colors.white,
-                    //   ),
-                    // ),
-                    background: product.image != ""
-                        ? Image.network(
-                            product.image,
-                            fit: BoxFit.fill,
-                          )
-                        : Image.asset(
-                            'assets/icons/chaire.png',
-                            fit: BoxFit.fill,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Stack(
+                    alignment: AlignmentDirectional.bottomCenter,
+                    children: [
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.35,
+                        child: PageView.builder(
+                            physics: BouncingScrollPhysics(),
+                            controller: boardContorller,
+                            onPageChanged: (value) {
+                              print(value);
+                            },
+                            itemBuilder: (context, index) => _images_of_product(
+                                context, product.images[index]),
+                            itemCount: product.images.length),
+                      ),
+                      if (product.images.length > 0)
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SmoothPageIndicator(
+                            effect: WormEffect(
+                                dotColor: Colors.grey,
+                                activeDotColor: primarycolor),
+                            controller: boardContorller,
+                            count: product.images.length,
                           ),
+                        ),
+                    ],
                   ),
-                ),
-                SliverFillRemaining(
-                  child: Container(
+                  Container(
+                    padding: EdgeInsets.all(12),
                     child: Column(
                       children: [
-                        // Container(
-                        //   width: MediaQuery.of(context).size.width,
-                        //   height: 270,
-                        //   child: Image.network(
-                        //     product.image,
-                        //     fit: BoxFit.fill,
-                        //   ),
-                        //   // width: MediaQuery.of(context).size.width,
-                        // ),
+                        CustomText(
+                          text: product.name,
+                          fontSize: 25,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
                         Container(
-                          padding: EdgeInsets.all(12),
-                          child: Column(
-                            children: [
-                              CustomText(
-                                text: product.name,
-                                fontSize: 25,
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(top: 15, bottom: 5),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                                child: GetBuilder<CartController>(
-                                  init: Get.find(),
-                                  builder: (cartcontroller) => Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      CustomText(
-                                        text: "Size",
-                                        alignment: Alignment.centerLeft,
-                                        fontSize: 20,
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      CustomText(
-                                        text: cartcontroller.selectedSize,
-                                        color: Colors.grey,
-                                        fontSize: 22,
-                                      )
-                                      // CustomText(
-                                      //   text: product.size,
-                                      // ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              _productsizes(product.sizes),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              CustomText(
-                                text: "Details",
-                                fontSize: 20,
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              CustomText(
-                                text: product.description,
-                                maxLine: 10,
-                                fontSize: 20,
-                                color: Colors.grey[600],
-                              ),
-                            ],
+                          padding: EdgeInsets.only(top: 15, bottom: 5),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
                           ),
+                          child: GetBuilder<CartController>(
+                            init: Get.find(),
+                            builder: (cartcontroller) => Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                CustomText(
+                                  text: "Size",
+                                  alignment: Alignment.centerLeft,
+                                  fontSize: 20,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                CustomText(
+                                  text: cartcontroller.selectedSize,
+                                  color: Colors.grey,
+                                  fontSize: 22,
+                                )
+                                // CustomText(
+                                //   text: product.size,
+                                // ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        _productsizes(product.sizes),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        CustomText(
+                          text: "Details",
+                          fontSize: 20,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        CustomText(
+                          text: product.description,
+                          maxLine: 10,
+                          fontSize: 20,
+                          color: Colors.grey[600],
                         ),
                       ],
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           Container(
@@ -245,7 +237,7 @@ class DetailsProduct extends StatelessWidget {
                               CartProduct(
                                   productId: product.id,
                                   name: product.name,
-                                  image: product.image,
+                                  image: product.images.first,
                                   price: product.price,
                                   size: CartController.selectedSize,
                                   color: product.color,
@@ -337,4 +329,17 @@ class DetailsProduct extends StatelessWidget {
       ),
     );
   }
+
+  _images_of_product(BuildContext context, String image) => Container(
+        width: double.infinity,
+        child: image != ""
+            ? Image.network(
+                image,
+                fit: BoxFit.fill,
+              )
+            : Image.asset(
+                'assets/icons/chaire.png',
+                fit: BoxFit.fill,
+              ),
+      );
 }

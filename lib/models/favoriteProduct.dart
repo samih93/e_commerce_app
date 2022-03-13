@@ -24,7 +24,7 @@ class favoriteProduct {
     return {
       "productId": product.id,
       "name": product.name,
-      "image": product.image,
+      "image": product.images.first,
       "description": product.description,
       "price": product.price,
       "isFavorite": isfavorite
