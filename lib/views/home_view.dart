@@ -24,7 +24,9 @@ class HomeView extends StatelessWidget {
     return GetBuilder<HomeViewModelService>(
       init: Get.find<
           HomeViewModelService>(), // HomeViewModelService() --> loading from scratch but .find retreive it from memory
-      builder: (homeViewModelService) => homeViewModelService.IsLoding.value
+
+      builder: (homeViewModelService) => !homeViewModelService
+              .isHomePageReady //  check if page is not ready
           ? Center(child: CircularProgressIndicator())
           : Scaffold(
               backgroundColor: Colors.grey.shade300,
