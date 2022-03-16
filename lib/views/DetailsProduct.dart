@@ -299,6 +299,8 @@ class DetailsProduct extends StatelessWidget {
       alignment: Alignment.centerLeft,
       child: Wrap(
         crossAxisAlignment: WrapCrossAlignment.start,
+        spacing: 8, // horizontal
+        runSpacing: 8, // vertical
         children: List.generate(
           sizes.length,
           (index) => GetBuilder<CartController>(
@@ -306,15 +308,14 @@ class DetailsProduct extends StatelessWidget {
             builder: (cartController) => GestureDetector(
               onTap: () => cartController.onselectsize(sizes[index].toString()),
               child: Container(
-                margin: EdgeInsets.all(5),
-                child: FittedBox(
-                  child: Text(
-                    sizes[index],
-                    style: TextStyle(fontSize: 5),
+                padding: EdgeInsets.all(5),
+                child: Text(
+                  sizes[index],
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 22,
                   ),
                 ),
-                width: 34,
-                height: 30,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.grey.shade300,
