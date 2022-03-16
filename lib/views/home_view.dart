@@ -18,6 +18,8 @@ class HomeView extends StatelessWidget {
   BuildContext _context;
   HomeViewModelService homeViewModelService_Needed =
       Get.find<HomeViewModelService>();
+
+  var searchtextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     _context = context;
@@ -37,7 +39,7 @@ class HomeView extends StatelessWidget {
                   child: Container(
                     child: Column(
                       children: [
-                        _SearchTextField(),
+                        _SearchTextField(context),
                         SizedBox(
                           height: 40,
                         ),
@@ -118,19 +120,42 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Widget _SearchTextField() {
+  Widget _SearchTextField(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: Colors.grey.shade400,
       ),
       child: TextFormField(
+        controller: searchtextController,
         style: TextStyle(fontSize: 23),
         decoration: InputDecoration(
             border: InputBorder.none,
-            prefixIcon: Icon(
-              Icons.search,
-              color: Colors.black,
+            prefixIcon: IconButton(
+              onPressed: () {
+                print('search');
+                FocusScope.of(context).unfocus();
+                print(searchtextController.text);
+                homeViewModelService_Needed.searchByProductName(
+                    searchtextController.text.trim().toString());
+              },
+              icon: Icon(
+                Icons.search,
+                color: Colors.black,
+              ),
+            ),
+            suffixIcon: IconButton(
+              onPressed: () {
+                print('close');
+                FocusScope.of(context).unfocus();
+
+                homeViewModelService_Needed.clearSearch();
+                searchtextController.clear();
+              },
+              icon: Icon(
+                Icons.close,
+                color: Colors.black,
+              ),
             ),
             hintText: "Search ... "),
       ),
