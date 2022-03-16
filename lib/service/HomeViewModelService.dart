@@ -33,9 +33,9 @@ class HomeViewModelService extends GetxController {
   var dbHelper = EcommerceDatabasehelper.db;
 
   HomeViewModelService() {
-    getCategories();
+    getCategories().then((value) {});
     // getProducts(null);
-    getProducts();
+    getProducts().then((value) {});
     _allProduct = _ProductList;
   }
 
@@ -111,7 +111,7 @@ class HomeViewModelService extends GetxController {
     update();
   }
 
-  getCategories() async {
+  Future<void> getCategories() async {
     _IsLoding.value = true;
     await ApplicationDb().getCategories().then((value) {
       for (int i = 0; i < value.length; i++) {
@@ -123,7 +123,7 @@ class HomeViewModelService extends GetxController {
     });
   }
 
-  getProducts() async {
+  Future<void> getProducts() async {
     _IsLoding.value = true;
     _favoriteproduct = await dbHelper.getallfavoriteproducts();
     //print(_favoriteproduct.length);

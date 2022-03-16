@@ -55,7 +55,7 @@ class Product {
     //color = HexColor.fromHex(map["color"]);
     sizes = listOfsize;
     price = map["price"];
-    isfavorite = map["isfavorite"];
+    // isfavorite = map["isfavorite"];
     categoryId = map["categoryId"];
   }
 
@@ -69,7 +69,7 @@ class Product {
       'size': sizes,
       'price': price,
       // cast bool
-      'isfavorite': isfavorite ? 1 : 0,
+      // 'isfavorite': isfavorite ? 1 : 0,
     };
   }
 }

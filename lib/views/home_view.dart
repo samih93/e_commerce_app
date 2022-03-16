@@ -22,8 +22,8 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     _context = context;
     return GetBuilder<HomeViewModelService>(
-      init: Get
-          .find(), // HomeViewModelService() --> loading from scratch but .find retreive it from memory
+      init: Get.find<
+          HomeViewModelService>(), // HomeViewModelService() --> loading from scratch but .find retreive it from memory
       builder: (homeViewModelService) => homeViewModelService.IsLoding.value
           ? Center(child: CircularProgressIndicator())
           : Scaffold(
@@ -41,7 +41,11 @@ class HomeView extends StatelessWidget {
                         ),
                         CustomText(
                           text: "Categories",
-                          fontSize: 18,
+                          fontSize: 24,
+                          fontweight: FontWeight.bold,
+                        ),
+                        SizedBox(
+                          height: 10,
                         ),
                         _Categories(homeViewModelService.CategoryList),
                         SizedBox(
@@ -52,7 +56,8 @@ class HomeView extends StatelessWidget {
                           children: [
                             CustomText(
                               text: "Products",
-                              fontSize: 15,
+                              fontSize: 24,
+                              fontweight: FontWeight.bold,
                             ),
                             AnimIconBox(
                                 name: 'list_view',
@@ -180,96 +185,94 @@ class HomeView extends StatelessWidget {
       );
 
   Widget _ProductItem(Product product, bool isList) {
-    return GetBuilder<HomeViewModelService>(
-      init: Get.find(),
-      builder: (homeViewModelService) => Column(
-        children: [
-          GestureDetector(
-            child: Container(
-              decoration: BoxDecoration(
-                //borderRadius: BorderRadius.circular(10),
-                color: Colors.white,
-                // boxShadow: [
-                //   BoxShadow(blurRadius: 4),
-                // ],
-              ),
-              //width: double.infinity,
-              child: Column(
-                children: [
-                  Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      // borderRadius: BorderRadius.circular(50),
-                      color: Colors.grey.shade100,
-                    ),
-                    height: isList ? 260 : 110,
-                    child: new Image.network(
-                      product.images.first.toString(),
-                      //whatever image you can put here
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  SizedBox(height: 5),
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CustomText(
-                          text: product.name.toString().trim(),
-                          alignment: Alignment.bottomLeft,
-                          fontSize: 20,
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        CustomText(
-                          text: product.description.toString().trim(),
-                          alignment: Alignment.bottomLeft,
-                          color: Colors.grey[800],
-                          fontSize: 15,
-                          maxLine: 2,
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              CustomText(
-                                text: "${product.price} \$",
-                                color: primarycolor,
-                                alignment: Alignment.bottomLeft,
-                                fontSize: 15,
-                              ),
-                              GestureDetector(
-                                child: product.isfavorite
-                                    ? Icon(
-                                        Icons.favorite,
-                                        color: Colors.red,
-                                      )
-                                    : Icon(Icons.favorite_border),
-                                onTap: () {
-                                  homeViewModelService.addProductTofavorite(
-                                      product, !product.isfavorite);
-
-                                  //print(HomeViewModelService.isfavorite);
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+    return Column(
+      children: [
+        GestureDetector(
+          child: Container(
+            decoration: BoxDecoration(
+              //borderRadius: BorderRadius.circular(10),
+              color: Colors.white,
+              // boxShadow: [
+              //   BoxShadow(blurRadius: 4),
+              // ],
             ),
-            onTap: () => Get.off(DetailsProduct(product: product)),
+            //width: double.infinity,
+            child: Column(
+              children: [
+                Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    // borderRadius: BorderRadius.circular(50),
+                    color: Colors.grey.shade100,
+                  ),
+                  height: isList ? 260 : 110,
+                  child: new Image.network(
+                    product.images.first.toString(),
+                    //whatever image you can put here
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                SizedBox(height: 5),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CustomText(
+                        text: product.name.toString().trim(),
+                        alignment: Alignment.bottomLeft,
+                        fontSize: 20,
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      CustomText(
+                        text: product.description.toString().trim(),
+                        alignment: Alignment.bottomLeft,
+                        color: Colors.grey[800],
+                        fontSize: 15,
+                        maxLine: 2,
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            CustomText(
+                              text: "${product.price} \$",
+                              color: primarycolor,
+                              alignment: Alignment.bottomLeft,
+                              fontSize: 15,
+                            ),
+                            GestureDetector(
+                              child: product.isfavorite
+                                  ? Icon(
+                                      Icons.favorite,
+                                      color: Colors.red,
+                                    )
+                                  : Icon(Icons.favorite_border),
+                              onTap: () {
+                                homeViewModelService_Needed
+                                    .addProductTofavorite(
+                                        product, !product.isfavorite);
+
+                                //print(HomeViewModelService.isfavorite);
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
-        ],
-      ),
+          onTap: () => Get.off(DetailsProduct(product: product)),
+        ),
+      ],
     );
   }
 

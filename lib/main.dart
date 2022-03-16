@@ -12,7 +12,7 @@ import 'package:e_commerce_app/helper/Binding.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  Get.put(HomeViewModelService());
+  //Get.put(HomeViewModelService());
   Get.put(CartController());
   Get.put(ShippingController());
   runApp(MyApp());

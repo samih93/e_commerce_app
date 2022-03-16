@@ -131,8 +131,8 @@ class DetailsProduct extends StatelessWidget {
                           padding: const EdgeInsets.all(8.0),
                           child: SmoothPageIndicator(
                             effect: WormEffect(
-                                dotColor: Colors.grey,
-                                activeDotColor: primarycolor),
+                                dotColor: Colors.grey.withOpacity(0.4),
+                                activeDotColor: primarycolor.withOpacity(0.4)),
                             controller: boardContorller,
                             count: product.images.length,
                           ),

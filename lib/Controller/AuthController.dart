@@ -1,8 +1,10 @@
 // @dart=2.9
 
+import 'package:e_commerce_app/helper/homeviewbinding.dart';
 import 'package:e_commerce_app/models/UserModel.dart';
 import 'package:e_commerce_app/service/FireStoreUser.dart';
 import 'package:e_commerce_app/helper/localStorageUserData.dart';
+import 'package:e_commerce_app/service/HomeViewModelService.dart';
 import 'package:e_commerce_app/views/auth/ControlView.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:e_commerce_app/views/home_view.dart';
@@ -70,9 +72,10 @@ class AuthController extends GetxController {
         accessToken: googleSignInAuthentication.accessToken);
     await _auth.signInWithCredential(credential).then((user) {
       SaveUserToFireStore(user);
+      _isloading = false;
+      update();
     });
-    _isloading = false;
-    Get.offAll(() => ControlView());
+    Get.offAll(() => ControlView(), binding: HomeViewBinding());
 
     // saveUserTosharedPreference(new UserModel(
     //   googleuser.,
@@ -95,7 +98,7 @@ class AuthController extends GetxController {
       await _auth.signInWithCredential(facebookcredential).then((user) {
         SaveUserToFireStore(user);
       });
-      Get.offAll(() => ControlView());
+      Get.offAll(() => ControlView(), binding: HomeViewBinding());
     }
   }
 
@@ -106,7 +109,7 @@ class AuthController extends GetxController {
           .then((user) async {
         _getCurrentUser(user.user.uid);
       }); // .then((value) => print(value));
-      Get.offAll(() => ControlView());
+      Get.offAll(() => ControlView(), binding: HomeViewBinding());
     } catch (e) {
       Get.snackbar('Error Login Account', e.toString(),
           colorText: Colors.black, snackPosition: SnackPosition.BOTTOM);
@@ -120,7 +123,7 @@ class AuthController extends GetxController {
           .then((user) {
         SaveUserToFireStore(user);
       }); // .then((value) => print(value));
-      Get.offAll(() => ControlView());
+      Get.offAll(() => ControlView(), binding: HomeViewBinding());
     } catch (e) {
       Get.snackbar('Error Login Account', e.toString(),
           colorText: Colors.black, snackPosition: SnackPosition.BOTTOM);
