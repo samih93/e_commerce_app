@@ -20,7 +20,7 @@ class HomeViewModelService extends GetxController {
   List<Category> get CategoryList => _CategoryList;
 
   var _ProductList = <Product>[];
-  var _allProduct = <Product>[];
+  var _original_allProduct = <Product>[];
 
   List<Product> get ProductList => _ProductList;
 
@@ -41,11 +41,27 @@ class HomeViewModelService extends GetxController {
       _isHomePageReady = true;
       update();
     });
-    _allProduct = _ProductList;
+    _original_allProduct = _ProductList;
   }
 
   onchangeListView() {
     _isList = !isList;
+    update();
+  }
+
+  searchByProductName(String productName) {
+    print('searching...');
+    _ProductList = _ProductList.where((element) => element.name
+        .toString()
+        .toLowerCase()
+        .contains(productName.toLowerCase())).toList();
+
+    update();
+  }
+
+  clearSearch() {
+    print('clear search');
+    _ProductList = _original_allProduct;
     update();
   }
 
@@ -56,12 +72,12 @@ class HomeViewModelService extends GetxController {
       if (element.categoryId == categoryId) {
         element.isselected = !element.isselected;
         if (element.isselected == true) {
-          _ProductList = _allProduct
+          _ProductList = _original_allProduct
               .where((element) => element.categoryId == categoryId)
               .toList();
         } else {
           //NOTE if no category selected clear filter
-          _ProductList = _allProduct;
+          _ProductList = _original_allProduct;
         }
       }
     });
