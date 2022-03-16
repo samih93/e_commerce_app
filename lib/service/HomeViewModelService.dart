@@ -12,6 +12,8 @@ import 'package:get/get.dart';
 class HomeViewModelService extends GetxController {
   ValueNotifier<bool> _IsLoding = ValueNotifier(false);
   ValueNotifier<bool> get IsLoding => _IsLoding;
+  bool _isHomePageReady = false;
+  bool get isHomePageReady => _isHomePageReady;
 
   var _CategoryList = <Category>[];
 
@@ -35,7 +37,10 @@ class HomeViewModelService extends GetxController {
   HomeViewModelService() {
     getCategories().then((value) {});
     // getProducts(null);
-    getProducts().then((value) {});
+    getProducts().then((value) {
+      _isHomePageReady = true;
+      update();
+    });
     _allProduct = _ProductList;
   }
 
