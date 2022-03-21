@@ -121,43 +121,45 @@ class HomeView extends StatelessWidget {
   }
 
   Widget _SearchTextField(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Colors.grey.shade400,
-      ),
-      child: TextFormField(
-        controller: searchtextController,
-        style: TextStyle(fontSize: 23),
-        decoration: InputDecoration(
-            border: InputBorder.none,
-            prefixIcon: IconButton(
-              onPressed: () {
-                print('search');
-                FocusScope.of(context).unfocus();
-                print(searchtextController.text);
-                homeViewModelService_Needed.searchByProductName(
-                    searchtextController.text.trim().toString());
-              },
-              icon: Icon(
-                Icons.search,
-                color: Colors.black,
-              ),
-            ),
-            suffixIcon: IconButton(
-              onPressed: () {
-                print('close');
-                FocusScope.of(context).unfocus();
+    return Obx(
+      () => Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: Colors.grey.shade400,
+        ),
+        padding: EdgeInsetsDirectional.only(start: 17),
+        child: TextFormField(
+          onFieldSubmitted: (newValue) {
+            print('search');
+            FocusScope.of(context).unfocus();
+            print(searchtextController.text);
+            homeViewModelService_Needed
+                .searchByProductName(newValue.trim().toString());
+          },
+          onChanged: (value) => {homeViewModelService_Needed.ontyping(value)},
+          controller: searchtextController,
+          style: TextStyle(fontSize: 23),
+          decoration: InputDecoration(
+              border: InputBorder.none,
+              suffixIcon: homeViewModelService_Needed.textserach != ""
+                  ? IconButton(
+                      onPressed: () {
+                        print('close');
+                        FocusScope.of(context).unfocus();
 
-                homeViewModelService_Needed.clearSearch();
-                searchtextController.clear();
-              },
-              icon: Icon(
-                Icons.close,
-                color: Colors.black,
-              ),
-            ),
-            hintText: "Search ... "),
+                        homeViewModelService_Needed.clearSearch();
+                        searchtextController.clear();
+                      },
+                      icon: Icon(
+                        Icons.close,
+                        color: Colors.black,
+                      ),
+                    )
+                  : SizedBox(
+                      width: 0,
+                    ),
+              hintText: "Search ... "),
+        ),
       ),
     );
   }

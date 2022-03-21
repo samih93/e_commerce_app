@@ -62,6 +62,7 @@ class HomeViewModelService extends GetxController {
   clearSearch() {
     print('clear search');
     _ProductList = _original_allProduct;
+    textserach.value = '';
     update();
   }
 
@@ -183,5 +184,11 @@ class HomeViewModelService extends GetxController {
           });
       });
     update();
+  }
+
+  //NOTE search text -----------------------
+  var textserach = "".obs;
+  ontyping(String value) {
+    textserach.value = value.trim();
   }
 }
