@@ -119,6 +119,7 @@ class WishList extends StatelessWidget {
                                   BoxShadow(blurRadius: 10),
                                 ],
                               ),
+                              padding: EdgeInsetsDirectional.only(start: 15),
                               height: 120,
                               child: Row(
                                 children: [
@@ -222,7 +223,10 @@ class WishList extends StatelessWidget {
                                                                 homeViewModelService
                                                                         .ProductList[
                                                                     index],
-                                                                false);
+                                                                !homeViewModelService
+                                                                    .ProductList[
+                                                                        index]
+                                                                    .isfavorite);
                                                         Navigator.pop(context);
                                                         Toast.show(
                                                             "Item Removed from favorite",

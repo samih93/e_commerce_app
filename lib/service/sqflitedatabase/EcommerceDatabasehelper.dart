@@ -4,6 +4,7 @@ import 'package:e_commerce_app/Constant.dart';
 import 'package:e_commerce_app/models/Address.dart';
 import 'package:e_commerce_app/models/CartProduct.dart';
 import 'package:e_commerce_app/models/favoriteProduct.dart';
+import 'package:e_commerce_app/models/payment_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -62,6 +63,17 @@ class EcommerceDatabasehelper {
         $columnphone TEXT NOT NULL
         )
           ''');
+
+      await db.execute('''
+      CREATE TABLE $tablePayment (
+        $columnpaymentId INTEGER NOT NULL,
+        $columnCardNumber TEXT NOT NULL,
+        $columnCardExpiredDate TEXT NOT NULL,
+        $columnCardCVV TEXT NOT NULL,
+        $columnCardHolderName TEXT NOT NULL
+       
+        )
+          ''');
     });
   }
 
@@ -80,6 +92,12 @@ class EcommerceDatabasehelper {
   insertcartproduct(CartProduct model) async {
     var dbclient = await database;
     await dbclient.insert(tableCardProduct, model.toJson());
+    //  print("model.json " + model.toJson());
+  }
+
+  insertPayment(PaymentModel model) async {
+    var dbclient = await database;
+    await dbclient.insert(tablePayment, model.toJson());
     //  print("model.json " + model.toJson());
   }
 

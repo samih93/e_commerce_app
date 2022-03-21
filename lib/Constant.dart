@@ -40,3 +40,10 @@ final String columncity = "city";
 final String columnpostcode = "postcode";
 final String columncountry = "country";
 final String columnphone = "phone";
+
+final String tablePayment = "payment";
+final String columnpaymentId = "id";
+final String columnCardNumber = "number";
+final String columnCardExpiredDate = "expireddate";
+final String columnCardCVV = "cvv";
+final String columnCardHolderName = "name";
