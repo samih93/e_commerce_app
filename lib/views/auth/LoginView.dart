@@ -3,6 +3,7 @@
 import 'package:e_commerce_app/Constant.dart';
 import 'package:e_commerce_app/Controller/AuthController.dart';
 import 'package:e_commerce_app/views/auth/SignUpView.dart';
+import 'package:e_commerce_app/views/auth/forgot_password_screen.dart';
 import 'package:e_commerce_app/widgets/CustomButton.dart';
 import 'package:e_commerce_app/widgets/CustomTextFormField.dart';
 import 'package:e_commerce_app/widgets/CustumText.dart';
@@ -80,9 +81,15 @@ class LoginView extends GetWidget<AuthController> {
                   ),
                 ),
                 SizedBox(height: 15),
-                CustomText(
-                  text: "Forgot Password",
-                  alignment: Alignment.topRight,
+                GestureDetector(
+                  onTap: () {
+                    Get.to(ForgetPasswordScreen());
+                  },
+                  child: CustomText(
+                    text: "Forgot Password?",
+                    color: Colors.grey.shade700,
+                    alignment: Alignment.topRight,
+                  ),
                 ),
                 SizedBox(
                   height: 15,

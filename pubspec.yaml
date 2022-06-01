@@ -50,6 +50,7 @@ dependencies:
   uuid: ^3.0.5
   smooth_page_indicator: ^1.0.0+2
   flutter_credit_card: ^3.0.1
+  email_validator: ^2.0.1
 
 dev_dependencies:
   flutter_test:
