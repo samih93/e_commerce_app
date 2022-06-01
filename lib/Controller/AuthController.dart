@@ -195,4 +195,8 @@ class AuthController extends GetxController {
       saveUserDataTosharedPreference(UserModel.fromjson(value.data()));
     });
   }
+
+  Future resetpasword(String email) async {
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+  }
 }
