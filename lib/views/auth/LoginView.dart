@@ -7,6 +7,7 @@ import 'package:e_commerce_app/widgets/CustomButton.dart';
 import 'package:e_commerce_app/widgets/CustomTextFormField.dart';
 import 'package:e_commerce_app/widgets/CustumText.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:get/get.dart';
 
 class LoginView extends GetWidget<AuthController> {
@@ -104,21 +105,23 @@ class LoginView extends GetWidget<AuthController> {
                 SizedBox(
                   height: 20,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IconButton(
-                        onPressed: () {
-                          controller.facebookSignInMethod();
-                        },
+                ElevatedButton.icon(
+                    onPressed: () {
+                      controller.facebookSignInMethod();
+                    },
+                    icon: IconButton(
                         icon: Image.asset("assets/images/facebook.png")),
-                    IconButton(
-                        onPressed: () {
-                          controller.googleSignInMethod();
-                        },
-                        icon: Image.asset("assets/images/google.png")),
-                  ],
+                    label: Text("Sign in with facebook")),
+                SizedBox(
+                  height: 15,
                 ),
+                ElevatedButton.icon(
+                    onPressed: () {
+                      controller.googleSignInMethod();
+                    },
+                    icon: IconButton(
+                        icon: Image.asset("assets/images/google.png")),
+                    label: Text("Sign in with gmail")),
               ],
             ),
           ),
