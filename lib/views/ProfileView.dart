@@ -40,7 +40,10 @@ class ProfileView extends StatelessWidget {
                           shape: BoxShape.circle,
                           image: DecorationImage(
                               image: ProfileController.userModel != null &&
-                                      ProfileController.userModel.pic != ""
+                                      ProfileController.userModel.pic
+                                              .toString()
+                                              .trim() !=
+                                          ""
                                   ? NetworkImage(
                                       ProfileController.userModel.pic)
                                   : AssetImage(

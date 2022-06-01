@@ -163,8 +163,9 @@ class AuthController extends GetxController {
     try {
       await _auth
           .createUserWithEmailAndPassword(email: email, password: password)
-          .then((user) {
-        UserModel user = UserModel(email: email, name: name);
+          .then((userCredential) {
+        UserModel user = UserModel(
+            email: email, name: name, pic: '', userId: userCredential.user.uid);
         SaveUserToFireStore(user);
       }); // .then((value) => print(value));
       Get.offAll(() => ControlView(), binding: HomeViewBinding());

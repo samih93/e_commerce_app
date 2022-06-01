@@ -3,6 +3,7 @@ import 'package:e_commerce_app/models/UserModel.dart';
 import 'package:e_commerce_app/helper/localStorageUserData.dart';
 import 'package:e_commerce_app/views/auth/LoginView.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -24,6 +25,7 @@ class ProfileController extends GetxController {
 
   SignOut() async {
     GoogleSignIn().signOut();
+    FacebookLogin().logOut();
     await FirebaseAuth.instance.signOut();
     local_StorageUserData.deleteUser();
     Get.off(LoginView());
