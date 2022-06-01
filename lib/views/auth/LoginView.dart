@@ -94,13 +94,20 @@ class LoginView extends GetWidget<AuthController> {
                 SizedBox(
                   height: 15,
                 ),
-                CustomButton(
-                    text: "Sign In",
-                    onPress: () {
-                      _formkey.currentState.save();
-                      if (_formkey.currentState.validate())
-                        controller.SignInWithEmailAndPassword();
-                    }),
+                GetBuilder<AuthController>(
+                  init: Get.find(),
+                  builder: (authcontroller) => authcontroller.isloadingSignIn
+                      ? CircularProgressIndicator(
+                          color: primarycolor,
+                        )
+                      : CustomButton(
+                          text: "Sign In",
+                          onPress: () {
+                            _formkey.currentState.save();
+                            if (_formkey.currentState.validate())
+                              controller.SignInWithEmailAndPassword();
+                          }),
+                ),
                 SizedBox(
                   height: 30,
                 ),

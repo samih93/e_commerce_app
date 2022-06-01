@@ -145,11 +145,18 @@ class AuthController extends GetxController {
     }
   }
 
+  bool isloadingSignIn = false;
+
   void SignInWithEmailAndPassword() async {
+    isloadingSignIn = true;
+    update();
     try {
       await _auth
           .signInWithEmailAndPassword(email: email, password: password)
           .then((user) async {
+        isloadingSignIn = false;
+        update();
+
         _getCurrentUser(user.user.uid);
       }); // .then((value) => print(value));
       Get.offAll(() => ControlView(), binding: HomeViewBinding());
@@ -159,13 +166,18 @@ class AuthController extends GetxController {
     }
   }
 
+  bool isloadingCreateAccount = false;
   void CreateAccount() async {
+    isloadingCreateAccount = true;
+    update();
     try {
       await _auth
           .createUserWithEmailAndPassword(email: email, password: password)
           .then((userCredential) {
         UserModel user = UserModel(
             email: email, name: name, pic: '', userId: userCredential.user.uid);
+        isloadingCreateAccount = false;
+        update();
         SaveUserToFireStore(user);
       }); // .then((value) => print(value));
       Get.offAll(() => ControlView(), binding: HomeViewBinding());

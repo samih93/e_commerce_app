@@ -33,10 +33,13 @@ class ProfileView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
+                        padding: EdgeInsets.all(8),
                         margin: EdgeInsets.only(top: 10),
                         width: 70,
                         height: 70,
                         decoration: BoxDecoration(
+                          color: Colors.white,
+
                           shape: BoxShape.circle,
                           image: DecorationImage(
                               image: ProfileController.userModel != null &&

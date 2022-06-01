@@ -73,13 +73,19 @@ class SignUpView extends GetWidget<AuthController> {
                 SizedBox(
                   height: 30,
                 ),
-                CustomButton(
-                    text: "Sign Up",
-                    onPress: () {
-                      _formkey.currentState.save();
-                      if (_formkey.currentState.validate())
-                        controller.CreateAccount();
-                    }),
+                GetBuilder<AuthController>(
+                  init: Get.find(),
+                  builder: (authcontroller) =>
+                      authcontroller.isloadingCreateAccount
+                          ? CircularProgressIndicator()
+                          : CustomButton(
+                              text: "Sign Up",
+                              onPress: () {
+                                _formkey.currentState.save();
+                                if (_formkey.currentState.validate())
+                                  controller.CreateAccount();
+                              }),
+                ),
                 SizedBox(
                   height: 30,
                 ),

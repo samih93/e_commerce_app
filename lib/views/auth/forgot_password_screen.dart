@@ -2,6 +2,7 @@ import 'package:e_commerce_app/Controller/AuthController.dart';
 import 'package:e_commerce_app/views/auth/LoginView.dart';
 import 'package:e_commerce_app/widgets/CustomButton.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
@@ -49,13 +50,21 @@ class ForgetPasswordScreen extends GetWidget<AuthController> {
                       final bool isValid = EmailValidator.validate(
                           emailControllerText.text.toString().trim());
                       if (isValid) {
-                        await controller.resetpasword(
-                            emailControllerText.text.toString().trim());
-                        Toast.show("Password reset email sent ", context,
-                            duration: 2,
-                            backgroundColor: Colors.green,
-                            gravity: Toast.CENTER);
-                        Get.off(LoginView());
+                        await controller
+                            .resetpasword(
+                                emailControllerText.text.toString().trim())
+                            .then((value) {
+                          Toast.show("Password reset email sent ", context,
+                              duration: 2,
+                              backgroundColor: Colors.green,
+                              gravity: Toast.CENTER);
+                          Get.off(LoginView());
+                        }).catchError((error) {
+                          Toast.show("${error.toString()}", context,
+                              duration: 2,
+                              backgroundColor: Colors.red,
+                              gravity: Toast.CENTER);
+                        });
                       } else {
                         Toast.show("please Enter a valid email", context,
                             duration: 2,
