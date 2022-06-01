@@ -17,7 +17,7 @@ class LoginView extends GetWidget<AuthController> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -105,23 +105,81 @@ class LoginView extends GetWidget<AuthController> {
                 SizedBox(
                   height: 20,
                 ),
-                ElevatedButton.icon(
-                    onPressed: () {
-                      controller.facebookSignInMethod();
-                    },
-                    icon: IconButton(
-                        icon: Image.asset("assets/images/facebook.png")),
-                    label: Text("Sign in with facebook")),
+                GestureDetector(
+                  onTap: () {
+                    controller.facebookSignInMethod();
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.blue.shade800,
+                      ),
+                      width: double.infinity,
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Row(children: [
+                          Icon(
+                            Icons.facebook,
+                            color: Colors.white,
+                          ),
+                          SizedBox(
+                            width: 30,
+                          ),
+                          Text(
+                            "Sign in with facebook",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          )
+                        ]),
+                      ),
+                    ),
+                  ),
+                ),
                 SizedBox(
                   height: 15,
                 ),
-                ElevatedButton.icon(
-                    onPressed: () {
-                      controller.googleSignInMethod();
-                    },
-                    icon: IconButton(
-                        icon: Image.asset("assets/images/google.png")),
-                    label: Text("Sign in with gmail")),
+                GestureDetector(
+                  onTap: () {
+                    controller.facebookSignInMethod();
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.2),
+                            spreadRadius: 4,
+                            blurRadius: 6,
+                            offset: Offset(1, 1),
+                          ),
+                        ],
+                      ),
+                      width: double.infinity,
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Row(children: [
+                          Image.asset("assets/images/google.png"),
+                          SizedBox(
+                            width: 30,
+                          ),
+                          Text(
+                            "Sign in with google",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ]),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
               ],
             ),
           ),
