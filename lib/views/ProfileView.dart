@@ -1,8 +1,10 @@
 import 'package:e_commerce_app/Constant.dart';
 import 'package:e_commerce_app/Controller/ProfileController.dart';
+import 'package:e_commerce_app/Controller/payment_controller.dart';
+import 'package:e_commerce_app/models/payment_model.dart';
 import 'package:e_commerce_app/service/HomeViewModelService.dart';
 import 'package:e_commerce_app/views/ShippingAddressView.dart';
-import 'package:e_commerce_app/views/credit_card/payment_method.dart';
+import 'package:e_commerce_app/views/credit_card/payment_method_screen.dart';
 
 import 'package:e_commerce_app/widgets/CustumText.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +15,8 @@ import 'package:get/get.dart';
 import 'WishList.dart';
 
 class ProfileView extends StatelessWidget {
+
+  var controller = Get.put(PaymentController());
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ProfileController>(
@@ -153,8 +157,9 @@ class ProfileView extends StatelessWidget {
                         title: Text("Payment Method"),
                         leading: Icon(Icons.payment),
                         trailing: Icon(Icons.arrow_forward_ios_rounded),
-                        onTap: () {
-                          Get.to(PaymentMethod());
+                        onTap: () async {
+                         PaymentModel model = await controller.getPaymentMethod();
+                          Get.to(PaymentMethodScreen(model));
                         },
                       ),
                     ],

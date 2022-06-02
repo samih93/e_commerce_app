@@ -8,6 +8,7 @@ import 'package:e_commerce_app/models/payment_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:uuid/uuid.dart';
 
 class EcommerceDatabasehelper {
   // intsance wahad men hyda l class
@@ -95,11 +96,7 @@ class EcommerceDatabasehelper {
     //  print("model.json " + model.toJson());
   }
 
-  insertPayment(PaymentModel model) async {
-    var dbclient = await database;
-    await dbclient.insert(tablePayment, model.toJson());
-    //  print("model.json " + model.toJson());
-  }
+
 
   updateProductQuatity({String productId, int quatity}) async {
     var dbclient = await database;

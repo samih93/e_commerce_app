@@ -124,7 +124,7 @@ class LoginView extends GetWidget<AuthController> {
                     controller.facebookSignInMethod();
                   },
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
@@ -157,10 +157,10 @@ class LoginView extends GetWidget<AuthController> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    controller.facebookSignInMethod();
+                    controller.googleSignInMethod();
                   },
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
                     child: Container(
                       decoration: BoxDecoration(
                         color: Colors.white,
