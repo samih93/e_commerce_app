@@ -1,6 +1,6 @@
 // @dart=2.9
 
-import 'package:e_commerce_app/Constant.dart';
+import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:flutter/material.dart';
 
 import 'package:e_commerce_app/widgets/CustumText.dart';
@@ -13,11 +13,10 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
+    return MaterialButton(
       onPressed: onPress,
       color: primarycolor,
       textColor: Colors.white,
-      padding: EdgeInsets.all(18),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),

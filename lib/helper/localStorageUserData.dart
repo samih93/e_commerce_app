@@ -2,7 +2,7 @@
 
 import 'dart:convert';
 
-import 'package:e_commerce_app/Constant.dart';
+import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/models/UserModel.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';

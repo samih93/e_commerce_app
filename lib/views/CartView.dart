@@ -1,7 +1,8 @@
-import 'package:e_commerce_app/Constant.dart';
+import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/Controller/CartController.dart';
 import 'package:e_commerce_app/models/Product.dart';
 import 'package:e_commerce_app/views/DetailsProduct.dart';
+import 'package:e_commerce_app/views/order_confrimation_screen.dart';
 import 'package:e_commerce_app/widgets/CustomButton.dart';
 import 'package:e_commerce_app/widgets/CustumText.dart';
 import 'package:flutter/material.dart';
@@ -314,7 +315,9 @@ class CartView extends StatelessWidget {
                               ),
                               CustomButton(
                                 text: "Checkout",
-                                onPress: () {},
+                                onPress: () {
+                                  Get.to(OrderConfirmationScreen());
+                                },
                               ),
                             ],
                           ),

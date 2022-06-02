@@ -1,4 +1,4 @@
-import 'package:e_commerce_app/Constant.dart';
+import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/Controller/AuthController.dart';
 import 'package:e_commerce_app/Controller/CartController.dart';
 import 'package:e_commerce_app/Controller/HomeController.dart';

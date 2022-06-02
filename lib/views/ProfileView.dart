@@ -1,4 +1,4 @@
-import 'package:e_commerce_app/Constant.dart';
+import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/Controller/ProfileController.dart';
 import 'package:e_commerce_app/Controller/payment_controller.dart';
 import 'package:e_commerce_app/models/payment_model.dart';
@@ -15,7 +15,6 @@ import 'package:get/get.dart';
 import 'WishList.dart';
 
 class ProfileView extends StatelessWidget {
-
   var controller = Get.put(PaymentController());
   @override
   Widget build(BuildContext context) {
@@ -100,7 +99,7 @@ class ProfileView extends StatelessWidget {
                           title: Text("Shipping Address"),
                           leading: Icon(Icons.location_on_outlined),
                           trailing: Icon(Icons.arrow_forward_ios_rounded),
-                          onTap: () => Get.to(ShippingAddress())),
+                          onTap: () => Get.to(ShippingAddressScreen())),
                       Divider(
                         color: Colors.grey,
                         height: 2,
@@ -158,7 +157,8 @@ class ProfileView extends StatelessWidget {
                         leading: Icon(Icons.payment),
                         trailing: Icon(Icons.arrow_forward_ios_rounded),
                         onTap: () async {
-                         PaymentModel model = await controller.getPaymentMethod();
+                          PaymentModel model =
+                              await controller.getPaymentMethod();
                           Get.to(PaymentMethodScreen(model));
                         },
                       ),

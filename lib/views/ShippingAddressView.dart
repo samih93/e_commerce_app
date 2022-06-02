@@ -1,4 +1,4 @@
-import 'package:e_commerce_app/Constant.dart';
+import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/Controller/ShippingController.dart';
 import 'package:e_commerce_app/models/Address.dart';
 import 'package:e_commerce_app/widgets/CustomButton.dart';
@@ -9,14 +9,17 @@ import 'package:get/get.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:toast/toast.dart';
 
-class ShippingAddress extends StatelessWidget {
+class ShippingAddressScreen extends StatelessWidget {
   BuildContext _context;
   @override
   Widget build(BuildContext context) {
     _context = context;
     return Scaffold(
       appBar: AppBar(
-        title: CustomText(text: "Shipping Address"),
+        title: CustomText(
+          text: "Shipping Address",
+          color: Colors.white,
+        ),
         backgroundColor: primarycolor,
       ),
       body: GetBuilder<ShippingController>(

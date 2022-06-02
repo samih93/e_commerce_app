@@ -1,4 +1,4 @@
-import 'package:e_commerce_app/Constant.dart';
+import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/models/payment_model.dart';
 import 'package:e_commerce_app/service/sqflitedatabase/EcommerceDatabasehelper.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';

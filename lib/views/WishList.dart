@@ -1,4 +1,4 @@
-import 'package:e_commerce_app/Constant.dart';
+import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/Controller/CartController.dart';
 import 'package:e_commerce_app/models/favoriteProduct.dart';
 import 'package:e_commerce_app/service/HomeViewModelService.dart';
@@ -61,7 +61,7 @@ class WishList extends StatelessWidget {
               ),
           title: CustomText(
               text: "Wish List",
-              color: primarycolor,
+              color: Colors.white,
               alignment: Alignment.centerLeft),
         ),
         body: homeViewModelService.favoriteproduct.length == 0

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:e_commerce_app/Constant.dart';
+import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/models/Address.dart';
 import 'package:e_commerce_app/models/CartProduct.dart';
 import 'package:e_commerce_app/models/favoriteProduct.dart';
@@ -95,8 +95,6 @@ class EcommerceDatabasehelper {
     await dbclient.insert(tableCardProduct, model.toJson());
     //  print("model.json " + model.toJson());
   }
-
-
 
   updateProductQuatity({String productId, int quatity}) async {
     var dbclient = await database;

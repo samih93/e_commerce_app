@@ -1,7 +1,7 @@
 // @dart=2.9
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_commerce_app/Constant.dart';
+import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/models/Category.dart';
 import 'package:e_commerce_app/models/Product.dart';
 import 'package:e_commerce_app/service/ApplicationDb.dart';
