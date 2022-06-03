@@ -2,6 +2,8 @@ import 'package:e_commerce_app/Controller/CartController.dart';
 import 'package:e_commerce_app/Controller/HomeController.dart';
 import 'package:e_commerce_app/Controller/ProfileController.dart';
 import 'package:e_commerce_app/Controller/ShippingController.dart';
+import 'package:e_commerce_app/Controller/layoutcontroller.dart';
+import 'package:e_commerce_app/layout/layout.dart';
 import 'package:e_commerce_app/service/HomeViewModelService.dart';
 import 'package:e_commerce_app/helper/localStorageUserData.dart';
 import 'package:e_commerce_app/views/auth/ControlView.dart';
@@ -15,6 +17,7 @@ void main() async {
   await Firebase.initializeApp();
 
   //Get.put(HomeViewModelService());
+  Get.put(LayoutController());
   Get.put(CartController());
   //Get.put(HomeController());
   Get.put(ShippingController());
@@ -30,7 +33,7 @@ class MyApp extends StatelessWidget {
       // bind the dependency
       initialBinding: Binding(),
       home: Scaffold(
-        body: ControlView(),
+        body: EcommerceLayout(),
       ),
     );
   }

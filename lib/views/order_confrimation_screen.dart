@@ -1,6 +1,7 @@
 import 'package:e_commerce_app/Controller/CartController.dart';
 import 'package:e_commerce_app/Controller/HomeController.dart';
 import 'package:e_commerce_app/Controller/ShippingController.dart';
+import 'package:e_commerce_app/Controller/layoutcontroller.dart';
 import 'package:e_commerce_app/Controller/ordercontroller.dart';
 import 'package:e_commerce_app/Controller/payment_controller.dart';
 import 'package:e_commerce_app/models/Address.dart';
@@ -355,10 +356,10 @@ class OrderConfirmationScreen extends StatelessWidget {
                                         color: Colors.white, fontSize: 20),
                                   ),
                                   onPressed: () {
-                                    HomeController homeController =
-                                        Get.find<HomeController>();
+                                    LayoutController layoutController=
+                                        Get.find<LayoutController>();
 
-                                    homeController.changeSelectedValue(0);
+                                    layoutController.changeSelectedValue(0);
                                     Get.off(ControlView());
                                     cartcontroller.clearChekoutListFromBasket();
                                   },
