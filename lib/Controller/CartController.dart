@@ -140,4 +140,10 @@ class CartController extends GetxController {
     await dbHelper.deleteAllcartproducts();
     clearBasket();
   }
+
+  clearChekoutListFromBasket() {
+    cartcheckOutList.clear();
+
+    update();
+  }
 }

@@ -18,18 +18,21 @@ class OrderController extends GetxController {
   /// Add Order
   final databasereference = FirebaseFirestore.instance;
   bool isloadingPostOrder = false;
-  Future<void> addOrder(
+  bool isOrdersuccess = false;
+  Future<String> addOrder(
       Address address, List<CartProduct> items, double totalprice) async {
+    String orderid = "";
     isloadingPostOrder = true;
     update();
     var batch = databasereference.batch();
-    databasereference.collection('orders').add({
+    await databasereference.collection('orders').add({
       'totalprice': totalprice,
       "uId": profileController.userModel.userId,
       "shippingAddress": address.toJson(),
       "personelInformation": profileController.userModel.tojson(),
     }).then((value) async {
       //  add items collection
+      orderid = value.id;
       items.forEach((element) {
         batch.set(
             databasereference
@@ -43,10 +46,12 @@ class OrderController extends GetxController {
 
       print('order id :' + value.id);
       isloadingPostOrder = false;
+      isOrdersuccess = true;
       update();
     }).catchError((error) {
       print(error.toString());
     });
+    return orderid;
   }
 
 //get all orders

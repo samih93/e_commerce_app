@@ -1,4 +1,5 @@
 import 'package:e_commerce_app/Controller/CartController.dart';
+import 'package:e_commerce_app/Controller/HomeController.dart';
 import 'package:e_commerce_app/Controller/ProfileController.dart';
 import 'package:e_commerce_app/Controller/ShippingController.dart';
 import 'package:e_commerce_app/service/HomeViewModelService.dart';
@@ -15,6 +16,7 @@ void main() async {
 
   //Get.put(HomeViewModelService());
   Get.put(CartController());
+  //Get.put(HomeController());
   Get.put(ShippingController());
   runApp(MyApp());
 }

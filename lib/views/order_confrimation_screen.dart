@@ -1,4 +1,5 @@
 import 'package:e_commerce_app/Controller/CartController.dart';
+import 'package:e_commerce_app/Controller/HomeController.dart';
 import 'package:e_commerce_app/Controller/ShippingController.dart';
 import 'package:e_commerce_app/Controller/ordercontroller.dart';
 import 'package:e_commerce_app/Controller/payment_controller.dart';
@@ -6,7 +7,9 @@ import 'package:e_commerce_app/models/Address.dart';
 import 'package:e_commerce_app/models/payment_model.dart';
 import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/shared/style.dart';
+import 'package:e_commerce_app/views/ProfileView.dart';
 import 'package:e_commerce_app/views/ShippingAddressView.dart';
+import 'package:e_commerce_app/views/auth/ControlView.dart';
 import 'package:e_commerce_app/views/credit_card/payment_method_screen.dart';
 import 'package:e_commerce_app/widgets/CustomButton.dart';
 import 'package:e_commerce_app/widgets/CustumText.dart';
@@ -14,6 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class OrderConfirmationScreen extends StatelessWidget {
   //Address address;
@@ -74,7 +78,7 @@ class OrderConfirmationScreen extends StatelessWidget {
               ),
             ),
           ),
-          _bottomPaySection(),
+          _bottomPaySection(context),
         ],
       ),
     );
@@ -286,7 +290,7 @@ class OrderConfirmationScreen extends StatelessWidget {
         ],
       ));
 
-  _bottomPaySection() => Container(
+  _bottomPaySection(BuildContext context) => Container(
         color: Colors.white,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -317,11 +321,51 @@ class OrderConfirmationScreen extends StatelessWidget {
                   ? CircularProgressIndicator()
                   : CustomButton(
                       text: "PAY NOW",
-                      onPress: () {
-                        ordercontroller.addOrder(
-                            shippingController.addressmodel,
-                            cartcontroller.cartcheckOutList,
-                            cartcontroller.totalprice);
+                      onPress: () async {
+                        await ordercontroller
+                            .addOrder(
+                                shippingController.addressmodel,
+                                cartcontroller.cartcheckOutList,
+                                cartcontroller.totalprice)
+                            .then((value) {
+                          print(value.toString());
+                          var alertStyle = AlertStyle(
+                              animationDuration: Duration(milliseconds: 1));
+                          Alert(
+                            style: alertStyle,
+                            context: context,
+                            title: "ORDER SUCCESSFUL!",
+                            image: Image.asset("assets/images/success.png"),
+                            content: Text(
+                              "ORDER ID '$value'",
+                              style:
+                                  TextStyle(fontSize: 15, color: Colors.grey),
+                            ),
+                            closeFunction: () {},
+                            closeIcon: Container(),
+                            buttons: [
+                              DialogButton(
+                                child: Text(
+                                  "Shop More",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20),
+                                ),
+                                onPressed: () {
+                                  HomeController homeController =
+                                      Get.find<HomeController>();
+
+                                  homeController.changeSelectedValue(0);
+                                  Get.off(ControlView());
+                                  Future.delayed(Duration(seconds: 2))
+                                      .then((value) {
+                                    cartcontroller.clearChekoutListFromBasket();
+                                  });
+                                },
+                                width: 120,
+                              )
+                            ],
+                          ).show();
+                        });
                       },
                     ),
             ),

@@ -6,6 +6,7 @@ import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/Controller/CartController.dart';
 import 'package:e_commerce_app/models/Product.dart';
 import 'package:e_commerce_app/views/DetailsProduct.dart';
+import 'package:e_commerce_app/views/auth/ControlView.dart';
 import 'package:e_commerce_app/views/order_confrimation_screen.dart';
 import 'package:e_commerce_app/widgets/CustomButton.dart';
 import 'package:e_commerce_app/widgets/CustumText.dart';
@@ -60,51 +61,65 @@ class CartView extends StatelessWidget {
                                     "Cart ( ${cartcontroller.cartproductList.length} )",
                                 fontSize: 30,
                               ),
-                              GestureDetector(
-                                onTap: () {
-                                  var alertStyle = AlertStyle(
-                                      animationDuration:
-                                          Duration(milliseconds: 1));
-                                  Alert(
-                                    style: alertStyle,
-                                    context: context,
-                                    type: AlertType.error,
-                                    title: "Delete All Items",
-                                    desc:
-                                        "Are You Sure You Want To Delete All Items.",
-                                    buttons: [
-                                      DialogButton(
-                                        child: Text(
-                                          "Cancel",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 18),
-                                        ),
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        color: Colors.blue.shade400,
-                                      ),
-                                      DialogButton(
-                                        child: Text(
-                                          "Delete",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 18),
-                                        ),
-                                        onPressed: () async {
-                                          await cartcontroller
-                                              .deleteAllcartItems();
-                                          Navigator.pop(context);
-                                        },
-                                        color: Colors.red.shade400,
-                                      ),
-                                    ],
-                                  ).show();
-                                },
-                                child: Icon(
-                                  Icons.delete,
-                                ),
+                              Row(
+                                children: [
+                                  GestureDetector(
+                                      onTap: () => Get.off(() => ControlView()),
+                                      child: Icon(
+                                        Icons.home,
+                                        color: Colors.black,
+                                        size: 25,
+                                      )),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      var alertStyle = AlertStyle(
+                                          animationDuration:
+                                              Duration(milliseconds: 1));
+                                      Alert(
+                                        style: alertStyle,
+                                        context: context,
+                                        type: AlertType.error,
+                                        title: "Delete All Items",
+                                        desc:
+                                            "Are You Sure You Want To Delete All Items.",
+                                        buttons: [
+                                          DialogButton(
+                                            child: Text(
+                                              "Cancel",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 18),
+                                            ),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            color: Colors.blue.shade400,
+                                          ),
+                                          DialogButton(
+                                            child: Text(
+                                              "Delete",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 18),
+                                            ),
+                                            onPressed: () async {
+                                              await cartcontroller
+                                                  .deleteAllcartItems();
+                                              Navigator.pop(context);
+                                            },
+                                            color: Colors.red.shade400,
+                                          ),
+                                        ],
+                                      ).show();
+                                    },
+                                    child: Icon(
+                                      Icons.delete,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
