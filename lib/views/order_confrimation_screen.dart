@@ -1,8 +1,6 @@
 import 'package:e_commerce_app/Controller/CartController.dart';
-import 'package:e_commerce_app/Controller/CartController.dart';
-import 'package:e_commerce_app/Controller/CartController.dart';
-import 'package:e_commerce_app/Controller/CartController.dart';
 import 'package:e_commerce_app/Controller/ShippingController.dart';
+import 'package:e_commerce_app/Controller/ordercontroller.dart';
 import 'package:e_commerce_app/Controller/payment_controller.dart';
 import 'package:e_commerce_app/models/Address.dart';
 import 'package:e_commerce_app/models/payment_model.dart';
@@ -23,6 +21,8 @@ class OrderConfirmationScreen extends StatelessWidget {
 
   var paymentcontroller = Get.put(PaymentController());
   var cartcontroller = Get.find<CartController>();
+  var ordercontroller = Get.find<OrderController>();
+  var shippingController = Get.find<ShippingController>();
 
   @override
   Widget build(BuildContext context) {
@@ -311,9 +311,19 @@ class OrderConfirmationScreen extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            CustomButton(
-              text: "PAY NOW",
-              onPress: () {},
+            GetBuilder<OrderController>(
+              init: OrderController(),
+              builder: (orderController) => orderController.isloadingPostOrder
+                  ? CircularProgressIndicator()
+                  : CustomButton(
+                      text: "PAY NOW",
+                      onPress: () {
+                        ordercontroller.addOrder(
+                            shippingController.addressmodel,
+                            cartcontroller.cartcheckOutList,
+                            cartcontroller.totalprice);
+                      },
+                    ),
             ),
           ]),
         ),

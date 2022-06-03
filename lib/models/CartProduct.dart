@@ -32,7 +32,7 @@ class CartProduct {
     image = map['image'];
     description = map['description'];
     price = map['price'].toString();
-    color = HexColor.fromHex(map['color']);
+    color = map['color'] != null ? HexColor.fromHex(map['color']) : null;
     size = map['size'];
     quantity = int.parse(map['quantity'].toString());
 

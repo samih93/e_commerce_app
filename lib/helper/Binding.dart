@@ -2,6 +2,7 @@ import 'package:e_commerce_app/Controller/AuthController.dart';
 import 'package:e_commerce_app/Controller/CartController.dart';
 import 'package:e_commerce_app/Controller/HomeController.dart';
 import 'package:e_commerce_app/Controller/ShippingController.dart';
+import 'package:e_commerce_app/Controller/ordercontroller.dart';
 import 'package:e_commerce_app/Controller/payment_controller.dart';
 import 'package:e_commerce_app/service/HomeViewModelService.dart';
 import 'package:e_commerce_app/helper/localStorageUserData.dart';
@@ -19,6 +20,7 @@ class Binding extends Bindings {
     Get.lazyPut(() => CartController());
     Get.lazyPut(() => ShippingController());
     Get.lazyPut(() => PaymentController());
+    Get.lazyPut(() => OrderController());
     //Get.lazyPut(() => ProfileController());
   }
 }
