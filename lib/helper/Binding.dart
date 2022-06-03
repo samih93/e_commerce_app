@@ -15,10 +15,8 @@ class Binding extends Bindings {
     // TODO: implement dependencies
     Get.lazyPut(() => AuthController());
     Get.lazyPut(() => HomeController());
-    Get.lazyPut(() => HomeViewModelService());
+    //Get.lazyPut(() => HomeViewModelService());
     Get.lazyPut(() => localStorageUserData());
-    Get.lazyPut(() => CartController());
-    Get.lazyPut(() => ShippingController());
     Get.lazyPut(() => PaymentController());
     Get.lazyPut(() => OrderController());
     //Get.lazyPut(() => ProfileController());

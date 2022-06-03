@@ -15,6 +15,7 @@ class CartController extends GetxController {
   List<CartProduct> _cartproductList = [];
 
   List<CartProduct> get cartproductList => _cartproductList;
+
   List<CartProduct> get cartcheckOutList =>
       _cartproductList.where((element) => element.ischecked == true).toList();
 
@@ -142,7 +143,9 @@ class CartController extends GetxController {
   }
 
   clearChekoutListFromBasket() {
-    cartcheckOutList.clear();
+    cartproductList.forEach((element) {
+      if (element.ischecked) cartproductList.remove(element);
+    });
 
     update();
   }

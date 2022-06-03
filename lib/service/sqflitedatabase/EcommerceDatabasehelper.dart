@@ -67,7 +67,7 @@ class EcommerceDatabasehelper {
 
       await db.execute('''
       CREATE TABLE $tablePayment (
-        $columnpaymentId INTEGER NOT NULL,
+        $columnpaymentId String NOT NULL,
         $columnCardNumber TEXT NOT NULL,
         $columnCardExpiredDate TEXT NOT NULL,
         $columnCardCVV TEXT NOT NULL,

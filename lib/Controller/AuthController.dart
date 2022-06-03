@@ -81,7 +81,7 @@ class AuthController extends GetxController {
       _isloading = false;
       update();
     });
-    Get.offAll(() => ControlView(), binding: HomeViewBinding());
+    Get.offAll(() => ControlView(), binding: HomeViewBinding(),);
   }
 
   void facebookSignInMethod() async {

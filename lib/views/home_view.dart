@@ -17,7 +17,7 @@ import 'package:e_commerce_app/widgets/animatedIcon.dart';
 class HomeView extends StatelessWidget {
   BuildContext _context;
   HomeViewModelService homeViewModelService_Needed =
-      Get.find<HomeViewModelService>();
+      Get.put(HomeViewModelService());
 
   var searchtextController = TextEditingController();
   @override

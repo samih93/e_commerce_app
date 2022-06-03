@@ -28,6 +28,7 @@ class OrderController extends GetxController {
     await databasereference.collection('orders').add({
       'totalprice': totalprice,
       "uId": profileController.userModel.userId,
+      'orderdate': Timestamp.now(),
       "shippingAddress": address.toJson(),
       "personelInformation": profileController.userModel.tojson(),
     }).then((value) async {

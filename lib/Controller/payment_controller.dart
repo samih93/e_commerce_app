@@ -20,14 +20,15 @@ class PaymentController extends GetxController {
   PaymentModel paymentModel = null;
 
   Future insertPaymentCard(PaymentModel model) async {
-    await insertPayment(model);
-  }
-
-  void insertPayment(PaymentModel model) async {
     var uuid = Uuid();
     model.id = uuid.v1();
+    print(model.toJson());
     var dbclient = await dbHelper.database;
-    await dbclient.insert(tablePayment, model.toJson());
+    await dbclient.insert(tablePayment, model.toJson()).then((value) {
+      print("inseted");
+    }).catchError((error) {
+      print(error.toString());
+    });
     //  print("model.json " + model.toJson());
   }
 
@@ -41,12 +42,18 @@ class PaymentController extends GetxController {
 
   Future<PaymentModel> getPaymentMethod() async {
     var dbclient = await dbHelper.database;
-    var payment_query = await dbclient.query(tablePayment, limit: 1);
+    var payment_query = await dbclient
+        .query(tablePayment, limit: 1)
+        .then((value) {})
+        .catchError((error) {
+      print(error.toString());
+    });
     Map<String, dynamic> map = null;
-    ;
-    print("payment lenght " + payment_query.length.toString());
 
-    if (payment_query.length > 0) map = payment_query.first;
+    //print("payment lenght " + payment_query.length.toString());
+
+    print(payment_query);
+    if (payment_query != null) map = payment_query.first;
     paymentModel = map != null ? PaymentModel.fromJson(map) : null;
     update();
 

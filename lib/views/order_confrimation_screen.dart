@@ -20,7 +20,7 @@ import 'package:get/get.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 class OrderConfirmationScreen extends StatelessWidget {
-  //Address address;
+  //Address address;)
   OrderConfirmationScreen({Key key}) : super(key: key);
 
   var paymentcontroller = Get.put(PaymentController());
@@ -89,65 +89,66 @@ class OrderConfirmationScreen extends StatelessWidget {
           Get.to(ShippingAddressScreen());
         },
         child: GetBuilder<ShippingController>(
-          init: Get.find<ShippingController>(),
-          builder: (controller) => Container(
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(10)),
-            padding: EdgeInsets.all(14),
-            child: controller.addressmodel != null
-                ? Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+            init: Get.find<ShippingController>(),
+            builder: (controller) => Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10)),
+                  padding: EdgeInsets.all(14),
+                  child: controller.addressmodel != null
+                      ? Row(
                           children: [
-                            Text(
-                              "${controller.addressmodel.firstname.toString()} ${controller.addressmodel.lastname.toString()} , ${controller.addressmodel.country}-${controller.addressmodel.phone}",
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 8.0),
-                              child: Wrap(
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "${controller.addressmodel.location} - ${controller.addressmodel.city} - ${controller.addressmodel.state}",
-                                    style: greyColor,
+                                    "${controller.addressmodel.firstname.toString()} ${controller.addressmodel.lastname.toString()} , ${controller.addressmodel.country}-${controller.addressmodel.phone}",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
                                   ),
-                                  Text(
-                                    "${controller.addressmodel.location} - ${controller.addressmodel.country.split(")")[0].substring(1)} - ${controller.addressmodel.postcode}",
-                                    style: greyColor,
+                                  SizedBox(
+                                    height: 5,
                                   ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 8.0),
+                                    child: Wrap(
+                                      children: [
+                                        Text(
+                                          "${controller.addressmodel.location} - ${controller.addressmodel.city} - ${controller.addressmodel.state}",
+                                          style: greyColor,
+                                        ),
+                                        Text(
+                                          "${controller.addressmodel.location} - ${controller.addressmodel.country.split(")")[0].substring(1)} - ${controller.addressmodel.postcode}",
+                                          style: greyColor,
+                                        ),
+                                      ],
+                                    ),
+                                  )
                                 ],
                               ),
-                            )
+                            ),
+                            Icon(
+                              Icons.arrow_forward_ios_rounded,
+                              color: Colors.grey,
+                            ),
+                          ],
+                        )
+                      : Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                "Enter Shipping Address",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            Icon(
+                              Icons.arrow_forward_ios_rounded,
+                              color: Colors.grey,
+                            ),
                           ],
                         ),
-                      ),
-                      Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        color: Colors.grey,
-                      ),
-                    ],
-                  )
-                : Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          "Enter Shipping Address",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        color: Colors.grey,
-                      ),
-                    ],
-                  ),
-          ),
-        ),
+                )),
       );
 
   _visaCardSection() => GestureDetector(
@@ -176,10 +177,11 @@ class OrderConfirmationScreen extends StatelessWidget {
                   width: 15,
                 ),
                 Expanded(
-                  child: Text(
-                    "${paymentcontroller.paymentModel.number.split(' ')[0]}  * * * * * * * * ${paymentcontroller.paymentModel.number.split(' ')[3]} ",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
+                  child: paymentcontroller.paymentModel != null
+                      ? Text(
+                          "${paymentcontroller.paymentModel.number.split(' ')[0]}  * * * * * * * * ${paymentcontroller.paymentModel.number.split(' ')[3]} ",
+                          style: TextStyle(fontWeight: FontWeight.bold))
+                      : Text("Select Payment Method"),
                 ),
                 Icon(
                   Icons.arrow_forward_ios_rounded,
@@ -293,7 +295,7 @@ class OrderConfirmationScreen extends StatelessWidget {
   _bottomPaySection(BuildContext context) => Container(
         color: Colors.white,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(10.0),
           child: Column(children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -322,50 +324,56 @@ class OrderConfirmationScreen extends StatelessWidget {
                   : CustomButton(
                       text: "PAY NOW",
                       onPress: () async {
-                        await ordercontroller
-                            .addOrder(
-                                shippingController.addressmodel,
-                                cartcontroller.cartcheckOutList,
-                                cartcontroller.totalprice)
-                            .then((value) {
-                          print(value.toString());
-                          var alertStyle = AlertStyle(
-                              animationDuration: Duration(milliseconds: 1));
-                          Alert(
-                            style: alertStyle,
-                            context: context,
-                            title: "ORDER SUCCESSFUL!",
-                            image: Image.asset("assets/images/success.png"),
-                            content: Text(
-                              "ORDER ID '$value'",
-                              style:
-                                  TextStyle(fontSize: 15, color: Colors.grey),
-                            ),
-                            closeFunction: () {},
-                            closeIcon: Container(),
-                            buttons: [
-                              DialogButton(
-                                child: Text(
-                                  "Shop More",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
-                                ),
-                                onPressed: () {
-                                  HomeController homeController =
-                                      Get.find<HomeController>();
+                        if (paymentcontroller.paymentModel != null &&
+                            shippingController.addressmodel != null) {
+                          await ordercontroller
+                              .addOrder(
+                                  shippingController.addressmodel,
+                                  cartcontroller.cartcheckOutList,
+                                  cartcontroller.totalprice)
+                              .then((value) {
+                            print(value.toString());
+                            var alertStyle = AlertStyle(
+                                animationDuration: Duration(milliseconds: 1));
+                            Alert(
+                              style: alertStyle,
+                              context: context,
+                              title: "ORDER SUCCESSFUL!",
+                              image: Image.asset("assets/images/success.png"),
+                              content: Text(
+                                "ORDER ID '$value'",
+                                style:
+                                    TextStyle(fontSize: 15, color: Colors.grey),
+                              ),
+                              closeFunction: () {},
+                              closeIcon: Container(),
+                              buttons: [
+                                DialogButton(
+                                  child: Text(
+                                    "Shop More",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 20),
+                                  ),
+                                  onPressed: () {
+                                    HomeController homeController =
+                                        Get.find<HomeController>();
 
-                                  homeController.changeSelectedValue(0);
-                                  Get.off(ControlView());
-                                  Future.delayed(Duration(seconds: 2))
-                                      .then((value) {
+                                    homeController.changeSelectedValue(0);
+                                    Get.off(ControlView());
                                     cartcontroller.clearChekoutListFromBasket();
-                                  });
-                                },
-                                width: 120,
-                              )
-                            ],
-                          ).show();
-                        });
+                                  },
+                                  width: 120,
+                                )
+                              ],
+                            ).show();
+                          });
+                        } else {
+                          myCustomSnackbar(
+                              title: "please fill empty data",
+                              body:
+                                  "Please fill shipping address and payment method",
+                              type: toastType.Error);
+                        }
                       },
                     ),
             ),

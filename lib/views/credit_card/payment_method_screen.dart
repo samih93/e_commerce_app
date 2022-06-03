@@ -211,17 +211,15 @@ class PaymentMethodScreenState extends State<PaymentMethodScreen> {
                                     number: cardNumber,
                                     expireddate: expiryDate,
                                     cvv: cvvCode);
+
                                 paymentController
                                     .insertPaymentCard(model)
                                     .then((value) {
-                                  print("inserted");
                                   Toast.show("Payment method inserted", context,
                                       backgroundColor: Colors.green,
                                       duration: 2,
                                       gravity: Toast.TOP);
                                   Get.back();
-                                }).catchError((error) {
-                                  print(error.toString());
                                 });
                                 // is model !=null we need to update
                               } else {
