@@ -15,6 +15,8 @@ class CartController extends GetxController {
   List<CartProduct> _cartproductList = [];
 
   List<CartProduct> get cartproductList => _cartproductList;
+  List<CartProduct> get cartcheckOutList =>
+      _cartproductList.where((element) => element.ischecked == true).toList();
 
   double get totalprice => _getTotalPrice();
 
@@ -126,5 +128,16 @@ class CartController extends GetxController {
   onchangeCheckbox(index, value) {
     _cartproductList[index].ischecked = value;
     update();
+  }
+
+  void clearBasket() {
+    _cartproductList.clear();
+    update();
+  }
+
+  Future<void> deleteAllcartItems() async {
+    dbHelper = EcommerceDatabasehelper.db;
+    await dbHelper.deleteAllcartproducts();
+    clearBasket();
   }
 }

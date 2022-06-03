@@ -5,6 +5,7 @@ import 'package:e_commerce_app/models/payment_model.dart';
 import 'package:e_commerce_app/service/HomeViewModelService.dart';
 import 'package:e_commerce_app/views/ShippingAddressView.dart';
 import 'package:e_commerce_app/views/credit_card/payment_method_screen.dart';
+import 'package:e_commerce_app/widgets/CustomButton.dart';
 
 import 'package:e_commerce_app/widgets/CustumText.dart';
 import 'package:flutter/material.dart';
@@ -157,9 +158,8 @@ class ProfileView extends StatelessWidget {
                         leading: Icon(Icons.payment),
                         trailing: Icon(Icons.arrow_forward_ios_rounded),
                         onTap: () async {
-                          PaymentModel model =
-                              await controller.getPaymentMethod();
-                          Get.to(PaymentMethodScreen(model));
+                          await controller.getPaymentMethod();
+                          Get.to(PaymentMethodScreen());
                         },
                       ),
                     ],
@@ -167,14 +167,9 @@ class ProfileView extends StatelessWidget {
                 ),
                 Container(
                   margin: EdgeInsets.all(15),
-                  child: ListTile(
-                    title: Center(
-                      child: Text(
-                        "Sign Out",
-                      ),
-                    ),
-                    tileColor: primarycolor,
-                    onTap: () => ProfileController.SignOut(),
+                  child: CustomButton(
+                    text: "Sign Out",
+                    onPress: () => ProfileController.SignOut(),
                   ),
                 ),
               ],

@@ -117,6 +117,12 @@ class EcommerceDatabasehelper {
     print("Deleted");
   }
 
+  deleteAllcartproducts() async {
+    var dbclient = await database;
+    await dbclient.rawDelete("DELETE  FROM $tableCardProduct");
+    print("Deleted");
+  }
+
   // add product favorite to sqllite
   Future<List<favoriteProduct>> addfavoriteproduct(
       favoriteProduct model) async {

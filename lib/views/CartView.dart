@@ -1,3 +1,7 @@
+import 'package:e_commerce_app/Controller/ShippingController.dart';
+import 'package:e_commerce_app/Controller/payment_controller.dart';
+import 'package:e_commerce_app/models/Address.dart';
+import 'package:e_commerce_app/models/payment_model.dart';
 import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/Controller/CartController.dart';
 import 'package:e_commerce_app/models/Product.dart';
@@ -11,6 +15,8 @@ import 'package:get/get.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 class CartView extends StatelessWidget {
+  var shippingAddressController = Get.find<ShippingController>();
+  var paymentMethodController = Get.put(PaymentController());
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CartController>(
@@ -54,8 +60,51 @@ class CartView extends StatelessWidget {
                                     "Cart ( ${cartcontroller.cartproductList.length} )",
                                 fontSize: 30,
                               ),
-                              Icon(
-                                Icons.delete,
+                              GestureDetector(
+                                onTap: () {
+                                  var alertStyle = AlertStyle(
+                                      animationDuration:
+                                          Duration(milliseconds: 1));
+                                  Alert(
+                                    style: alertStyle,
+                                    context: context,
+                                    type: AlertType.error,
+                                    title: "Delete All Items",
+                                    desc:
+                                        "Are You Sure You Want To Delete All Items.",
+                                    buttons: [
+                                      DialogButton(
+                                        child: Text(
+                                          "Cancel",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        color: Colors.blue.shade400,
+                                      ),
+                                      DialogButton(
+                                        child: Text(
+                                          "Delete",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18),
+                                        ),
+                                        onPressed: () async {
+                                          await cartcontroller
+                                              .deleteAllcartItems();
+                                          Navigator.pop(context);
+                                        },
+                                        color: Colors.red.shade400,
+                                      ),
+                                    ],
+                                  ).show();
+                                },
+                                child: Icon(
+                                  Icons.delete,
+                                ),
                               ),
                             ],
                           ),
@@ -315,8 +364,13 @@ class CartView extends StatelessWidget {
                               ),
                               CustomButton(
                                 text: "Checkout",
-                                onPress: () {
-                                  Get.to(OrderConfirmationScreen());
+                                color:
+                                    cartcontroller.cartcheckOutList.length == 0
+                                        ? primarycolor.shade200
+                                        : primarycolor,
+                                onPress: () async {
+                                  if (cartcontroller.cartcheckOutList.length !=
+                                      0) Get.to(OrderConfirmationScreen());
                                 },
                               ),
                             ],

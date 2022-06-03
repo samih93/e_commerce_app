@@ -8,14 +8,16 @@ import 'package:e_commerce_app/widgets/CustumText.dart';
 class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback onPress;
+  Color color;
 
-  CustomButton({this.text, this.onPress});
+  CustomButton({this.text, this.onPress, this.color});
 
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
+      height: 50,
       onPressed: onPress,
-      color: primarycolor,
+      color: color ?? primarycolor,
       textColor: Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),

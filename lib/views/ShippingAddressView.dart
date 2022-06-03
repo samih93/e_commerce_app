@@ -206,7 +206,9 @@ class ShippingAddressScreen extends StatelessWidget {
                         // save form state to save all field
                         shippingController.formstate.currentState.save();
                         shippingController.insertAddress(Address(
-                          id: shippingController.addressmodel.id,
+                          id: shippingController.addressmodel != null
+                              ? shippingController.addressmodel.id
+                              : '',
                           firstname: shippingController.firstname,
                           lastname: shippingController.lastname,
                           location: shippingController.address,
@@ -216,6 +218,7 @@ class ShippingAddressScreen extends StatelessWidget {
                           country: shippingController.country,
                           phone: shippingController.phone,
                         ));
+                        Get.back();
 
                         // Toast if added or updated
                         // if (shippingController.list_of_address.length == 0) {
