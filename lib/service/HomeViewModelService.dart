@@ -157,13 +157,10 @@ class HomeViewModelService extends GetxController {
     // });
     await ApplicationDb().getProducts().then((value) {
       for (int i = 0; i < value.length; i++) {
-        print(value[i].data());
+        //   print(value[i].data());
         _ProductList.add(Product.fromJson(value[i].data()));
       }
 
-      _ProductList.forEach((element) {
-        print(element.toJson());
-      });
       _IsLoding.value = false;
       update();
 

@@ -2,9 +2,10 @@
 
 import 'package:e_commerce_app/helper/homeviewbinding.dart';
 import 'package:e_commerce_app/helper/localStorageUserData.dart';
+import 'package:e_commerce_app/layout/layout.dart';
 import 'package:e_commerce_app/models/UserModel.dart';
 import 'package:e_commerce_app/service/FireStoreUser.dart';
-import 'package:e_commerce_app/views/auth/ControlView.dart';
+import 'package:e_commerce_app/views/auth/LoginView.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
@@ -23,23 +24,21 @@ class AuthController extends GetxController {
   bool _showpassword = true;
   bool get showpassword => _showpassword;
 
-  final localStorageUserData local_StorageUserData = Get.find();
-
   GoogleSignInAccount _googleuser;
 
   //ToDo:
-  final _user = Rx<User>();
-  String get user => _user.value?.email;
+  // final _user = Rx<User>();
+  // String get user => _user.value?.email;
 
   @override
   void onInit() async {
     // TODO: implement onInit
     super.onInit();
     // any change in _auth bind the result to _user
-    _user.bindStream(_auth.authStateChanges());
-    if (_auth.currentUser != null) {
-      _getCurrentUser(_auth.currentUser.uid);
-    }
+    // _user.bindStream(_auth.authStateChanges());
+    // if (_auth.currentUser != null) {
+    //   _getCurrentUser(_auth.currentUser.uid);
+    // }
   }
 
   @override
@@ -59,7 +58,8 @@ class AuthController extends GetxController {
     update();
   }
 
-  void googleSignInMethod() async {
+  Future<UserModel> googleSignInMethod() async {
+    UserModel userModel = null;
     _isloading = true;
     // sign in with google
     final GoogleSignInAccount googleuser = await _googleSignIn.signIn();
@@ -71,7 +71,7 @@ class AuthController extends GetxController {
         idToken: googleSignInAuthentication.idToken,
         accessToken: googleSignInAuthentication.accessToken);
     await _auth.signInWithCredential(credential).then((usercredential) {
-      UserModel userModel = UserModel(
+      userModel = UserModel(
           email: usercredential.user.email,
           name: usercredential.user.displayName,
           pic: usercredential.user.photoURL,
@@ -81,20 +81,15 @@ class AuthController extends GetxController {
       _isloading = false;
       update();
     });
-    Get.offAll(() => ControlView(), binding: HomeViewBinding(),);
+    // Get.offAll(
+    //   () => EcommerceLayout(),
+    //   binding: HomeViewBinding(),
+    // );
+    return userModel;
   }
 
-  void facebookSignInMethod() async {
-    // final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
-
-    // final accessToken = result.accessToken.token;
-    // if (result.status == FacebookLoginStatus.loggedIn) {
-    //   final facebookcredential = FacebookAuthProvider.credential(accessToken);
-    //   await _auth.signInWithCredential(facebookcredential).then((user) {
-    //     SaveUserToFireStore(user);
-    //   });
-    //   Get.offAll(() => ControlView(), binding: HomeViewBinding());
-    // }
+  Future<UserModel> facebookSignInMethod() async {
+    UserModel userModel = null;
 
     // Log in
     final res = await fb.logIn(permissions: [
@@ -126,12 +121,12 @@ class AuthController extends GetxController {
         final facebookcredential =
             FacebookAuthProvider.credential(accessToken.token);
         await _auth.signInWithCredential(facebookcredential).then((value) {
-          UserModel user = UserModel(
+          userModel = UserModel(
               email: value.user.email,
               name: profile.firstName + " " + profile.lastName,
               pic: imageUrl,
               userId: value.user.uid);
-          SaveUserToFireStore(user);
+          SaveUserToFireStore(userModel);
         });
 
         break;
@@ -143,48 +138,58 @@ class AuthController extends GetxController {
         print('Error while log in: ${res.error}');
         break;
     }
+    return userModel;
   }
 
   bool isloadingSignIn = false;
 
-  void SignInWithEmailAndPassword() async {
+  Future<UserModel> SignInWithEmailAndPassword() async {
+    UserModel userModel = null;
     isloadingSignIn = true;
     update();
     try {
       await _auth
           .signInWithEmailAndPassword(email: email, password: password)
-          .then((user) async {
+          .then((value) async {
+        userModel = UserModel(
+            email: value.user.email,
+            name: value.user.displayName,
+            pic: '',
+            userId: value.user.uid);
         isloadingSignIn = false;
         update();
 
-        _getCurrentUser(user.user.uid);
+        // _getCurrentUser(user.user.uid);
       }); // .then((value) => print(value));
-      Get.offAll(() => ControlView(), binding: HomeViewBinding());
+      //Get.offAll(() => EcommerceLayout(), binding: HomeViewBinding());
     } catch (e) {
       Get.snackbar('Error Login Account', e.toString(),
           colorText: Colors.black, snackPosition: SnackPosition.BOTTOM);
     }
+    return userModel;
   }
 
   bool isloadingCreateAccount = false;
-  void CreateAccount() async {
+  Future<UserModel> CreateAccount() async {
+    UserModel userModel = null;
     isloadingCreateAccount = true;
     update();
     try {
       await _auth
           .createUserWithEmailAndPassword(email: email, password: password)
           .then((userCredential) {
-        UserModel user = UserModel(
+        userModel = UserModel(
             email: email, name: name, pic: '', userId: userCredential.user.uid);
         isloadingCreateAccount = false;
         update();
-        SaveUserToFireStore(user);
+        SaveUserToFireStore(userModel);
       }); // .then((value) => print(value));
-      Get.offAll(() => ControlView(), binding: HomeViewBinding());
+      // Get.offAll(() => EcommerceLayout(), binding: HomeViewBinding());
     } catch (e) {
       Get.snackbar('Error Login Account', e.toString(),
           colorText: Colors.black, snackPosition: SnackPosition.BOTTOM);
     }
+    return userModel;
   }
 
   SaveUserToFireStore(UserModel user) async {
@@ -194,19 +199,19 @@ class AuthController extends GetxController {
     //     name: user.user.displayName ?? name,
     //     pic: user.user.photoURL ?? "");
     await FireStoreUser().AddUserToFireStore(user);
-    _getCurrentUser(user.userId);
+    // _getCurrentUser(user.userId);
   }
 
-  saveUserDataTosharedPreference(UserModel userModel) async {
-    local_StorageUserData.setUser(userModel);
-  }
+  // saveUserDataTosharedPreference(UserModel userModel) async {
+  //   local_StorageUserData.setUser(userModel);
+  // }
 
-  void _getCurrentUser(String uid) async {
-    await FireStoreUser().getCurrentUser(uid).then((value) {
-      //  print(value.data());
-      saveUserDataTosharedPreference(UserModel.fromjson(value.data()));
-    });
-  }
+  // void _getCurrentUser(String uid) async {
+  //   await FireStoreUser().getCurrentUser(uid).then((value) {
+  //     //  print(value.data());
+  //     saveUserDataTosharedPreference(UserModel.fromjson(value.data()));
+  //   });
+  // }
 
   Future resetpasword(String email) async {
     await FirebaseAuth.instance.sendPasswordResetEmail(email: email);

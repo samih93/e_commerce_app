@@ -1,6 +1,5 @@
 import 'package:e_commerce_app/Controller/AuthController.dart';
 import 'package:e_commerce_app/Controller/CartController.dart';
-import 'package:e_commerce_app/Controller/HomeController.dart';
 import 'package:e_commerce_app/Controller/ShippingController.dart';
 import 'package:e_commerce_app/Controller/ordercontroller.dart';
 import 'package:e_commerce_app/Controller/payment_controller.dart';
@@ -14,9 +13,7 @@ class Binding extends Bindings {
   void dependencies() {
     // TODO: implement dependencies
     Get.lazyPut(() => AuthController());
-    Get.lazyPut(() => HomeController());
     //Get.lazyPut(() => HomeViewModelService());
-    Get.lazyPut(() => localStorageUserData());
     Get.lazyPut(() => PaymentController());
     Get.lazyPut(() => OrderController());
     //Get.lazyPut(() => ProfileController());

@@ -1,16 +1,15 @@
 import 'package:e_commerce_app/Controller/CartController.dart';
-import 'package:e_commerce_app/Controller/HomeController.dart';
 import 'package:e_commerce_app/Controller/ShippingController.dart';
 import 'package:e_commerce_app/Controller/layoutcontroller.dart';
 import 'package:e_commerce_app/Controller/ordercontroller.dart';
 import 'package:e_commerce_app/Controller/payment_controller.dart';
+import 'package:e_commerce_app/layout/layout.dart';
 import 'package:e_commerce_app/models/Address.dart';
 import 'package:e_commerce_app/models/payment_model.dart';
 import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/shared/style.dart';
 import 'package:e_commerce_app/views/ProfileView.dart';
 import 'package:e_commerce_app/views/ShippingAddressView.dart';
-import 'package:e_commerce_app/views/auth/ControlView.dart';
 import 'package:e_commerce_app/views/credit_card/payment_method_screen.dart';
 import 'package:e_commerce_app/widgets/CustomButton.dart';
 import 'package:e_commerce_app/widgets/CustumText.dart';
@@ -356,11 +355,11 @@ class OrderConfirmationScreen extends StatelessWidget {
                                         color: Colors.white, fontSize: 20),
                                   ),
                                   onPressed: () {
-                                    LayoutController layoutController=
+                                    LayoutController layoutController =
                                         Get.find<LayoutController>();
 
                                     layoutController.changeSelectedValue(0);
-                                    Get.off(ControlView());
+                                    Get.off(EcommerceLayout());
                                     cartcontroller.clearChekoutListFromBasket();
                                   },
                                   width: 120,

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_commerce_app/Controller/ProfileController.dart';
 import 'package:e_commerce_app/models/Address.dart';
 import 'package:e_commerce_app/models/CartProduct.dart';
+import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 
@@ -12,8 +12,6 @@ class OrderController extends GetxController {
     //getallOrder();
     super.onReady();
   }
-
-  ProfileController profileController = Get.put(ProfileController());
 
   /// Add Order
   final databasereference = FirebaseFirestore.instance;
@@ -27,10 +25,10 @@ class OrderController extends GetxController {
     var batch = databasereference.batch();
     await databasereference.collection('orders').add({
       'totalprice': totalprice,
-      "uId": profileController.userModel.userId,
+      "uId": currentuserModel.userId,
       'orderdate': Timestamp.now(),
       "shippingAddress": address.toJson(),
-      "personelInformation": profileController.userModel.tojson(),
+      "personelInformation": currentuserModel.tojson(),
     }).then((value) async {
       //  add items collection
       orderid = value.id;
@@ -63,7 +61,7 @@ class OrderController extends GetxController {
 
     databasereference
         .collection('orders')
-        .where('uId', isEqualTo: profileController.userModel.userId)
+        .where('uId', isEqualTo: currentuserModel.userId)
         .get()
         .then((value) {
       if (value.docs.length > 0) {

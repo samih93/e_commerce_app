@@ -1,17 +1,22 @@
+import 'package:e_commerce_app/helper/localStorageUserData.dart';
 import 'package:e_commerce_app/shared/Constant.dart';
-import 'package:e_commerce_app/Controller/ProfileController.dart';
 import 'package:e_commerce_app/Controller/payment_controller.dart';
 import 'package:e_commerce_app/models/payment_model.dart';
 import 'package:e_commerce_app/service/HomeViewModelService.dart';
+import 'package:e_commerce_app/shared/globalfunction.dart';
 import 'package:e_commerce_app/views/ShippingAddressView.dart';
+import 'package:e_commerce_app/views/auth/LoginView.dart';
 import 'package:e_commerce_app/views/credit_card/payment_method_screen.dart';
 import 'package:e_commerce_app/widgets/CustomButton.dart';
 
 import 'package:e_commerce_app/widgets/CustumText.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_badged/flutter_badge.dart';
+import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 //import 'package:flutter_badged/flutter_badge.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import 'WishList.dart';
 
@@ -19,161 +24,153 @@ class ProfileView extends StatelessWidget {
   var controller = Get.put(PaymentController());
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<ProfileController>(
-      init: ProfileController(),
-      builder: (ProfileController) => Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.only(bottom: 15.0),
-          child: Container(
-            child: Column(
-              //ToDo:
-              children: [
-                Container(
-                  padding: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(colors: primarygradient),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(8),
-                        margin: EdgeInsets.only(top: 10),
-                        width: 70,
-                        height: 70,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                              image: ProfileController.userModel != null &&
-                                      ProfileController.userModel.pic
-                                              .toString()
-                                              .trim() !=
-                                          ""
-                                  ? NetworkImage(
-                                      ProfileController.userModel.pic)
-                                  : AssetImage(
-                                      "assets/images/default profile.png",
-                                    ),
-                              fit: BoxFit.fill),
-                          //whatever image you can put here
-                        ),
-                      ),
-                      SizedBox(
-                        height: 40,
-                      ),
-                      CustomText(
-                        text: ProfileController.userModel != null
-                            ? ProfileController.userModel.name ?? ""
-                            : "",
-                        fontSize: 18,
-                        color: Colors.white,
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      CustomText(
-                        text: ProfileController.userModel != null
-                            ? ProfileController.userModel.email ?? ""
-                            : "",
-                        color: Colors.white70,
-                      ),
-                    ],
-                  ),
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.only(bottom: 15.0),
+        child: Container(
+          child: Column(
+            //ToDo:
+            children: [
+              Container(
+                padding: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(colors: primarygradient),
                 ),
-                Expanded(
-                  child: ListView(
-                    scrollDirection: Axis.vertical,
-                    children: <Widget>[
-                      ListTile(
-                        title: Text("Profile"),
-                        leading: Icon(Icons.account_box),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(8),
+                      margin: EdgeInsets.only(top: 15),
+                      width: 70,
+                      height: 70,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                            image: currentuserModel != null &&
+                                    currentuserModel.pic.toString().trim() != ""
+                                ? NetworkImage(currentuserModel.pic)
+                                : AssetImage(
+                                    "assets/images/default profile.png",
+                                  ),
+                            fit: BoxFit.fill),
+                        //whatever image you can put here
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    CustomText(
+                      text: currentuserModel != null
+                          ? currentuserModel.name ?? ""
+                          : "",
+                      fontSize: 18,
+                      color: Colors.white,
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    CustomText(
+                      text: currentuserModel != null
+                          ? currentuserModel.email ?? ""
+                          : "",
+                      color: Colors.white70,
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: ListView(
+                  scrollDirection: Axis.vertical,
+                  children: <Widget>[
+                    ListTile(
+                      title: Text("Profile"),
+                      leading: Icon(Icons.account_box),
+                      trailing: Icon(Icons.arrow_forward_ios_rounded),
+                      onTap: () {},
+                    ),
+                    Divider(
+                      color: Colors.grey,
+                      height: 2,
+                    ),
+                    ListTile(
+                        title: Text("Shipping Address"),
+                        leading: Icon(Icons.location_on_outlined),
                         trailing: Icon(Icons.arrow_forward_ios_rounded),
-                        onTap: () {},
+                        onTap: () => Get.to(ShippingAddressScreen())),
+                    Divider(
+                      color: Colors.grey,
+                      height: 2,
+                    ),
+                    ListTile(
+                      title: Text("Orders"),
+                      leading: Icon(Icons.list),
+                      trailing: FlutterBadge(
+                        icon: Icon(
+                          Icons.message,
+                          size: 30,
+                        ),
+                        itemCount: 0,
+                        hideZeroCount: false,
+                        badgeColor: primarycolor,
+                        borderRadius: 20.0,
                       ),
-                      Divider(
-                        color: Colors.grey,
-                        height: 2,
-                      ),
-                      ListTile(
-                          title: Text("Shipping Address"),
-                          leading: Icon(Icons.location_on_outlined),
-                          trailing: Icon(Icons.arrow_forward_ios_rounded),
-                          onTap: () => Get.to(ShippingAddressScreen())),
-                      Divider(
-                        color: Colors.grey,
-                        height: 2,
-                      ),
-                      ListTile(
-                        title: Text("Orders"),
-                        leading: Icon(Icons.list),
+                      onTap: () {},
+                    ),
+                    Divider(
+                      color: Colors.grey,
+                      height: 2,
+                    ),
+                    GetBuilder<HomeViewModelService>(
+                      init: Get.find(),
+                      builder: (homeViewModelService) => ListTile(
+                        title: Text("Wish List"),
+                        leading: Icon(Icons.favorite_border),
                         trailing: FlutterBadge(
                           icon: Icon(
-                            Icons.message,
+                            Icons.favorite_outlined,
                             size: 30,
                           ),
-                          itemCount: 0,
+                          itemCount: homeViewModelService.favoriteproduct !=
+                                  null
+                              ? homeViewModelService.favoriteproduct.length ?? 0
+                              : 0,
                           hideZeroCount: false,
                           badgeColor: primarycolor,
                           borderRadius: 20.0,
                         ),
-                        onTap: () {},
-                      ),
-                      Divider(
-                        color: Colors.grey,
-                        height: 2,
-                      ),
-                      GetBuilder<HomeViewModelService>(
-                        init: Get.find(),
-                        builder: (homeViewModelService) => ListTile(
-                          title: Text("Wish List"),
-                          leading: Icon(Icons.favorite_border),
-                          trailing: FlutterBadge(
-                            icon: Icon(
-                              Icons.favorite_outlined,
-                              size: 30,
-                            ),
-                            itemCount: homeViewModelService.favoriteproduct !=
-                                    null
-                                ? homeViewModelService.favoriteproduct.length ??
-                                    0
-                                : 0,
-                            hideZeroCount: false,
-                            badgeColor: primarycolor,
-                            borderRadius: 20.0,
-                          ),
-                          onTap: () {
-                            Get.to(
-                                WishList()); // homeViewModelService.favoriteproduct
-                          },
-                        ),
-                      ),
-                      Divider(
-                        color: Colors.grey,
-                        height: 2,
-                      ),
-                      ListTile(
-                        title: Text("Payment Method"),
-                        leading: Icon(Icons.payment),
-                        trailing: Icon(Icons.arrow_forward_ios_rounded),
-                        onTap: () async {
-                          await controller.getPaymentMethod();
-                          Get.to(PaymentMethodScreen());
+                        onTap: () {
+                          Get.to(
+                              WishList()); // homeViewModelService.favoriteproduct
                         },
                       ),
-                    ],
-                  ),
+                    ),
+                    Divider(
+                      color: Colors.grey,
+                      height: 2,
+                    ),
+                    ListTile(
+                      title: Text("Payment Method"),
+                      leading: Icon(Icons.payment),
+                      trailing: Icon(Icons.arrow_forward_ios_rounded),
+                      onTap: () async {
+                        await controller.getPaymentMethod();
+                        Get.to(PaymentMethodScreen());
+                      },
+                    ),
+                  ],
                 ),
-                Container(
-                  margin: EdgeInsets.all(15),
-                  child: CustomButton(
-                    text: "Sign Out",
-                    onPress: () => ProfileController.SignOut(),
-                  ),
+              ),
+              Container(
+                margin: EdgeInsets.all(15),
+                child: CustomButton(
+                  text: "Sign Out",
+                  onPress: () => SignOut(),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

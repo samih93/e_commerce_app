@@ -1,12 +1,12 @@
 import 'package:e_commerce_app/Controller/ShippingController.dart';
 import 'package:e_commerce_app/Controller/payment_controller.dart';
+import 'package:e_commerce_app/layout/layout.dart';
 import 'package:e_commerce_app/models/Address.dart';
 import 'package:e_commerce_app/models/payment_model.dart';
 import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/Controller/CartController.dart';
 import 'package:e_commerce_app/models/Product.dart';
 import 'package:e_commerce_app/views/DetailsProduct.dart';
-import 'package:e_commerce_app/views/auth/ControlView.dart';
 import 'package:e_commerce_app/views/order_confrimation_screen.dart';
 import 'package:e_commerce_app/widgets/CustomButton.dart';
 import 'package:e_commerce_app/widgets/CustumText.dart';
@@ -64,7 +64,7 @@ class CartView extends StatelessWidget {
                               Row(
                                 children: [
                                   GestureDetector(
-                                      onTap: () => Get.off(() => ControlView()),
+                                      onTap: () => Get.off(() => EcommerceLayout()),
                                       child: Icon(
                                         Icons.home,
                                         color: Colors.black,

@@ -1,14 +1,13 @@
 // @dart=2.9
 
+import 'package:e_commerce_app/layout/layout.dart';
 import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/Controller/CartController.dart';
-import 'package:e_commerce_app/Controller/HomeController.dart';
 import 'package:e_commerce_app/models/CartProduct.dart';
 import 'package:e_commerce_app/models/Product.dart';
 import 'package:e_commerce_app/service/HomeViewModelService.dart';
 import 'package:e_commerce_app/service/sqflitedatabase/EcommerceDatabasehelper.dart';
 import 'package:e_commerce_app/views/CartView.dart';
-import 'package:e_commerce_app/views/auth/ControlView.dart';
 import 'package:e_commerce_app/views/home_view.dart';
 import 'package:e_commerce_app/widgets/CustomButton.dart';
 import 'package:e_commerce_app/widgets/CustumText.dart';
@@ -36,7 +35,7 @@ class DetailsProduct extends StatelessWidget {
               Icons.arrow_back,
               color: Colors.white,
             ),
-            onPressed: () => Get.off(ControlView()) //Get.off(page),
+            onPressed: () => Get.off(EcommerceLayout()) //Get.off(page),
             ),
         actions: [
           GetBuilder<CartController>(
@@ -91,7 +90,7 @@ class DetailsProduct extends StatelessWidget {
                   width: 20,
                 ),
                 GestureDetector(
-                    onTap: () => Get.off(() => ControlView()),
+                    onTap: () => Get.off(() => EcommerceLayout()),
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 5.0, right: 5),
                       child: Icon(

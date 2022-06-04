@@ -1,14 +1,17 @@
 // @dart=2.9
 
-import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/Controller/AuthController.dart';
+import 'package:e_commerce_app/helper/homeviewbinding.dart';
+import 'package:e_commerce_app/helper/localStorageUserData.dart';
+import 'package:e_commerce_app/layout/layout.dart';
+import 'package:e_commerce_app/models/UserModel.dart';
+import 'package:e_commerce_app/shared/Constant.dart';
+import 'package:e_commerce_app/shared/globalfunction.dart';
 import 'package:e_commerce_app/views/auth/SignUpView.dart';
 import 'package:e_commerce_app/views/auth/forgot_password_screen.dart';
 import 'package:e_commerce_app/widgets/CustomButton.dart';
-import 'package:e_commerce_app/widgets/CustomTextFormField.dart';
 import 'package:e_commerce_app/widgets/CustumText.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:get/get.dart';
 
 class LoginView extends GetWidget<AuthController> {
@@ -102,10 +105,13 @@ class LoginView extends GetWidget<AuthController> {
                         )
                       : CustomButton(
                           text: "Sign In",
-                          onPress: () {
+                          onPress: () async {
                             _formkey.currentState.save();
                             if (_formkey.currentState.validate())
-                              controller.SignInWithEmailAndPassword();
+                              await controller.SignInWithEmailAndPassword()
+                                  .then((value) {
+                                saveuserThenNavigate(value);
+                              });
                           }),
                 ),
                 SizedBox(
@@ -120,8 +126,10 @@ class LoginView extends GetWidget<AuthController> {
                   height: 20,
                 ),
                 GestureDetector(
-                  onTap: () {
-                    controller.facebookSignInMethod();
+                  onTap: () async {
+                    await controller.facebookSignInMethod().then((value) {
+                      saveuserThenNavigate(value);
+                    });
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -156,8 +164,10 @@ class LoginView extends GetWidget<AuthController> {
                   height: 15,
                 ),
                 GestureDetector(
-                  onTap: () {
-                    controller.googleSignInMethod();
+                  onTap: () async {
+                    await controller.googleSignInMethod().then((value) {
+                      saveuserThenNavigate(value);
+                    });
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 25.0),

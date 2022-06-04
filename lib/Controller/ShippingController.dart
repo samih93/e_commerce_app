@@ -2,7 +2,6 @@ import 'package:country_picker/country_picker.dart';
 import 'package:e_commerce_app/models/Address.dart';
 import 'package:e_commerce_app/service/sqflitedatabase/EcommerceDatabasehelper.dart';
 import 'package:e_commerce_app/views/ShippingAddressView.dart';
-import 'package:e_commerce_app/views/auth/ControlView.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';

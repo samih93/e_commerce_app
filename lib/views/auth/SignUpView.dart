@@ -1,5 +1,6 @@
 // @dart=2.9
 
+import 'package:e_commerce_app/helper/localStorageUserData.dart';
 import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/Controller/AuthController.dart';
 import 'package:e_commerce_app/views/auth/LoginView.dart';
@@ -75,16 +76,18 @@ class SignUpView extends GetWidget<AuthController> {
                 ),
                 GetBuilder<AuthController>(
                   init: Get.find(),
-                  builder: (authcontroller) =>
-                      authcontroller.isloadingCreateAccount
-                          ? CircularProgressIndicator()
-                          : CustomButton(
-                              text: "Sign Up",
-                              onPress: () {
-                                _formkey.currentState.save();
-                                if (_formkey.currentState.validate())
-                                  controller.CreateAccount();
-                              }),
+                  builder: (authcontroller) => authcontroller
+                          .isloadingCreateAccount
+                      ? CircularProgressIndicator()
+                      : CustomButton(
+                          text: "Sign Up",
+                          onPress: () async {
+                            _formkey.currentState.save();
+                            if (_formkey.currentState.validate())
+                              await controller.CreateAccount().then((value) {
+                                LocalStorageUserData.setUser(value);
+                              });
+                          }),
                 ),
                 SizedBox(
                   height: 30,

@@ -84,9 +84,9 @@ class EcommerceDatabasehelper {
     List<CartProduct> list = maps.isNotEmpty
         ? maps.map((Product) => CartProduct.fromJson(Product)).toList()
         : [];
-    list.forEach((element) {
-      print(element.productId);
-    });
+    // list.forEach((element) {
+    //   print(element.productId);
+    // });
     return list;
   }
 

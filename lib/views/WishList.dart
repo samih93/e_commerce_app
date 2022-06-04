@@ -1,9 +1,8 @@
-import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/Controller/CartController.dart';
-import 'package:e_commerce_app/models/favoriteProduct.dart';
+import 'package:e_commerce_app/layout/layout.dart';
 import 'package:e_commerce_app/service/HomeViewModelService.dart';
+import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/views/CartView.dart';
-import 'package:e_commerce_app/views/auth/ControlView.dart';
 import 'package:e_commerce_app/widgets/CustumText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_badged/flutter_badge.dart';
@@ -44,7 +43,7 @@ class WishList extends StatelessWidget {
                     width: 20,
                   ),
                   GestureDetector(
-                      onTap: () => Get.off(() => ControlView()),
+                      onTap: () => Get.off(() => EcommerceLayout()),
                       child: Icon(
                         Icons.home,
                         color: Colors.white,
@@ -57,7 +56,7 @@ class WishList extends StatelessWidget {
           backgroundColor: primarycolor,
           leading: IconButton(
               icon: Icon(Icons.arrow_back),
-              onPressed: () => Get.off(ControlView()) //Get.off(page),
+              onPressed: () => Get.off(EcommerceLayout()) //Get.off(page),
               ),
           title: CustomText(
               text: "Wish List",

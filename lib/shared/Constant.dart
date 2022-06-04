@@ -1,9 +1,11 @@
+import 'package:e_commerce_app/models/UserModel.dart';
 import 'package:flutter/material.dart';
 
 //const primarycolor = Color.fromRGBO(0, 197, 105, 1);
 const primarycolor = Colors.teal;
 
 const localUserData = "user";
+UserModel currentuserModel;
 
 List<Color> primarygradient = <Color>[
   Colors.teal.shade900,
@@ -47,3 +49,5 @@ final String columnCardNumber = "number";
 final String columnCardExpiredDate = "expireddate";
 final String columnCardCVV = "cvv";
 final String columnCardHolderName = "name";
+
+
