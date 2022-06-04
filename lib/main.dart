@@ -5,6 +5,7 @@ import 'package:e_commerce_app/helper/Binding.dart';
 import 'package:e_commerce_app/helper/localStorageUserData.dart';
 import 'package:e_commerce_app/layout/layout.dart';
 import 'package:e_commerce_app/service/HomeViewModelService.dart';
+import 'package:e_commerce_app/service/sqflitedatabase/EcommerceDatabasehelper.dart';
 import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/views/auth/LoginView.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -15,13 +16,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
+  await EcommerceDatabasehelper.db.initDb();
   await LocalStorageUserData.Init();
   //Get.put(HomeViewModelService());
-
-  Get.put(LayoutController());
-  Get.put(CartController());
-  //Get.put(HomeController());
-  Get.put(ShippingController());
 
   Widget widget;
 
@@ -36,6 +33,9 @@ void main() async {
     print("current user null");
     widget = LoginView();
   }
+  Get.put(CartController());
+  //Get.put(HomeController());
+  Get.put(ShippingController());
   runApp(MyApp(widget));
 }
 

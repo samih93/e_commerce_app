@@ -9,8 +9,6 @@ import 'package:get/get.dart';
 import 'package:toast/toast.dart';
 
 class PaymentMethodScreen extends StatefulWidget {
-  PaymentMethodScreen();
-
   @override
   State<StatefulWidget> createState() {
     return PaymentMethodScreenState();

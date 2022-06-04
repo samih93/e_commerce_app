@@ -5,6 +5,7 @@ import 'package:e_commerce_app/helper/localStorageUserData.dart';
 import 'package:e_commerce_app/layout/layout.dart';
 import 'package:e_commerce_app/models/UserModel.dart';
 import 'package:e_commerce_app/service/FireStoreUser.dart';
+import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/views/auth/LoginView.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -216,4 +217,22 @@ class AuthController extends GetxController {
   Future resetpasword(String email) async {
     await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
   }
+
+  void saveuserThenNavigate(UserModel userModel) {
+ currentuserModel = userModel;
+  LocalStorageUserData.setUser(userModel);
+  Get.off(
+    () => EcommerceLayout(),
+    binding: HomeViewBinding(),
+  );
+}
+
+SignOut() async {
+  GoogleSignIn().signOut();
+  FacebookLogin().logOut();
+  await FirebaseAuth.instance.signOut();
+  await LocalStorageUserData.deleteUser();
+  Get.off(LoginView());
+}
+
 }

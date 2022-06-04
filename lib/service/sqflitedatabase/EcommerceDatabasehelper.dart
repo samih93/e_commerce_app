@@ -16,18 +16,12 @@ class EcommerceDatabasehelper {
 
   static final EcommerceDatabasehelper db = EcommerceDatabasehelper._();
 
-  static Database _database;
+  Database database;
 
-  Future<Database> get database async {
-    if (_database != null) return _database;
-    _database = await initDb();
-    return _database;
-  }
-
-  initDb() async {
+  Future initDb() async {
     String path = join(await getDatabasesPath(), "ECommerce.db");
     print(path);
-    return await openDatabase(path, version: 1,
+    database = await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
       await db.execute('''
       CREATE TABLE $tableCardProduct (
@@ -187,6 +181,21 @@ class EcommerceDatabasehelper {
     // });
 
     return list_address;
+    //print("from get address" + address.firstname);
+  }
+
+  Future<List<PaymentModel>> getPaymentMethod() async {
+    var dbclient = await database;
+    List<Map> maps = await dbclient.query(tablePayment, limit: 1);
+    List<PaymentModel> list_payment = maps.isNotEmpty
+        ? maps.map((add_data) => PaymentModel.fromJson(add_data)).toList()
+        : [];
+
+    // address.forEach((element) {
+    //   print("from database helper " + element.firstname);
+    // });
+
+    return list_payment;
     //print("from get address" + address.firstname);
   }
 }

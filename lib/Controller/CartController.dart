@@ -84,7 +84,7 @@ class CartController extends GetxController {
     return finalprice;
   }
 
-  Future<void> increase_decrease_quatity(int index, bool isIncrease) {
+  Future<void> increase_decrease_quatity(int index, bool isIncrease) async {
     if (isIncrease) {
       _cartproductList[index].quantity++;
     } else {

@@ -38,7 +38,6 @@ class ShippingController extends GetxController {
 
       //Get.off(ControlView());
     }
-    update();
 
     // print("from controller " + address.firstname);
     // Address address = getAddress();
@@ -54,5 +53,6 @@ class ShippingController extends GetxController {
     // only one of both
     countryTextEditingcontroller.text =
         _list_of_address.length > 0 ? _list_of_address[0].country : "";
+    update();
   }
 }

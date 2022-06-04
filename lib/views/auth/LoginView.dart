@@ -110,7 +110,7 @@ class LoginView extends GetWidget<AuthController> {
                             if (_formkey.currentState.validate())
                               await controller.SignInWithEmailAndPassword()
                                   .then((value) {
-                                saveuserThenNavigate(value);
+                                authcontroller.saveuserThenNavigate(value);
                               });
                           }),
                 ),
@@ -128,7 +128,7 @@ class LoginView extends GetWidget<AuthController> {
                 GestureDetector(
                   onTap: () async {
                     await controller.facebookSignInMethod().then((value) {
-                      saveuserThenNavigate(value);
+                      controller.saveuserThenNavigate(value);
                     });
                   },
                   child: Padding(
@@ -166,7 +166,7 @@ class LoginView extends GetWidget<AuthController> {
                 GestureDetector(
                   onTap: () async {
                     await controller.googleSignInMethod().then((value) {
-                      saveuserThenNavigate(value);
+                      controller.saveuserThenNavigate(value);
                     });
                   },
                   child: Padding(

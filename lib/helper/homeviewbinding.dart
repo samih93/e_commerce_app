@@ -10,6 +10,6 @@ class HomeViewBinding extends Bindings {
   @override
   void dependencies() {
     // TODO: implement dependencies
-    Get.put(() => HomeViewModelService());
+    Get.lazyPut(() => HomeViewModelService());
   }
 }

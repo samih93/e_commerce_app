@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/Controller/AuthController.dart';
 import 'package:e_commerce_app/helper/localStorageUserData.dart';
 import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/Controller/payment_controller.dart';
@@ -22,6 +23,7 @@ import 'WishList.dart';
 
 class ProfileView extends StatelessWidget {
   var controller = Get.put(PaymentController());
+  var authcontroller = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -167,7 +169,7 @@ class ProfileView extends StatelessWidget {
                 margin: EdgeInsets.all(15),
                 child: CustomButton(
                   text: "Sign Out",
-                  onPress: () => SignOut(),
+                  onPress: () => authcontroller.SignOut(),
                 ),
               ),
             ],
