@@ -143,10 +143,10 @@ class CartController extends GetxController {
   }
 
   clearChekoutListFromBasket() {
+    var toremove = [];
     cartproductList.forEach((element) {
-      if (element.ischecked) cartproductList.remove(element);
+      if (element.ischecked) toremove.add(element);
     });
-
-    update();
+    cartproductList.removeWhere((element) => toremove.contains(element));
   }
 }

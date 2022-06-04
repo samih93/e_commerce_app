@@ -25,7 +25,6 @@ class OrderConfirmationScreen extends StatelessWidget {
 
   var paymentcontroller = Get.put(PaymentController());
   var cartcontroller = Get.find<CartController>();
-  var ordercontroller = Get.find<OrderController>();
   var shippingController = Get.find<ShippingController>();
 
   @override
@@ -326,7 +325,7 @@ class OrderConfirmationScreen extends StatelessWidget {
                       onPress: () async {
                         if (paymentcontroller.paymentModel != null &&
                             shippingController.addressmodel != null) {
-                          await ordercontroller
+                          await orderController
                               .addOrder(
                                   shippingController.addressmodel,
                                   cartcontroller.cartcheckOutList,
