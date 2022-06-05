@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_app/models/Address.dart';
 import 'package:e_commerce_app/models/CartProduct.dart';
+import 'package:e_commerce_app/models/ordermodel.dart';
 import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
@@ -22,31 +23,28 @@ class OrderController extends GetxController {
     String orderid = "";
     isloadingPostOrder = true;
     update();
-    //var batch = databasereference.batch();
-    await databasereference.collection('orders').add({
-      'totalprice': totalprice,
-      "uId": currentuserModel.userId,
-      'orderdate': Timestamp.now(),
-      "shippingAddress": address.toJson(),
-      "personelInformation": currentuserModel.tojson(),
-      //"orderItems": items.map((e) => e.toJson())
-    }).then((value) async {
+
+    var order = Order(
+            totalprice: totalprice,
+            uId: currentuserModel.userId,
+            orderdate: Timestamp.now(),
+            shippingAddress: address,
+            personelInformation: currentuserModel,
+            orderItems: items)
+        .toJson();
+    print("order----------------");
+    print(order['orderItems']);
+
+    await databasereference.collection('orders').add(order).then((value) async {
       //  add items collection
       orderid = value.id;
-      await databasereference.collection('orders').doc(orderid).update({
-        'ordersItems': [
-          ...items.map(
-            (e) => e.toJson(),
-          )
-        ]
-      }).then((value) {
-        isloadingPostOrder = false;
-        isOrdersuccess = true;
-        update();
-      });
+      isloadingPostOrder = false;
+      isOrdersuccess = true;
+      update();
     }).catchError((error) {
       print(error.toString());
     });
+
     return orderid;
   }
 
