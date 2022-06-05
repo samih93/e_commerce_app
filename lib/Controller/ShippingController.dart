@@ -29,11 +29,11 @@ class ShippingController extends GetxController {
       ///////////
 
       await dbHelper.insertaddress(addressmodel);
-      getAddress();
+      await getAddress();
       // Get.off(ControlView());
     } else {
       await dbHelper.updateaddress(addressmodel);
-      getAddress();
+      await getAddress();
       print(_addressmodel.toJson());
 
       //Get.off(ControlView());
@@ -44,7 +44,7 @@ class ShippingController extends GetxController {
     //if (address == null) await dbHelper.insertaddress(addressmodel);
   }
 
-  getAddress() async {
+  Future getAddress() async {
     _list_of_address = await dbHelper.getAddress();
     _addressmodel = _list_of_address.length > 0 ? _list_of_address[0] : null;
     print("list of address lenght " + _list_of_address.length.toString());

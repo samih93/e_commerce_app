@@ -29,6 +29,7 @@ class PaymentController extends GetxController {
     }).catchError((error) {
       print(error.toString());
     });
+    await getPaymentMethod();
     //  print("model.json " + model.toJson());
     // await getPaymentMethod().then((value) {
     //   print(paymentModel.toJson());
@@ -40,7 +41,7 @@ class PaymentController extends GetxController {
     await dbclient.update(tablePayment, model.toJson(),
         where: '$columnpaymentId =?', whereArgs: [model.id]);
     print("Payment method Updated");
-    return getPaymentMethod();
+    return await getPaymentMethod();
   }
 
   Future<PaymentModel> getPaymentMethod() async {
