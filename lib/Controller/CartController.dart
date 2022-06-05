@@ -142,14 +142,19 @@ class CartController extends GetxController {
     clearBasket();
   }
 
-  clearChekoutListFromBasket() {
+  clearChekoutListFromBasket() async {
     var toremove = [];
+    List<String> ids = [];
     cartproductList.forEach((element) {
-      if (element.ischecked) toremove.add(element);
+      if (element.ischecked) {
+        toremove.add(element);
+        ids.add(element.productId);
+      }
     });
     cartproductList.removeWhere((element) => toremove.contains(element));
-    toremove.forEach((element) {
-      dbHelper.deletecartproduct(element.id);
+    ids.forEach((element) {
+      print("deleted id :" + element);
     });
+    await dbHelper.deletecartproductbyIds(ids);
   }
 }

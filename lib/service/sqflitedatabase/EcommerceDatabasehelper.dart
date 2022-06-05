@@ -111,13 +111,27 @@ class EcommerceDatabasehelper {
     print("Deleted");
   }
 
-  // deletecartproductbyIds(List<String> list_of_ids) async {
-  //   var dbclient = await database;
+  Future deletecartproductbyIds(List<String> list_of_ids) async {
+    var dbclient = await database;
 
-  //   await dbclient.rawDelete(
-  //       "DELETE FROM $tableCardProduct WHERE $columnproductId in (${list_of_ids.map((e) => e + ",")})");
-  //   print("Deleted");
-  // }
+    String ids = getstringIds(list_of_ids);
+    print("ids : " + ids);
+
+    await dbclient.rawDelete(
+        "DELETE FROM $tableCardProduct WHERE $columnproductId IN ($ids)");
+    print("Deleted");
+  }
+
+  String getstringIds(List<String> list) {
+    var res = "";
+    for (int i = 0; i < list.length; i++)
+      if (i != list.length - 1)
+        res += "'${list[i].toString()}'" + ",";
+      else
+        res += "'${list[i].toString()}'";
+
+    return res;
+  }
 
   deleteAllcartproducts() async {
     var dbclient = await database;

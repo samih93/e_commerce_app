@@ -342,7 +342,7 @@ class OrderConfirmationScreen extends StatelessWidget {
                               content: Text(
                                 "ORDER ID '$value'",
                                 style:
-                                    TextStyle(fontSize: 15, color: Colors.grey),
+                                    TextStyle(fontSize: 14, color: Colors.grey),
                               ),
                               closeFunction: () {},
                               closeIcon: Container(),

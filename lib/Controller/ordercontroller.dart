@@ -32,9 +32,13 @@ class OrderController extends GetxController {
       //"orderItems": items.map((e) => e.toJson())
     }).then((value) async {
       //  add items collection
-//      orderid = value.id;
-      await databasereference.collection('orders').doc(value.id).update({
-        'ordersItems': [items.map((e) => e.toJson())]
+      orderid = value.id;
+      await databasereference.collection('orders').doc(orderid).update({
+        'ordersItems': [
+          ...items.map(
+            (e) => e.toJson(),
+          )
+        ]
       }).then((value) {
         isloadingPostOrder = false;
         isOrdersuccess = true;
