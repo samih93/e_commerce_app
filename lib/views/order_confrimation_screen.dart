@@ -23,7 +23,7 @@ class OrderConfirmationScreen extends StatelessWidget {
   //Address address;)
   OrderConfirmationScreen({Key key}) : super(key: key);
 
-  var paymentcontroller = Get.put(PaymentController());
+  var paymentcontroller = Get.find<PaymentController>();
   var cartcontroller = Get.find<CartController>();
   var shippingController = Get.find<ShippingController>();
 

@@ -111,6 +111,14 @@ class EcommerceDatabasehelper {
     print("Deleted");
   }
 
+  // deletecartproductbyIds(List<String> list_of_ids) async {
+  //   var dbclient = await database;
+
+  //   await dbclient.rawDelete(
+  //       "DELETE FROM $tableCardProduct WHERE $columnproductId in (${list_of_ids.map((e) => e + ",")})");
+  //   print("Deleted");
+  // }
+
   deleteAllcartproducts() async {
     var dbclient = await database;
     await dbclient.rawDelete("DELETE  FROM $tableCardProduct");

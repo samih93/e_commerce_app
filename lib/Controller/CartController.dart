@@ -148,5 +148,8 @@ class CartController extends GetxController {
       if (element.ischecked) toremove.add(element);
     });
     cartproductList.removeWhere((element) => toremove.contains(element));
+    toremove.forEach((element) {
+      dbHelper.deletecartproduct(element.id);
+    });
   }
 }
