@@ -14,8 +14,6 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthController extends GetxController {
-  bool _isloading = false;
-  bool get isloading => _isloading;
   GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
   FirebaseAuth _auth = FirebaseAuth.instance;
   // static final FacebookLogin facebookSignIn = new FacebookLogin();
@@ -59,9 +57,11 @@ class AuthController extends GetxController {
     update();
   }
 
+  bool _isloadingsigninwithgoogle = false;
+  bool get isloadingsigninwithgoogle => _isloadingsigninwithgoogle;
   Future<UserModel> googleSignInMethod() async {
     UserModel userModel = null;
-    _isloading = true;
+    _isloadingsigninwithgoogle = true;
     // sign in with google
     final GoogleSignInAccount googleuser = await _googleSignIn.signIn();
 
@@ -79,7 +79,7 @@ class AuthController extends GetxController {
           userId: usercredential.user.uid);
 
       SaveUserToFireStore(userModel);
-      _isloading = false;
+      _isloadingsigninwithgoogle = false;
       update();
     });
     // Get.offAll(
@@ -219,20 +219,19 @@ class AuthController extends GetxController {
   }
 
   void saveuserThenNavigate(UserModel userModel) {
- currentuserModel = userModel;
-  LocalStorageUserData.setUser(userModel);
-  Get.off(
-    () => EcommerceLayout(),
-    binding: HomeViewBinding(),
-  );
-}
+    currentuserModel = userModel;
+    LocalStorageUserData.setUser(userModel);
+    Get.off(
+      () => EcommerceLayout(),
+      binding: HomeViewBinding(),
+    );
+  }
 
-SignOut() async {
-  GoogleSignIn().signOut();
-  FacebookLogin().logOut();
-  await FirebaseAuth.instance.signOut();
-  await LocalStorageUserData.deleteUser();
-  Get.off(LoginView());
-}
-
+  SignOut() async {
+    GoogleSignIn().signOut();
+    FacebookLogin().logOut();
+    await FirebaseAuth.instance.signOut();
+    await LocalStorageUserData.deleteUser();
+    Get.off(LoginView());
+  }
 }
