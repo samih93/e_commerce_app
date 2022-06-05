@@ -8,6 +8,7 @@ import 'package:e_commerce_app/shared/globalfunction.dart';
 import 'package:e_commerce_app/views/ShippingAddressView.dart';
 import 'package:e_commerce_app/views/auth/LoginView.dart';
 import 'package:e_commerce_app/views/credit_card/payment_method_screen.dart';
+import 'package:e_commerce_app/views/my_orders.dart';
 import 'package:e_commerce_app/widgets/CustomButton.dart';
 
 import 'package:e_commerce_app/widgets/CustumText.dart';
@@ -119,7 +120,9 @@ class ProfileView extends StatelessWidget {
                         badgeColor: primarycolor,
                         borderRadius: 20.0,
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        Get.to(MyOrdersScreen());
+                      },
                     ),
                     Divider(
                       color: Colors.grey,
