@@ -163,43 +163,53 @@ class LoginView extends GetWidget<AuthController> {
                 SizedBox(
                   height: 15,
                 ),
-                GestureDetector(
-                  onTap: () async {
-                    await controller.googleSignInMethod().then((value) {
-                      controller.saveuserThenNavigate(value);
-                    });
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.2),
-                            spreadRadius: 4,
-                            blurRadius: 6,
-                            offset: Offset(1, 1),
+                GetBuilder<AuthController>(
+                  init: Get.find(),
+                  builder: (authcontroller) => authcontroller
+                          .isloadingsigninwithgoogle
+                      ? CircularProgressIndicator(
+                          color: primarycolor,
+                        )
+                      : GestureDetector(
+                          onTap: () async {
+                            await controller.googleSignInMethod().then((value) {
+                              controller.saveuserThenNavigate(value);
+                            });
+                          },
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 25.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.2),
+                                    spreadRadius: 4,
+                                    blurRadius: 6,
+                                    offset: Offset(1, 1),
+                                  ),
+                                ],
+                              ),
+                              width: double.infinity,
+                              child: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Row(children: [
+                                  Image.asset("assets/images/google.png"),
+                                  SizedBox(
+                                    width: 30,
+                                  ),
+                                  Text(
+                                    "Sign in with google",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                ]),
+                              ),
+                            ),
                           ),
-                        ],
-                      ),
-                      width: double.infinity,
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Row(children: [
-                          Image.asset("assets/images/google.png"),
-                          SizedBox(
-                            width: 30,
-                          ),
-                          Text(
-                            "Sign in with google",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ]),
-                      ),
-                    ),
-                  ),
+                        ),
                 ),
                 SizedBox(
                   height: 30,
