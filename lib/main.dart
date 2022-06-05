@@ -1,6 +1,7 @@
 import 'package:e_commerce_app/Controller/CartController.dart';
 import 'package:e_commerce_app/Controller/ShippingController.dart';
 import 'package:e_commerce_app/Controller/layoutcontroller.dart';
+import 'package:e_commerce_app/Controller/payment_controller.dart';
 import 'package:e_commerce_app/helper/Binding.dart';
 import 'package:e_commerce_app/helper/localStorageUserData.dart';
 import 'package:e_commerce_app/layout/layout.dart';
@@ -36,6 +37,7 @@ void main() async {
   Get.put(CartController());
   //Get.put(HomeController());
   Get.put(ShippingController());
+  Get.put(PaymentController());
   runApp(MyApp(widget));
 }
 
