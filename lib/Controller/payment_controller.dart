@@ -10,12 +10,9 @@ class PaymentController extends GetxController {
 
   var dbHelper = EcommerceDatabasehelper.db;
 
-  // PaymentController() {
-  //   getPaymentMethod().then((value) {
-  //     paymentModel = value;
-  //     // print(value);
-  //   });
-  // }
+  PaymentController() {
+    getPaymentMethod();
+  }
 
   PaymentModel paymentModel = null;
 
@@ -47,6 +44,7 @@ class PaymentController extends GetxController {
   Future<PaymentModel> getPaymentMethod() async {
     var _list_of_payment = await dbHelper.getPaymentMethod();
     paymentModel = _list_of_payment.length > 0 ? _list_of_payment[0] : null;
+    update();
     print("list of payment lenght " + _list_of_payment.length.toString());
     return paymentModel;
   }
