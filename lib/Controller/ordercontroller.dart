@@ -22,31 +22,24 @@ class OrderController extends GetxController {
     String orderid = "";
     isloadingPostOrder = true;
     update();
-    var batch = databasereference.batch();
+    //var batch = databasereference.batch();
     await databasereference.collection('orders').add({
       'totalprice': totalprice,
       "uId": currentuserModel.userId,
       'orderdate': Timestamp.now(),
       "shippingAddress": address.toJson(),
       "personelInformation": currentuserModel.tojson(),
+      //"orderItems": items.map((e) => e.toJson())
     }).then((value) async {
       //  add items collection
-      orderid = value.id;
-      items.forEach((element) {
-        batch.set(
-            databasereference
-                .collection('orders')
-                .doc(value.id)
-                .collection('orderItems')
-                .doc(element.productId),
-            element.toJson());
+//      orderid = value.id;
+      await databasereference.collection('orders').doc(value.id).update({
+        'ordersItems': [items.map((e) => e.toJson())]
+      }).then((value) {
+        isloadingPostOrder = false;
+        isOrdersuccess = true;
+        update();
       });
-      await batch.commit();
-
-      print('order id :' + value.id);
-      isloadingPostOrder = false;
-      isOrdersuccess = true;
-      update();
     }).catchError((error) {
       print(error.toString());
     });
