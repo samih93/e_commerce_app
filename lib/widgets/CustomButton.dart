@@ -1,14 +1,12 @@
-// @dart=2.9
-
 import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:flutter/material.dart';
 
 import 'package:e_commerce_app/widgets/CustumText.dart';
 
 class CustomButton extends StatelessWidget {
-  final String text;
-  final VoidCallback onPress;
-  Color color;
+  final String? text;
+  final VoidCallback? onPress;
+  Color? color;
 
   CustomButton({this.text, this.onPress, this.color});
 
@@ -27,7 +25,7 @@ class CustomButton extends StatelessWidget {
         textColor: Colors.white,
 
         child: CustomText(
-          text: text,
+          text: text ?? '',
           color: Colors.white,
           alignment: Alignment.center,
         ),

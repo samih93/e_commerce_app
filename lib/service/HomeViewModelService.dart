@@ -1,5 +1,3 @@
-// @dart=2.9
-
 import 'package:e_commerce_app/models/Category.dart';
 import 'package:e_commerce_app/models/Product.dart';
 import 'package:e_commerce_app/models/favoriteProduct.dart';
@@ -71,7 +69,7 @@ class HomeViewModelService extends GetxController {
     //NOTE make isselected category equal true and filter data depends on category if selected or not
     _CategoryList.forEach((element) {
       if (element.categoryId == categoryId) {
-        element.isselected = !element.isselected;
+        element.isselected = !element.isselected!;
         if (element.isselected == true) {
           _ProductList = _original_allProduct
               .where((element) => element.categoryId == categoryId)
@@ -108,7 +106,7 @@ class HomeViewModelService extends GetxController {
     //print("lenght of favorite ${_favoriteproduct.length ?? 0}");
     if (_favoriteproduct.length > 0) {
       var contain = _favoriteproduct
-          .where((favproduct) => favproduct.product.id == product.id);
+          .where((favproduct) => favproduct.product!.id == product.id);
       // product not exist
       if (contain.isEmpty) {
         print("not exist");
@@ -137,7 +135,8 @@ class HomeViewModelService extends GetxController {
     _IsLoding.value = true;
     await ApplicationDb().getCategories().then((value) {
       for (int i = 0; i < value.length; i++) {
-        _CategoryList.add(Category.fromjson(value[i].data()));
+        _CategoryList.add(
+            Category.fromjson(value[i].data() as Map<dynamic, dynamic>));
       }
       _IsLoding.value = false;
 
@@ -158,7 +157,8 @@ class HomeViewModelService extends GetxController {
     await ApplicationDb().getProducts().then((value) {
       for (int i = 0; i < value.length; i++) {
         //   print(value[i].data());
-        _ProductList.add(Product.fromJson(value[i].data()));
+        _ProductList.add(
+            Product.fromJson(value[i].data() as Map<dynamic, dynamic>));
       }
 
       _IsLoding.value = false;
@@ -175,7 +175,7 @@ class HomeViewModelService extends GetxController {
       _ProductList.forEach((product) async {
         if (_favoriteproduct.length > 0)
           _favoriteproduct.forEach((favproduct) {
-            if (product.id == favproduct.product.id) {
+            if (product.id == favproduct.product!.id) {
               product.isfavorite = favproduct.isfavorite;
             }
           });

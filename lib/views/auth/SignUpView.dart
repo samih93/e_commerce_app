@@ -1,5 +1,3 @@
-// @dart=2.9
-
 import 'package:e_commerce_app/helper/localStorageUserData.dart';
 import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/Controller/AuthController.dart';
@@ -52,9 +50,9 @@ class SignUpView extends GetWidget<AuthController> {
                 CustomTextFormField(
                   text: 'Name',
                   hint: "Name ...",
-                  onSave: (Value) => controller.name = Value,
+                  onSave: (Value) => controller.name = Value!,
                   validator: (value) {
-                    if (value.isEmpty) return "Name must be not empty";
+                    if (value!.isEmpty) return "Name must be not empty";
                   },
                 ),
                 SizedBox(height: 15),
@@ -64,18 +62,18 @@ class SignUpView extends GetWidget<AuthController> {
                 CustomTextFormField(
                   text: 'Email',
                   hint: "..........@gmail.com",
-                  onSave: (Value) => controller.email = Value,
+                  onSave: (Value) => controller.email = Value!,
                   validator: (value) {
-                    if (value.isEmpty) return "Email must be not empty";
+                    if (value!.isEmpty) return "Email must be not empty";
                   },
                 ),
                 SizedBox(height: 15),
                 CustomTextFormField(
                   text: 'Password',
                   hint: "*********",
-                  onSave: (Value) => controller.password = Value,
+                  onSave: (Value) => controller.password = Value!,
                   validator: (value) {
-                    if (value.isEmpty) return "Password must be not empty";
+                    if (value!.isEmpty) return "Password must be not empty";
                   },
                 ),
                 SizedBox(
@@ -89,8 +87,8 @@ class SignUpView extends GetWidget<AuthController> {
                       : CustomButton(
                           text: "Sign Up",
                           onPress: () async {
-                            _formkey.currentState.save();
-                            if (_formkey.currentState.validate())
+                            _formkey.currentState?.save();
+                            if (_formkey.currentState!.validate())
                               await controller.CreateAccount().then((value) {
                                 if (value != null)
                                   controller.saveuserThenNavigate(value);

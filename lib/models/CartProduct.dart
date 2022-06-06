@@ -1,14 +1,13 @@
-// @dart=2.9
 
 import 'package:e_commerce_app/helper/extention.dart';
 import 'package:flutter/material.dart';
 
 class CartProduct {
-  String name, image, price, productId, description, size;
+  String? name, image, price, productId, description, size;
   //ToDo : isfavorite
-  int quantity;
-  bool ischecked = false;
-  Color color;
+  int? quantity;
+  bool? ischecked = false;
+  Color? color;
 
   //Color color;
 
@@ -46,7 +45,7 @@ class CartProduct {
       'image': image,
       'description': description,
       'price': price,
-      'color': color.toHex(),
+      'color': color!.toHex(),
       'size': size,
       'quantity': quantity ?? 0,
     };

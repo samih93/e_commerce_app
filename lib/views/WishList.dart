@@ -31,7 +31,7 @@ class WishList extends StatelessWidget {
                         color: Colors.white,
                       ),
                       itemCount: cartController.cartproductList != null
-                          ? cartController.cartproductList.length ?? 0
+                          ? cartController.cartproductList.length
                           : 0,
                       hideZeroCount: false,
                       badgeColor: Colors.red,

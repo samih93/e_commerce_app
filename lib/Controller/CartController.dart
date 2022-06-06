@@ -66,7 +66,7 @@ class CartController extends GetxController {
     dbHelper = EcommerceDatabasehelper.db;
     _cartproductList = await dbHelper.getallproduct();
 
-    print("lenght of all products ${_cartproductList.length ?? 0}");
+    print("lenght of all products ${_cartproductList.length}");
 
     _loading.value = false;
     update();

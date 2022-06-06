@@ -1,5 +1,3 @@
-// @dart=2.9
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/models/Category.dart';
@@ -17,7 +15,7 @@ import 'package:e_commerce_app/widgets/animatedIcon.dart';
 import 'package:toast/toast.dart';
 
 class HomeView extends StatelessWidget {
-  BuildContext _context;
+  BuildContext? _context;
   HomeViewModelService homeViewModelService_Needed =
       Get.find<HomeViewModelService>();
 
@@ -183,7 +181,7 @@ class HomeView extends StatelessWidget {
 
   _categoryItem(Category item) => InkWell(
         onTap: () {
-          homeViewModelService_Needed.filterbyCategory(item.categoryId);
+          homeViewModelService_Needed.filterbyCategory(item.categoryId!);
           // print(item.categoryId);
         },
         child: Column(
@@ -191,7 +189,7 @@ class HomeView extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(50),
-                color: item.isselected ? primarycolor : Colors.grey.shade200,
+                color: item.isselected! ? primarycolor : Colors.grey.shade200,
               ),
               height: 60,
               width: 60,
@@ -207,9 +205,9 @@ class HomeView extends StatelessWidget {
             ),
             SizedBox(height: 15),
             CustomText(
-              text: item.name,
+              text: item.name.toString(),
               fontSize: 15,
-              color: item.isselected ? primarycolor : Colors.black,
+              color: item.isselected! ? primarycolor : Colors.black,
             ),
           ],
         ),
@@ -238,7 +236,7 @@ class HomeView extends StatelessWidget {
                   ),
                   height: isList ? 260 : 110,
                   child: new Image.network(
-                    product.images.first.toString(),
+                    product.images!.first.toString(),
                     //whatever image you can put here
                     fit: BoxFit.cover,
                   ),
@@ -260,7 +258,7 @@ class HomeView extends StatelessWidget {
                       CustomText(
                         text: product.description.toString().trim(),
                         alignment: Alignment.bottomLeft,
-                        color: Colors.grey[800],
+                        color: Colors.grey[800]!,
                         fontSize: 15,
                         maxLine: 2,
                       ),
@@ -278,7 +276,7 @@ class HomeView extends StatelessWidget {
                               fontSize: 15,
                             ),
                             GestureDetector(
-                              child: product.isfavorite
+                              child: product.isfavorite!
                                   ? Icon(
                                       Icons.favorite,
                                       color: Colors.red,
@@ -287,8 +285,8 @@ class HomeView extends StatelessWidget {
                               onTap: () {
                                 homeViewModelService_Needed
                                     .addProductTofavorite(
-                                        product, !product.isfavorite);
-                                if (!product.isfavorite == true) {
+                                        product, !product.isfavorite!);
+                                if (!product.isfavorite! == true) {
                                   Toast.show("Added To favorite", _context,
                                       duration: 2,
                                       backgroundColor: Colors.red,

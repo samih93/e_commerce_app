@@ -131,10 +131,10 @@ class ProfileView extends StatelessWidget {
                             Icons.favorite_outlined,
                             size: 30,
                           ),
-                          itemCount: homeViewModelService.favoriteproduct !=
-                                  null
-                              ? homeViewModelService.favoriteproduct.length ?? 0
-                              : 0,
+                          itemCount:
+                              homeViewModelService.favoriteproduct != null
+                                  ? homeViewModelService.favoriteproduct.length
+                                  : 0,
                           hideZeroCount: false,
                           badgeColor: primarycolor,
                           borderRadius: 20.0,

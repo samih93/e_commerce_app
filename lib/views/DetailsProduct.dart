@@ -81,7 +81,7 @@ class DetailsProduct extends StatelessWidget {
                   child: FlutterBadge(
                     icon: Icon(Icons.shopping_bag),
                     itemCount: cartController.cartproductList != null
-                        ? cartController.cartproductList.length ?? 0
+                        ? cartController.cartproductList.length
                         : 0,
                     hideZeroCount: false,
                     badgeColor: Colors.red.shade300,

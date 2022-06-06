@@ -1,8 +1,6 @@
-// @dart=2.9
-
 class Category {
-  String categoryId, name, image;
-  bool isselected = false;
+  String? categoryId, name, image;
+  bool? isselected = false;
 
   Category({this.categoryId, this.name, this.image});
 
