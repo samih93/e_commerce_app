@@ -54,7 +54,7 @@ class CartController extends GetxController {
       }
       ProductList.forEach((element) {
         if (element.id == productId) {
-          sizes = element.sizes;
+          sizes = element.sizes!;
         }
       });
     });
@@ -76,8 +76,8 @@ class CartController extends GetxController {
     double finalprice = 0.0;
     if (_cartproductList.length > 0) {
       for (int i = 0; i < _cartproductList.length; i++) {
-        if (_cartproductList[i].ischecked) {
-          finalprice += double.parse(_cartproductList[i].price) *
+        if (_cartproductList[i].ischecked!) {
+          finalprice += double.parse(_cartproductList[i].price.toString()) *
               double.parse(_cartproductList[i].quantity.toString());
         }
       }
@@ -87,10 +87,11 @@ class CartController extends GetxController {
 
   Future<void> increase_decrease_quatity(int index, bool isIncrease) async {
     if (isIncrease) {
-      _cartproductList[index].quantity++;
+      _cartproductList[index].quantity = _cartproductList[index].quantity! + 1;
     } else {
-      if (_cartproductList[index].quantity > 1)
-        _cartproductList[index].quantity--;
+      if (_cartproductList[index].quantity! > 1)
+        _cartproductList[index].quantity =
+            _cartproductList[index].quantity! - 1;
     }
     // updateProduct(
     //     _cartproductList[index].productId, _cartproductList[index].quantity);
@@ -147,9 +148,9 @@ class CartController extends GetxController {
     var toremove = [];
     List<String> ids = [];
     cartproductList.forEach((element) {
-      if (element.ischecked) {
+      if (element.ischecked!) {
         toremove.add(element);
-        ids.add(element.productId);
+        ids.add(element.productId!);
       }
     });
     cartproductList.removeWhere((element) => toremove.contains(element));

@@ -205,7 +205,7 @@ class OrderConfirmationScreen extends StatelessWidget {
             width: 130,
             child: cartcontroller.cartcheckOutList[index].image != ""
                 ? Image.network(
-                    cartcontroller.cartcheckOutList[index].image,
+                    cartcontroller.cartcheckOutList[index].image.toString(),
                     fit: BoxFit.fitWidth,
                   )
                 : Image.asset("assets/icons/chaire.png"),
@@ -217,7 +217,7 @@ class OrderConfirmationScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    cartcontroller.cartcheckOutList[index].name,
+                    cartcontroller.cartcheckOutList[index].name.toString(),
                     overflow: TextOverflow.ellipsis,
                   ),
                   SizedBox(
@@ -232,7 +232,8 @@ class OrderConfirmationScreen extends StatelessWidget {
                   GetBuilder<CartController>(
                     init: Get.find<CartController>(),
                     builder: (cart_contro) => CustomText(
-                      text: "\$ " + cart_contro.cartcheckOutList[index].price,
+                      text: "\$ " +
+                          cart_contro.cartcheckOutList[index].price.toString(),
                       color: primarycolor,
                     ),
                   ),

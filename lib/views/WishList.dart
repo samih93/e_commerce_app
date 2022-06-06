@@ -136,7 +136,8 @@ class WishList extends StatelessWidget {
                                         ? Image.network(homeViewModelService
                                             .favoriteproduct[index]
                                             .product!
-                                            .image)
+                                            .image
+                                            .toString())
                                         : Image.asset(
                                             "assets/icons/chaire.png"),
                                   ),
@@ -152,7 +153,8 @@ class WishList extends StatelessWidget {
                                           homeViewModelService
                                               .favoriteproduct[index]
                                               .product!
-                                              .name,
+                                              .name
+                                              .toString(),
                                           overflow: TextOverflow.ellipsis,
                                         ),
                                         SizedBox(
@@ -163,7 +165,8 @@ class WishList extends StatelessWidget {
                                               homeViewModelService
                                                   .favoriteproduct[index]
                                                   .product!
-                                                  .price,
+                                                  .price
+                                                  .toString(),
                                           color: primarycolor,
                                         ),
                                         SizedBox(
@@ -228,7 +231,7 @@ class WishList extends StatelessWidget {
                                                                 !homeViewModelService
                                                                     .ProductList[
                                                                         index]
-                                                                    .isfavorite);
+                                                                    .isfavorite!);
                                                         Navigator.pop(context);
                                                         Toast.show(
                                                             "Removed from favorite",

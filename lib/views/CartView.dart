@@ -191,7 +191,8 @@ class CartView extends StatelessWidget {
                                               ? Image.network(
                                                   cartcontroller
                                                       .cartproductList[index]
-                                                      .image,
+                                                      .image
+                                                      .toString(),
                                                   fit: BoxFit.cover,
                                                 )
                                               : Image.asset(
@@ -210,8 +211,8 @@ class CartView extends StatelessWidget {
                                             children: [
                                               Text(
                                                 cartcontroller
-                                                    .cartproductList[index]
-                                                    .name,
+                                                    .cartproductList[index].name
+                                                    .toString(),
                                                 overflow: TextOverflow.ellipsis,
                                               ),
                                               SizedBox(
@@ -227,7 +228,8 @@ class CartView extends StatelessWidget {
                                                 text: "\$ " +
                                                     cartcontroller
                                                         .cartproductList[index]
-                                                        .price,
+                                                        .price
+                                                        .toString(),
                                                 color: primarycolor,
                                               ),
                                               SizedBox(
@@ -333,12 +335,12 @@ class CartView extends StatelessWidget {
                                                             fontSize: 18),
                                                       ),
                                                       onPressed: () {
-                                                        cartcontroller
-                                                            .deleteproduct(
-                                                                cartcontroller
-                                                                    .cartproductList[
-                                                                        index]
-                                                                    .productId);
+                                                        cartcontroller.deleteproduct(
+                                                            cartcontroller
+                                                                .cartproductList[
+                                                                    index]
+                                                                .productId
+                                                                .toString());
                                                         Navigator.pop(context);
                                                       },
                                                       color:
