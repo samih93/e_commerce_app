@@ -34,7 +34,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_badged: ^2.0.2
-  get: ^3.22.1
+  get: ^4.6.5
   google_sign_in: ^5.2.1
   #flutter_facebook_login: ^3.0.0
   flutter_login_facebook: ^1.4.1
@@ -43,7 +43,7 @@ dependencies:
   sqflite: ^2.0.0+4
   path: ^1.8.0
   rflutter_alert: ^2.0.4
-  toast: ^0.1.5
+  toast: ^0.3.0
   flutter_svg: ^0.23.0+1
   convex_bottom_bar: ^3.0.0
   country_picker: ^2.0.9
