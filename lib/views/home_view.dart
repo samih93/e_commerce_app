@@ -13,6 +13,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:e_commerce_app/widgets/animatedIcon.dart';
+import 'package:toast/toast.dart';
 
 class HomeView extends StatelessWidget {
   BuildContext _context;
@@ -286,6 +287,17 @@ class HomeView extends StatelessWidget {
                                 homeViewModelService_Needed
                                     .addProductTofavorite(
                                         product, !product.isfavorite);
+                                if (!product.isfavorite == true) {
+                                  Toast.show("Added To favorite", _context,
+                                      duration: 2,
+                                      backgroundColor: Colors.red,
+                                      gravity: Toast.TOP);
+                                } else {
+                                  Toast.show("Removed from favorite", _context,
+                                      duration: 2,
+                                      backgroundColor: Colors.red,
+                                      gravity: Toast.TOP);
+                                }
 
                                 //print(HomeViewModelService.isfavorite);
                               },

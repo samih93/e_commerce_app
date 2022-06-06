@@ -56,12 +56,12 @@ class DetailsProduct extends StatelessWidget {
                       homeViewModelService.addProductTofavorite(
                           product, !product.isfavorite);
                       if (!product.isfavorite == true) {
-                        Toast.show("Item Added To favorite", context,
+                        Toast.show("Added To favorite", context,
                             duration: 2,
                             backgroundColor: Colors.red,
                             gravity: Toast.TOP);
                       } else {
-                        Toast.show("Item Removed from favorite", context,
+                        Toast.show("Removed from favorite", context,
                             duration: 2,
                             backgroundColor: Colors.red,
                             gravity: Toast.TOP);

@@ -3,6 +3,7 @@
 import 'package:e_commerce_app/helper/localStorageUserData.dart';
 import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/Controller/AuthController.dart';
+import 'package:e_commerce_app/shared/style.dart';
 import 'package:e_commerce_app/views/auth/LoginView.dart';
 import 'package:e_commerce_app/widgets/CustomButton.dart';
 import 'package:e_commerce_app/widgets/CustomTextFormField.dart';
@@ -19,7 +20,7 @@ class SignUpView extends GetWidget<AuthController> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         leading: GestureDetector(
           onTap: () => Get.off(LoginView()),
           child: Icon(
@@ -85,7 +86,13 @@ class SignUpView extends GetWidget<AuthController> {
                             _formkey.currentState.save();
                             if (_formkey.currentState.validate())
                               await controller.CreateAccount().then((value) {
-                                LocalStorageUserData.setUser(value);
+                                if (value != null)
+                                  controller.saveuserThenNavigate(value);
+                                else
+                                  myCustomSnackbar(
+                                      title: "Error Login Account",
+                                      body: controller.errorMessage.toString(),
+                                      type: toastType.Error);
                               });
                           }),
                 ),

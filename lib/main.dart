@@ -19,7 +19,6 @@ void main() async {
 
   await EcommerceDatabasehelper.db.initDb();
   await LocalStorageUserData.Init();
-  //Get.put(HomeViewModelService());
 
   Widget widget;
 
@@ -34,6 +33,8 @@ void main() async {
     print("current user null");
     widget = LoginView();
   }
+  // Get.put(LayoutController());
+
   Get.put(CartController());
   //Get.put(HomeController());
   Get.put(ShippingController());

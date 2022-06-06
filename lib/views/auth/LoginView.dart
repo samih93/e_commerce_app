@@ -7,6 +7,7 @@ import 'package:e_commerce_app/layout/layout.dart';
 import 'package:e_commerce_app/models/UserModel.dart';
 import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/shared/globalfunction.dart';
+import 'package:e_commerce_app/shared/style.dart';
 import 'package:e_commerce_app/views/auth/SignUpView.dart';
 import 'package:e_commerce_app/views/auth/forgot_password_screen.dart';
 import 'package:e_commerce_app/widgets/CustomButton.dart';
@@ -57,6 +58,9 @@ class LoginView extends GetWidget<AuthController> {
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.email),
                   ),
+                  validator: (value) {
+                    if (value.isEmpty) return "email must not be empty";
+                  },
                   onSaved: (Value) => controller.email = Value,
                 ),
                 SizedBox(height: 30),
@@ -64,6 +68,9 @@ class LoginView extends GetWidget<AuthController> {
                   init: Get.find(),
                   builder: (authcontroller) => TextFormField(
                     obscureText: authcontroller.showpassword,
+                    validator: (value) {
+                      if (value.isEmpty) return "password must not be empty";
+                    },
                     decoration: InputDecoration(
                       labelText: "Password",
                       border: OutlineInputBorder(),
@@ -107,11 +114,19 @@ class LoginView extends GetWidget<AuthController> {
                           text: "Sign In",
                           onPress: () async {
                             _formkey.currentState.save();
-                            if (_formkey.currentState.validate())
+                            if (_formkey.currentState.validate()) {
                               await controller.SignInWithEmailAndPassword()
                                   .then((value) {
-                                authcontroller.saveuserThenNavigate(value);
+                                if (value != null) {
+                                  authcontroller.saveuserThenNavigate(value);
+                                } else
+                                  myCustomSnackbar(
+                                      title: "Error Login Account",
+                                      body: authcontroller.errorMessage
+                                          .toString(),
+                                      type: toastType.Error);
                               });
+                            }
                           }),
                 ),
                 SizedBox(
@@ -128,7 +143,18 @@ class LoginView extends GetWidget<AuthController> {
                 GestureDetector(
                   onTap: () async {
                     await controller.facebookSignInMethod().then((value) {
-                      controller.saveuserThenNavigate(value);
+                      if (value != null) {
+                        controller.saveuserThenNavigate(value);
+
+                        myCustomSnackbar(
+                            title: "Sign in successfully",
+                            body: "Welcome '${value.name}'",
+                            type: toastType.Success);
+                      } else
+                        myCustomSnackbar(
+                            title: "Error Login Account",
+                            body: controller.errorMessage.toString(),
+                            type: toastType.Error);
                     });
                   },
                   child: Padding(
@@ -173,7 +199,17 @@ class LoginView extends GetWidget<AuthController> {
                       : GestureDetector(
                           onTap: () async {
                             await controller.googleSignInMethod().then((value) {
-                              controller.saveuserThenNavigate(value);
+                              if (value != null) {
+                                controller.saveuserThenNavigate(value);
+                                myCustomSnackbar(
+                                    title: "Sign in successfully",
+                                    body: "Welcome '${value.name}'",
+                                    type: toastType.Success);
+                              } else
+                                myCustomSnackbar(
+                                    title: "Error Login Account",
+                                    body: "controller.errorMessage.toString()",
+                                    type: toastType.Error);
                             });
                           },
                           child: Padding(

@@ -25,6 +25,7 @@ class AuthController extends GetxController {
 
   GoogleSignInAccount _googleuser;
 
+  String errorMessage = "";
   //ToDo:
   // final _user = Rx<User>();
   // String get user => _user.value?.email;
@@ -164,8 +165,11 @@ class AuthController extends GetxController {
       }); // .then((value) => print(value));
       //Get.offAll(() => EcommerceLayout(), binding: HomeViewBinding());
     } catch (e) {
-      Get.snackbar('Error Login Account', e.toString(),
-          colorText: Colors.black, snackPosition: SnackPosition.BOTTOM);
+      isloadingSignIn = false;
+
+      errorMessage = e.toString();
+      update();
+      print(e.toString());
     }
     return userModel;
   }
@@ -187,8 +191,9 @@ class AuthController extends GetxController {
       }); // .then((value) => print(value));
       // Get.offAll(() => EcommerceLayout(), binding: HomeViewBinding());
     } catch (e) {
-      Get.snackbar('Error Login Account', e.toString(),
-          colorText: Colors.black, snackPosition: SnackPosition.BOTTOM);
+     errorMessage = e.toString();
+     isloadingCreateAccount = false;
+     update();
     }
     return userModel;
   }
@@ -232,6 +237,6 @@ class AuthController extends GetxController {
     FacebookLogin().logOut();
     await FirebaseAuth.instance.signOut();
     await LocalStorageUserData.deleteUser();
-    Get.off(LoginView());
+    Get.offAll(LoginView());
   }
 }
