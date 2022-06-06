@@ -54,8 +54,11 @@ class PaymentMethodScreenState extends State<PaymentMethodScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: primarycolor,
-        title: Text('Payment method'),
+        flexibleSpace: Container(
+          decoration:
+              BoxDecoration(gradient: LinearGradient(colors: primarygradient)),
+        ),
+      title: Text('Payment method'),
       ),
       resizeToAvoidBottomInset: false,
       body: Container(

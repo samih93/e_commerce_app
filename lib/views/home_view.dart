@@ -9,6 +9,7 @@ import 'package:e_commerce_app/service/HomeViewModelService.dart';
 import 'package:e_commerce_app/views/DetailsProduct.dart';
 import 'package:e_commerce_app/views/auth/LoginView.dart';
 import 'package:e_commerce_app/widgets/CustumText.dart';
+import 'package:e_commerce_app/widgets/cutom_greadient_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -39,16 +40,17 @@ class HomeView extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Container(
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         _SearchTextField(context),
                         SizedBox(
                           height: 40,
                         ),
-                        CustomText(
+                        CustomGradientText(
                           text: "Categories",
                           fontSize: 24,
-                          fontweight: FontWeight.bold,
                         ),
+
                         SizedBox(
                           height: 10,
                         ),
@@ -59,10 +61,9 @@ class HomeView extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            CustomText(
+                            CustomGradientText(
                               text: "Products",
                               fontSize: 24,
-                              fontweight: FontWeight.bold,
                             ),
                             AnimIconBox(
                                 name: 'list_view',

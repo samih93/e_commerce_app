@@ -20,7 +20,10 @@ class ShippingAddressScreen extends StatelessWidget {
           text: "Shipping Address",
           color: Colors.white,
         ),
-        backgroundColor: primarycolor,
+        flexibleSpace: Container(
+          decoration:
+              BoxDecoration(gradient: LinearGradient(colors: primarygradient)),
+        ),
       ),
       body: GetBuilder<ShippingController>(
         init: Get.find(),

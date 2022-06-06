@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,12 +10,12 @@ void myCustomSnackbar(
   Get.snackbar(
     "$title",
     "$body",
-    snackPosition: snackPosition ?? SnackPosition.BOTTOM,
+    snackPosition: snackPosition ?? SnackPosition.TOP,
     backgroundColor: type == toastType.Success
-        ? Colors.green.shade500
+        ? primarycolor.shade500.withOpacity(0.7)
         : type == toastType.Error
-            ? Colors.red.shade500
-            : Colors.orange.shade500,
+            ? Colors.red.shade500.withOpacity(0.7)
+            : Colors.orange.shade500.withOpacity(0.7),
     colorText: Colors.white,
   );
 }

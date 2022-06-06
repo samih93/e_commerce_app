@@ -14,18 +14,23 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialButton(
-      height: 50,
-      onPressed: onPress,
-      color: color ?? primarycolor,
-      textColor: Colors.white,
-      shape: RoundedRectangleBorder(
+    return Container(
+      clipBehavior: Clip.antiAlias,
+      decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
+        gradient: LinearGradient(colors: primarygradient),
       ),
-      child: CustomText(
-        text: text,
-        color: Colors.white,
-        alignment: Alignment.center,
+      child: MaterialButton(
+        height: 50,
+        onPressed: onPress,
+        // color: color ?? primarycolor,
+        textColor: Colors.white,
+
+        child: CustomText(
+          text: text,
+          color: Colors.white,
+          alignment: Alignment.center,
+        ),
       ),
     );
   }

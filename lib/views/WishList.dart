@@ -53,7 +53,10 @@ class WishList extends StatelessWidget {
               ),
             )
           ],
-          backgroundColor: primarycolor,
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(colors: primarygradient)),
+          ),
           leading: IconButton(
               icon: Icon(Icons.arrow_back),
               onPressed: () => Get.off(EcommerceLayout()) //Get.off(page),

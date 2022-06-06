@@ -12,6 +12,7 @@ import 'package:e_commerce_app/views/auth/SignUpView.dart';
 import 'package:e_commerce_app/views/auth/forgot_password_screen.dart';
 import 'package:e_commerce_app/widgets/CustomButton.dart';
 import 'package:e_commerce_app/widgets/CustumText.dart';
+import 'package:e_commerce_app/widgets/cutom_greadient_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -34,10 +35,7 @@ class LoginView extends GetWidget<AuthController> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      "Welcome",
-                      style: TextStyle(color: Colors.black, fontSize: 30),
-                    ),
+                    CustomGradientText(text: "Welcome", fontSize: 30),
                     GestureDetector(
                       onTap: () => Get.off(SignUpView()),
                       child: CustomText(

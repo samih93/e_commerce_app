@@ -1,4 +1,5 @@
 import 'package:e_commerce_app/Controller/AuthController.dart';
+import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/views/auth/LoginView.dart';
 import 'package:e_commerce_app/widgets/CustomButton.dart';
 import 'package:email_validator/email_validator.dart';
@@ -15,7 +16,13 @@ class ForgetPasswordScreen extends GetWidget<AuthController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Reset Password")),
+      appBar: AppBar(
+        title: Text("Reset Password"),
+        flexibleSpace: Container(
+          decoration:
+              BoxDecoration(gradient: LinearGradient(colors: primarygradient)),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Container(

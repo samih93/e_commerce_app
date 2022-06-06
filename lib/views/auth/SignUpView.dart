@@ -9,6 +9,7 @@ import 'package:e_commerce_app/widgets/CustomButton.dart';
 import 'package:e_commerce_app/widgets/CustomTextFormField.dart';
 import 'package:e_commerce_app/widgets/CustumButton_with_social_Media.dart';
 import 'package:e_commerce_app/widgets/CustumText.dart';
+import 'package:e_commerce_app/widgets/cutom_greadient_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -39,22 +40,24 @@ class SignUpView extends GetWidget<AuthController> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      "Sign Up",
-                      style: TextStyle(color: Colors.black, fontSize: 30),
+                    CustomGradientText(
+                      text: "Sign Up",
+                      fontSize: 30,
                     ),
                   ],
                 ),
                 SizedBox(
-                  height: 30,
+                  height: 15,
                 ),
                 CustomTextFormField(
                   text: 'Name',
                   hint: "Name ...",
                   onSave: (Value) => controller.name = Value,
-                  validator: (value) {},
+                  validator: (value) {
+                    if (value.isEmpty) return "Name must be not empty";
+                  },
                 ),
-                SizedBox(height: 30),
+                SizedBox(height: 15),
                 SizedBox(
                   height: 20,
                 ),
@@ -62,16 +65,19 @@ class SignUpView extends GetWidget<AuthController> {
                   text: 'Email',
                   hint: "..........@gmail.com",
                   onSave: (Value) => controller.email = Value,
-                  validator: (value) {},
+                  validator: (value) {
+                    if (value.isEmpty) return "Email must be not empty";
+                  },
                 ),
-                SizedBox(height: 30),
+                SizedBox(height: 15),
                 CustomTextFormField(
                   text: 'Password',
                   hint: "*********",
                   onSave: (Value) => controller.password = Value,
-                  validator: (Value) {},
+                  validator: (value) {
+                    if (value.isEmpty) return "Password must be not empty";
+                  },
                 ),
-                SizedBox(height: 15),
                 SizedBox(
                   height: 30,
                 ),

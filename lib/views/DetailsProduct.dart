@@ -29,7 +29,11 @@ class DetailsProduct extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: primarycolor,
+        flexibleSpace: Container(
+          decoration:
+              BoxDecoration(gradient: LinearGradient(colors: primarygradient)),
+        ),
+        // backgroundColor: primarycolor,
         leading: IconButton(
             icon: Icon(
               Icons.arrow_back,
