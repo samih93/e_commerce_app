@@ -41,7 +41,7 @@ class ForgetPasswordScreen extends GetWidget<AuthController> {
                     hintText: "Email",
                   ),
                   validator: (value) {
-                    if (value.isEmpty) {
+                    if (value!.isEmpty) {
                       return "Email must not be empty";
                     }
                     return null;
@@ -53,7 +53,7 @@ class ForgetPasswordScreen extends GetWidget<AuthController> {
                 CustomButton(
                   text: "Reset Password",
                   onPress: () async {
-                    if (_formkey.currentState.validate()) {
+                    if (_formkey.currentState!.validate()) {
                       final bool isValid = EmailValidator.validate(
                           emailControllerText.text.toString().trim());
                       if (isValid) {

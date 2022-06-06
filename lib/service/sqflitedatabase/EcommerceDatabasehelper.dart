@@ -16,7 +16,7 @@ class EcommerceDatabasehelper {
 
   static final EcommerceDatabasehelper db = EcommerceDatabasehelper._();
 
-  Database database;
+  late Database database;
 
   Future initDb() async {
     String path = join(await getDatabasesPath(), "ECommerce.db");
@@ -90,7 +90,7 @@ class EcommerceDatabasehelper {
     //  print("model.json " + model.toJson());
   }
 
-  updateProductQuatity({String productId, int quatity}) async {
+  updateProductQuatity({String? productId, int? quatity}) async {
     var dbclient = await database;
     await dbclient.rawDelete(
         "UPDATE  $tableCardProduct SET $columnQuantity= $quatity where  $columnproductId='$productId'");
@@ -152,7 +152,7 @@ class EcommerceDatabasehelper {
       favoriteProduct model) async {
     var dbclient = await database;
     await dbclient.update(tableFavoriteProduct, model.toJson(),
-        where: '$columnfavoriteProductId =?', whereArgs: [model.product.id]);
+        where: '$columnfavoriteProductId =?', whereArgs: [model.product?.id]);
     print("Updated successfully");
     return getallfavoriteproducts();
   }
@@ -165,7 +165,8 @@ class EcommerceDatabasehelper {
     // });
     List<favoriteProduct> list = maps.isNotEmpty
         ? maps
-            .map((favproduct) => favoriteProduct.fromJson(favproduct))
+            .map((favproduct) =>
+                favoriteProduct.fromJson(favproduct as Map<String, dynamic>))
             .toList()
         : [];
     // list.forEach((element) {
@@ -210,7 +211,10 @@ class EcommerceDatabasehelper {
     var dbclient = await database;
     List<Map> maps = await dbclient.query(tablePayment, limit: 1);
     List<PaymentModel> list_payment = maps.isNotEmpty
-        ? maps.map((add_data) => PaymentModel.fromJson(add_data)).toList()
+        ? maps
+            .map((add_data) =>
+                PaymentModel.fromJson(add_data as Map<String, dynamic>))
+            .toList()
         : [];
 
     // address.forEach((element) {

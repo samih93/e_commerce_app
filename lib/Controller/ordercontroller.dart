@@ -26,10 +26,10 @@ class OrderController extends GetxController {
 
     var order = Order(
             totalprice: totalprice,
-            uId: currentuserModel.userId,
+            uId: currentuserModel!.userId,
             orderdate: Timestamp.now(),
             shippingAddress: address,
-            personelInformation: currentuserModel,
+            personelInformation: currentuserModel!,
             orderItems: items)
         .toJson();
     print("order----------------");
@@ -56,7 +56,7 @@ class OrderController extends GetxController {
 
     databasereference
         .collection('orders')
-        .where('uId', isEqualTo: currentuserModel.userId)
+        .where('uId', isEqualTo: currentuserModel?.userId)
         .get()
         .then((value) {
       if (value.docs.length > 0) {

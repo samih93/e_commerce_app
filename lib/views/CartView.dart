@@ -64,7 +64,8 @@ class CartView extends StatelessWidget {
                               Row(
                                 children: [
                                   GestureDetector(
-                                      onTap: () => Get.off(() => EcommerceLayout()),
+                                      onTap: () =>
+                                          Get.off(() => EcommerceLayout()),
                                       child: Icon(
                                         Icons.home,
                                         color: Colors.black,
@@ -173,7 +174,7 @@ class CartView extends StatelessWidget {
                                               value: cartcontroller
                                                   .cartproductList[index]
                                                   .ischecked,
-                                              onChanged: (bool value) {
+                                              onChanged: (bool? value) {
                                                 cartcontroller.onchangeCheckbox(
                                                     index, value);
                                               }), // This is where we update the state when the checkbox is tapped

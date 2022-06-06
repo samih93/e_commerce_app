@@ -7,9 +7,9 @@ import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 
 class ShippingController extends GetxController {
-  String firstname, lastname, address, state, city, country, phone, postcode;
-  Address _addressmodel = null;
-  Address get addressmodel => _addressmodel;
+  String? firstname, lastname, address, state, city, country, phone, postcode;
+  Address? _addressmodel;
+  Address? get addressmodel => _addressmodel;
   List<Address> _list_of_address = [];
   List<Address> get list_of_address => _list_of_address;
 
@@ -34,7 +34,7 @@ class ShippingController extends GetxController {
     } else {
       await dbHelper.updateaddress(addressmodel);
       await getAddress();
-      print(_addressmodel.toJson());
+      print(_addressmodel!.toJson());
 
       //Get.off(ControlView());
     }
@@ -51,8 +51,9 @@ class ShippingController extends GetxController {
 
     // to set controller initial value is cuurent country // cz i dont have permission to give textformfield initial value and then give controller to change country
     // only one of both
-    countryTextEditingcontroller.text =
-        _list_of_address.length > 0 ? _list_of_address[0].country : "";
+    countryTextEditingcontroller.text = _list_of_address.length > 0
+        ? _list_of_address[0].country.toString()
+        : "";
     update();
   }
 }

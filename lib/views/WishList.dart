@@ -130,12 +130,12 @@ class WishList extends StatelessWidget {
                                         MediaQuery.of(context).size.width * .3,
                                     child: homeViewModelService
                                                 .favoriteproduct[index]
-                                                .product
+                                                .product!
                                                 .image !=
                                             ""
                                         ? Image.network(homeViewModelService
                                             .favoriteproduct[index]
-                                            .product
+                                            .product!
                                             .image)
                                         : Image.asset(
                                             "assets/icons/chaire.png"),
@@ -151,7 +151,7 @@ class WishList extends StatelessWidget {
                                         Text(
                                           homeViewModelService
                                               .favoriteproduct[index]
-                                              .product
+                                              .product!
                                               .name,
                                           overflow: TextOverflow.ellipsis,
                                         ),
@@ -162,7 +162,7 @@ class WishList extends StatelessWidget {
                                           text: "\$ " +
                                               homeViewModelService
                                                   .favoriteproduct[index]
-                                                  .product
+                                                  .product!
                                                   .price,
                                           color: primarycolor,
                                         ),

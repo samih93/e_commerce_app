@@ -1,18 +1,16 @@
-// @dart=2.9
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:e_commerce_app/widgets/CustumText.dart';
 
 class CustomTextFormField extends StatelessWidget {
-  final String text;
+  final String? text;
 
-  final String hint;
-  final String initialvalue;
+  final String? hint;
+  final String? initialvalue;
 
-  final String Function(String) onSave;
-  final String Function(String) validator;
+  final String? Function(String?)? onSave;
+  final String? Function(String?)? validator;
 
   CustomTextFormField({
     this.text,
@@ -28,7 +26,7 @@ class CustomTextFormField extends StatelessWidget {
       child: Column(
         children: [
           CustomText(
-            text: text,
+            text: text ?? '',
             fontSize: 14,
             color: Colors.grey.shade900,
           ),

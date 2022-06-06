@@ -25,7 +25,7 @@ void main() async {
   currentuserModel = await LocalStorageUserData.getuserData();
 
   if (currentuserModel != null) {
-    print("current user " + currentuserModel.name.toString());
+    print("current user " + currentuserModel!.name.toString());
     Get.put(HomeViewModelService());
 
     widget = EcommerceLayout();

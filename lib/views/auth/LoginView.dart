@@ -1,5 +1,3 @@
-// @dart=2.9
-
 import 'package:e_commerce_app/Controller/AuthController.dart';
 import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/shared/style.dart';
@@ -52,9 +50,9 @@ class LoginView extends GetWidget<AuthController> {
                     prefixIcon: Icon(Icons.email),
                   ),
                   validator: (value) {
-                    if (value.isEmpty) return "email must not be empty";
+                    if (value!.isEmpty) return "email must not be empty";
                   },
-                  onSaved: (Value) => controller.email = Value,
+                  onSaved: (Value) => controller.email = Value!,
                 ),
                 SizedBox(height: 30),
                 GetBuilder<AuthController>(
@@ -62,7 +60,7 @@ class LoginView extends GetWidget<AuthController> {
                   builder: (authcontroller) => TextFormField(
                     obscureText: authcontroller.showpassword,
                     validator: (value) {
-                      if (value.isEmpty) return "password must not be empty";
+                      if (value!.isEmpty) return "password must not be empty";
                     },
                     decoration: InputDecoration(
                       labelText: "Password",
@@ -80,7 +78,7 @@ class LoginView extends GetWidget<AuthController> {
                         },
                       ),
                     ),
-                    onSaved: (Value) => controller.password = Value,
+                    onSaved: (Value) => controller.password = Value!,
                   ),
                 ),
                 SizedBox(height: 15),
@@ -106,8 +104,8 @@ class LoginView extends GetWidget<AuthController> {
                       : CustomButton(
                           text: "Sign In",
                           onPress: () async {
-                            _formkey.currentState.save();
-                            if (_formkey.currentState.validate()) {
+                            _formkey.currentState?.save();
+                            if (_formkey.currentState!.validate()) {
                               await controller.SignInWithEmailAndPassword()
                                   .then((value) {
                                 if (value != null) {

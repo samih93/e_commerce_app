@@ -1,5 +1,3 @@
-// @dart=2.9
-
 import 'package:e_commerce_app/layout/layout.dart';
 import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/Controller/CartController.dart';
@@ -19,7 +17,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:toast/toast.dart';
 
 class DetailsProduct extends StatelessWidget {
-  Product product;
+  Product? product;
 
   DetailsProduct({this.product});
 
@@ -50,7 +48,7 @@ class DetailsProduct extends StatelessWidget {
                 GetBuilder<HomeViewModelService>(
                   init: Get.find(),
                   builder: (homeViewModelService) => GestureDetector(
-                    child: product.isfavorite
+                    child: product!.isfavorite
                         ? Icon(
                             Icons.favorite,
                             color: Colors.red,
@@ -58,8 +56,8 @@ class DetailsProduct extends StatelessWidget {
                         : Icon(Icons.favorite_border),
                     onTap: () {
                       homeViewModelService.addProductTofavorite(
-                          product, !product.isfavorite);
-                      if (!product.isfavorite == true) {
+                          product, !product!.isfavorite);
+                      if (!product!.isfavorite == true) {
                         Toast.show("Added To favorite", context,
                             duration: 2,
                             backgroundColor: Colors.red,
@@ -126,10 +124,10 @@ class DetailsProduct extends StatelessWidget {
                               print(value);
                             },
                             itemBuilder: (context, index) => _images_of_product(
-                                context, product.images[index]),
-                            itemCount: product.images.length),
+                                context, product!.images[index]),
+                            itemCount: product!.images.length),
                       ),
-                      if (product.images.length > 1)
+                      if (product!.images.length > 1)
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: SmoothPageIndicator(
@@ -137,7 +135,7 @@ class DetailsProduct extends StatelessWidget {
                                 dotColor: Colors.grey.withOpacity(0.4),
                                 activeDotColor: primarycolor.withOpacity(0.4)),
                             controller: boardContorller,
-                            count: product.images.length,
+                            count: product!.images.length,
                           ),
                         ),
                     ],
@@ -147,7 +145,7 @@ class DetailsProduct extends StatelessWidget {
                     child: Column(
                       children: [
                         CustomText(
-                          text: product.name,
+                          text: product!.name,
                           fontSize: 25,
                         ),
                         SizedBox(
@@ -186,7 +184,7 @@ class DetailsProduct extends StatelessWidget {
                         SizedBox(
                           height: 15,
                         ),
-                        _productsizes(product.sizes),
+                        _productsizes(product!.sizes),
                         SizedBox(
                           height: 30,
                         ),
@@ -198,10 +196,10 @@ class DetailsProduct extends StatelessWidget {
                           height: 20,
                         ),
                         CustomText(
-                          text: product.description,
+                          text: product!.description,
                           maxLine: 10,
                           fontSize: 20,
-                          color: Colors.grey[600],
+                          color: Colors.grey[600]!,
                         ),
                       ],
                     ),
@@ -217,12 +215,12 @@ class DetailsProduct extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    CustomText(text: "Price", color: Colors.grey[400]),
+                    CustomText(text: "Price", color: Colors.grey[400]!),
                     SizedBox(
                       height: 10,
                     ),
                     CustomText(
-                      text: "${product.price} \$",
+                      text: "${product!.price} \$",
                       fontSize: 20,
                       color: primarycolor,
                     )
@@ -238,13 +236,13 @@ class DetailsProduct extends StatelessWidget {
                         if (CartController.selectedSize != "") {
                           bool isAdded = await CartController.addProduct(
                               CartProduct(
-                                  productId: product.id,
-                                  name: product.name,
-                                  image: product.images.first,
-                                  price: product.price,
+                                  productId: product!.id,
+                                  name: product!.name,
+                                  image: product!.images.first,
+                                  price: product!.price,
                                   size: CartController.selectedSize,
                                   color: Colors.red,
-                                  description: product.description,
+                                  description: product!.description,
                                   quantity: 1));
                           if (!isAdded) {
                             _onAlertWithCustomImagePressed(context);
@@ -262,8 +260,6 @@ class DetailsProduct extends StatelessWidget {
                               duration: 2,
                               backgroundColor: Colors.red,
                               gravity: Toast.TOP);
-
-                          return false;
                         }
                       },
                     ),

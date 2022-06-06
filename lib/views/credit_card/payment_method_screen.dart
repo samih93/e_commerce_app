@@ -23,7 +23,7 @@ class PaymentMethodScreenState extends State<PaymentMethodScreen> {
   bool isCvvFocused = false;
   bool useGlassMorphism = false;
   bool useBackgroundImage = false;
-  OutlineInputBorder border;
+  OutlineInputBorder? border;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   PaymentController paymentController = Get.find<PaymentController>();
   @override
@@ -35,16 +35,16 @@ class PaymentMethodScreenState extends State<PaymentMethodScreen> {
       ),
     );
     cardHolderName = paymentController.paymentModel != null
-        ? paymentController.paymentModel.name
+        ? paymentController.paymentModel!.name.toString()
         : '';
     cardNumber = paymentController.paymentModel != null
-        ? paymentController.paymentModel.number
+        ? paymentController.paymentModel!.number.toString()
         : '';
     cvvCode = paymentController.paymentModel != null
-        ? paymentController.paymentModel.cvv
+        ? paymentController.paymentModel!.cvv.toString()
         : '';
     expiryDate = paymentController.paymentModel != null
-        ? paymentController.paymentModel.expireddate
+        ? paymentController.paymentModel!.expireddate.toString()
         : '';
 
     super.initState();
@@ -58,7 +58,7 @@ class PaymentMethodScreenState extends State<PaymentMethodScreen> {
           decoration:
               BoxDecoration(gradient: LinearGradient(colors: primarygradient)),
         ),
-      title: Text('Payment method'),
+        title: Text('Payment method'),
       ),
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -204,7 +204,7 @@ class PaymentMethodScreenState extends State<PaymentMethodScreen> {
                               ? "Update"
                               : "Save",
                           onPress: () {
-                            if (formKey.currentState.validate()) {
+                            if (formKey.currentState!.validate()) {
                               print('valid!');
                               if (paymentController.paymentModel == null) {
                                 PaymentModel model = PaymentModel(
@@ -225,7 +225,7 @@ class PaymentMethodScreenState extends State<PaymentMethodScreen> {
                                 // is model !=null we need to update
                               } else {
                                 PaymentModel model = PaymentModel(
-                                    id: paymentController.paymentModel.id,
+                                    id: paymentController.paymentModel!.id,
                                     name: cardHolderName,
                                     number: cardNumber,
                                     expireddate: expiryDate,

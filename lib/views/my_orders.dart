@@ -7,8 +7,8 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class MyOrdersScreen extends StatelessWidget {
-  MyOrdersScreen({Key key}) : super(key: key);
-  BuildContext _context;
+  MyOrdersScreen({Key? key}) : super(key: key);
+  BuildContext? _context;
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +73,7 @@ class MyOrdersScreen extends StatelessWidget {
               child: Row(
                 children: [
                   Container(
-                    width: MediaQuery.of(_context).size.width * .3,
+                    width: MediaQuery.of(_context!).size.width * .3,
                     child: Image.asset("assets/icons/chaire.png"),
                   ),
                   Expanded(

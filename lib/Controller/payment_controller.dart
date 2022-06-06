@@ -6,7 +6,7 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:uuid/uuid.dart';
 
 class PaymentController extends GetxController {
-  String firstname, lastname, address, state, city, country, phone, postcode;
+  String? firstname, lastname, address, state, city, country, phone, postcode;
 
   var dbHelper = EcommerceDatabasehelper.db;
 
@@ -14,7 +14,7 @@ class PaymentController extends GetxController {
     getPaymentMethod();
   }
 
-  PaymentModel paymentModel = null;
+  PaymentModel? paymentModel;
 
   Future insertPaymentCard(PaymentModel model) async {
     var uuid = Uuid();
@@ -33,7 +33,7 @@ class PaymentController extends GetxController {
     // });
   }
 
-  Future<PaymentModel> updatePayment(PaymentModel model) async {
+  Future<PaymentModel?> updatePayment(PaymentModel model) async {
     var dbclient = await dbHelper.database;
     await dbclient.update(tablePayment, model.toJson(),
         where: '$columnpaymentId =?', whereArgs: [model.id]);
@@ -41,7 +41,7 @@ class PaymentController extends GetxController {
     return await getPaymentMethod();
   }
 
-  Future<PaymentModel> getPaymentMethod() async {
+  Future<PaymentModel?> getPaymentMethod() async {
     var _list_of_payment = await dbHelper.getPaymentMethod();
     paymentModel = _list_of_payment.length > 0 ? _list_of_payment[0] : null;
     update();

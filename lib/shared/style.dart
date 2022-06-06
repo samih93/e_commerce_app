@@ -6,7 +6,10 @@ import 'package:get/get.dart';
 TextStyle get greyColor => TextStyle(color: Colors.grey);
 
 void myCustomSnackbar(
-    {toastType type, String title, String body, SnackPosition snackPosition}) {
+    {required toastType type,
+    required String title,
+    required String body,
+    SnackPosition? snackPosition}) {
   Get.snackbar(
     "$title",
     "$body",

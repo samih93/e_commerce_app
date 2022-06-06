@@ -45,11 +45,12 @@ class ProfileView extends StatelessWidget {
                         shape: BoxShape.circle,
                         image: DecorationImage(
                             image: currentuserModel != null &&
-                                    currentuserModel.pic.toString().trim() != ""
-                                ? NetworkImage(currentuserModel.pic)
+                                    currentuserModel!.pic.toString().trim() !=
+                                        ""
+                                ? NetworkImage(currentuserModel!.pic.toString())
                                 : AssetImage(
                                     "assets/images/default profile.png",
-                                  ),
+                                  ) as ImageProvider,
                             fit: BoxFit.fill),
                         //whatever image you can put here
                       ),
@@ -59,7 +60,7 @@ class ProfileView extends StatelessWidget {
                     ),
                     CustomText(
                       text: currentuserModel != null
-                          ? currentuserModel.name ?? ""
+                          ? currentuserModel?.name ?? ""
                           : "",
                       fontSize: 18,
                       color: Colors.white,
@@ -69,7 +70,7 @@ class ProfileView extends StatelessWidget {
                     ),
                     CustomText(
                       text: currentuserModel != null
-                          ? currentuserModel.email ?? ""
+                          ? currentuserModel?.email ?? ""
                           : "",
                       color: Colors.white70,
                     ),

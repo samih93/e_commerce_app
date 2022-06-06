@@ -10,7 +10,7 @@ import 'package:country_picker/country_picker.dart';
 import 'package:toast/toast.dart';
 
 class ShippingAddressScreen extends StatelessWidget {
-  BuildContext _context;
+  BuildContext? _context;
   @override
   Widget build(BuildContext context) {
     _context = context;
@@ -36,16 +36,18 @@ class ShippingAddressScreen extends StatelessWidget {
                 children: [
                   CustomTextFormField(
                     initialvalue: shippingController.addressmodel != null
-                        ? shippingController.addressmodel.firstname ?? ""
+                        ? shippingController.addressmodel?.firstname ?? ""
                         : "",
                     //  controller: ,
                     validator: (input) {
-                      if (input.isEmpty) {
+                      if (input!.isEmpty) {
                         return 'First Name is required';
                       }
+                      return null;
                     },
                     onSave: (value) {
                       shippingController.firstname = value;
+                      return null;
                     },
                     hint: "FirstName...",
                     text: '',
@@ -55,16 +57,18 @@ class ShippingAddressScreen extends StatelessWidget {
                   ),
                   CustomTextFormField(
                     initialvalue: shippingController.addressmodel != null
-                        ? shippingController.addressmodel.lastname ?? ""
+                        ? shippingController.addressmodel?.lastname ?? ""
                         : "",
                     //  controller: ,
                     validator: (input) {
-                      if (input.isEmpty) {
+                      if (input!.isEmpty) {
                         return 'Last Name is required';
                       }
+                      return null;
                     },
                     onSave: (value) {
                       shippingController.lastname = value;
+                      return null;
                     },
                     hint: 'Last Name ...',
                     text: '',
@@ -74,16 +78,18 @@ class ShippingAddressScreen extends StatelessWidget {
                   ),
                   CustomTextFormField(
                     initialvalue: shippingController.addressmodel != null
-                        ? shippingController.addressmodel.location ?? ""
+                        ? shippingController.addressmodel?.location ?? ""
                         : "",
                     //  controller: ,
                     validator: (input) {
-                      if (input.isEmpty) {
+                      if (input!.isEmpty) {
                         return 'Address is required';
                       }
+                      return null;
                     },
                     onSave: (value) {
                       shippingController.address = value;
+                      return null;
                     },
                     hint: 'Address  ...',
                     text: '',
@@ -93,16 +99,18 @@ class ShippingAddressScreen extends StatelessWidget {
                   ),
                   CustomTextFormField(
                     initialvalue: shippingController.addressmodel != null
-                        ? shippingController.addressmodel.state ?? ""
+                        ? shippingController.addressmodel?.state ?? ""
                         : "",
                     //  controller: ,
                     validator: (input) {
-                      if (input.isEmpty) {
+                      if (input!.isEmpty) {
                         return 'State is required';
                       }
+                      return null;
                     },
                     onSave: (value) {
                       shippingController.state = value;
+                      return null;
                     },
                     hint: 'State  ...',
                     text: '',
@@ -112,15 +120,17 @@ class ShippingAddressScreen extends StatelessWidget {
                   ),
                   CustomTextFormField(
                     initialvalue: shippingController.addressmodel != null
-                        ? shippingController.addressmodel.city ?? ""
+                        ? shippingController.addressmodel?.city ?? ""
                         : "",
                     validator: (input) {
-                      if (input.isEmpty) {
+                      if (input!.isEmpty) {
                         return 'City is required';
                       }
+                      return null;
                     },
                     onSave: (value) {
                       shippingController.city = value;
+                      return null;
                     },
                     hint: 'City  ...',
                     text: '',
@@ -157,11 +167,11 @@ class ShippingAddressScreen extends StatelessWidget {
                           child: TextFormField(
                             initialValue: shippingController.addressmodel !=
                                     null
-                                ? shippingController.addressmodel.phone ?? ""
+                                ? shippingController.addressmodel?.phone ?? ""
                                 : "",
                             //  controller: ,
                             validator: (input) {
-                              if (input.isEmpty) {
+                              if (input!.isEmpty) {
                                 return 'Phone is required';
                               }
                             },
@@ -185,16 +195,18 @@ class ShippingAddressScreen extends StatelessWidget {
                   ),
                   CustomTextFormField(
                     initialvalue: shippingController.addressmodel != null
-                        ? shippingController.addressmodel.postcode ?? ""
+                        ? shippingController.addressmodel?.postcode ?? ""
                         : "",
                     //  controller: ,
                     validator: (input) {
-                      if (input.isEmpty) {
+                      if (input!.isEmpty) {
                         return 'Postcode is required';
                       }
+                      return null;
                     },
                     onSave: (value) {
                       shippingController.postcode = value;
+                      return null;
                     },
                     hint: 'Postcode ...',
                     text: '',
@@ -207,10 +219,10 @@ class ShippingAddressScreen extends StatelessWidget {
                           : "Update",
                       onPress: () {
                         // save form state to save all field
-                        shippingController.formstate.currentState.save();
+                        shippingController.formstate.currentState?.save();
                         shippingController.insertAddress(Address(
                           id: shippingController.addressmodel != null
-                              ? shippingController.addressmodel.id
+                              ? shippingController.addressmodel?.id
                               : '',
                           firstname: shippingController.firstname,
                           lastname: shippingController.lastname,
@@ -252,7 +264,7 @@ class ShippingAddressScreen extends StatelessWidget {
   void countryCodeselected() {
     ShippingController shippingController = Get.find();
     showCountryPicker(
-      context: _context,
+      context: _context!,
       //Optional.  Can be used to exclude(remove) one ore more country from the countries list (optional).
       exclude: <String>['KN', 'MF'],
       //Optional. Shows phone code before the country name.

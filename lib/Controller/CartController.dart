@@ -49,7 +49,8 @@ class CartController extends GetxController {
     ApplicationDb().getProducts().then((value) {
       for (int i = 0; i < value.length; i++) {
         //print(value[i].data());
-        ProductList.add(Product.fromJson(value[i].data()));
+        ProductList.add(
+            Product.fromJson(value[i].data() as Map<dynamic, dynamic>));
       }
       ProductList.forEach((element) {
         if (element.id == productId) {

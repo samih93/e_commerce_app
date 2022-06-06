@@ -4,12 +4,12 @@ import 'package:e_commerce_app/models/CartProduct.dart';
 import 'package:e_commerce_app/models/UserModel.dart';
 
 class Order {
-  double totalprice;
-  String uId;
-  Timestamp orderdate;
-  Address shippingAddress; // Address
-  UserModel personelInformation; // userModel
-  List<CartProduct> orderItems;
+  double? totalprice;
+  String? uId;
+  Timestamp? orderdate;
+  Address? shippingAddress; // Address
+  UserModel? personelInformation; // userModel
+  List<CartProduct>? orderItems;
 
   Order(
       {this.totalprice,
@@ -22,9 +22,10 @@ class Order {
   Order.fromJson(Map<String, dynamic> map) {
     List<CartProduct> list_of_cart = [];
 
-    totalprice = map != null ? double.parse(map["totalprice"]) : 0;
-    uId = map != null ? map["uId"].toString() : '';
-    orderdate = map != null ? map["orderdate"] : Timestamp.now();
+    totalprice =
+        map["totalprice"] != null ? double.parse(map["totalprice"]) : 0;
+    uId = map["uId"] != null ? map["uId"].toString() : '';
+    orderdate = map["orderdate"] != null ? map["orderdate"] : Timestamp.now();
     shippingAddress = Address.fromJson(map['shippingAddress']);
     personelInformation = UserModel.fromjson(map['personelInformation']);
     map["orderItems"].forEach((element) {
@@ -37,10 +38,10 @@ class Order {
       "totalprice": totalprice,
       "uId": uId,
       "orderdate": orderdate,
-      "shippingAddress": shippingAddress.toJson(),
-      "personelInformation": personelInformation.tojson(),
+      "shippingAddress": shippingAddress?.toJson(),
+      "personelInformation": personelInformation?.tojson(),
       "orderItems": [
-        ...orderItems.map(
+        ...orderItems!.map(
           (e) => e.toJson(),
         ),
       ]

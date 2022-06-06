@@ -1,12 +1,10 @@
-// @dart=2.9
-
 import 'package:e_commerce_app/widgets/CustumText.dart';
 import 'package:flutter/material.dart';
 
 class CustomButtonWithSocial extends StatelessWidget {
-  final String text;
-  final String imagename;
-  final VoidCallback onpress;
+  final String? text;
+  final String? imagename;
+  final VoidCallback? onpress;
 
   CustomButtonWithSocial({this.text, this.imagename, this.onpress});
   @override
@@ -21,12 +19,12 @@ class CustomButtonWithSocial extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Row(
           children: [
-            Image.asset("assets/images/" + imagename),
+            Image.asset("assets/images/" + imagename!),
             SizedBox(
               width: 90,
             ),
             CustomText(
-              text: text,
+              text: text ?? '',
               alignment: Alignment.center,
             ),
           ],

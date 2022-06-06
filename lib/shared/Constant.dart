@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 const primarycolor = Colors.teal;
 
 const localUserData = "user";
-UserModel currentuserModel;
+UserModel? currentuserModel;
 
 List<Color> primarygradient = <Color>[
   Colors.teal.shade900,
@@ -49,5 +49,3 @@ final String columnCardNumber = "number";
 final String columnCardExpiredDate = "expireddate";
 final String columnCardCVV = "cvv";
 final String columnCardHolderName = "name";
-
-

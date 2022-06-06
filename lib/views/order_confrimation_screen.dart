@@ -21,7 +21,7 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 
 class OrderConfirmationScreen extends StatelessWidget {
   //Address address;)
-  OrderConfirmationScreen({Key key}) : super(key: key);
+  OrderConfirmationScreen({Key? key}) : super(key: key);
 
   var paymentcontroller = Get.find<PaymentController>();
   var cartcontroller = Get.find<CartController>();
@@ -102,7 +102,7 @@ class OrderConfirmationScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "${controller.addressmodel.firstname.toString()} ${controller.addressmodel.lastname.toString()} , ${controller.addressmodel.country}-${controller.addressmodel.phone}",
+                                    "${controller.addressmodel!.firstname.toString()} ${controller.addressmodel!.lastname.toString()} , ${controller.addressmodel!.country}-${controller.addressmodel!.phone}",
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
                                   ),
@@ -114,11 +114,11 @@ class OrderConfirmationScreen extends StatelessWidget {
                                     child: Wrap(
                                       children: [
                                         Text(
-                                          "${controller.addressmodel.location} - ${controller.addressmodel.city} - ${controller.addressmodel.state}",
+                                          "${controller.addressmodel?.location} - ${controller.addressmodel!.city} - ${controller.addressmodel!.state}",
                                           style: greyColor,
                                         ),
                                         Text(
-                                          "${controller.addressmodel.location} - ${controller.addressmodel.country.split(")")[0].substring(1)} - ${controller.addressmodel.postcode}",
+                                          "${controller.addressmodel?.location} - ${controller.addressmodel!.country!.split(")")[0].substring(1)} - ${controller.addressmodel?.postcode}",
                                           style: greyColor,
                                         ),
                                       ],
@@ -178,7 +178,7 @@ class OrderConfirmationScreen extends StatelessWidget {
                 Expanded(
                   child: paymentcontroller.paymentModel != null
                       ? Text(
-                          "${paymentcontroller.paymentModel.number.split(' ')[0]}  * * * * * * * * ${paymentcontroller.paymentModel.number.split(' ')[3]} ",
+                          "${paymentcontroller.paymentModel?.number?.split(' ')[0]}  * * * * * * * * ${paymentcontroller.paymentModel!.number?.split(' ')[3]} ",
                           style: TextStyle(fontWeight: FontWeight.bold))
                       : Text("Select Payment Method"),
                 ),
@@ -327,7 +327,7 @@ class OrderConfirmationScreen extends StatelessWidget {
                             shippingController.addressmodel != null) {
                           await orderController
                               .addOrder(
-                                  shippingController.addressmodel,
+                                  shippingController.addressmodel!,
                                   cartcontroller.cartcheckOutList,
                                   cartcontroller.totalprice)
                               .then((value) {
