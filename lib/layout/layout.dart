@@ -73,7 +73,7 @@ class EcommerceLayout extends StatelessWidget {
                 controller.changeSelectedValue(index);
                 print(controller.navigatorvalue);
               },
-              backgroundColor: primarycolor,
+              gradient: LinearGradient(colors: primarygradient),
             ),
           ),
         ),
