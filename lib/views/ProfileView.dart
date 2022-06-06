@@ -1,24 +1,16 @@
 import 'package:e_commerce_app/Controller/AuthController.dart';
-import 'package:e_commerce_app/helper/localStorageUserData.dart';
-import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/Controller/payment_controller.dart';
-import 'package:e_commerce_app/models/payment_model.dart';
 import 'package:e_commerce_app/service/HomeViewModelService.dart';
-import 'package:e_commerce_app/shared/globalfunction.dart';
+import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/views/ShippingAddressView.dart';
-import 'package:e_commerce_app/views/auth/LoginView.dart';
 import 'package:e_commerce_app/views/credit_card/payment_method_screen.dart';
 import 'package:e_commerce_app/views/my_orders.dart';
 import 'package:e_commerce_app/widgets/CustomButton.dart';
-
 import 'package:e_commerce_app/widgets/CustumText.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_badged/flutter_badge.dart';
-import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 //import 'package:flutter_badged/flutter_badge.dart';
 import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 import 'WishList.dart';
 

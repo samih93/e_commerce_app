@@ -1,12 +1,7 @@
 // @dart=2.9
 
 import 'package:e_commerce_app/Controller/AuthController.dart';
-import 'package:e_commerce_app/helper/homeviewbinding.dart';
-import 'package:e_commerce_app/helper/localStorageUserData.dart';
-import 'package:e_commerce_app/layout/layout.dart';
-import 'package:e_commerce_app/models/UserModel.dart';
 import 'package:e_commerce_app/shared/Constant.dart';
-import 'package:e_commerce_app/shared/globalfunction.dart';
 import 'package:e_commerce_app/shared/style.dart';
 import 'package:e_commerce_app/views/auth/SignUpView.dart';
 import 'package:e_commerce_app/views/auth/forgot_password_screen.dart';
