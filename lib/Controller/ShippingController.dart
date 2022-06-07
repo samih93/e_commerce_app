@@ -21,27 +21,24 @@ class ShippingController extends GetxController {
   ShippingController() {
     getAddress();
   }
-  insertAddress(Address addressmodel) async {
-    if (_list_of_address.length == 0) {
-      //to generate new id
-      var uuid = Uuid();
-      addressmodel.id = uuid.v1();
-      ///////////
+  Future insertAddress(Address addressmodel) async {
+    //to generate new id
+    var uuid = Uuid();
+    addressmodel.id = uuid.v1();
+    ///////////
 
-      await dbHelper.insertaddress(addressmodel);
-      await getAddress();
-      // Get.off(ControlView());
-    } else {
-      await dbHelper.updateaddress(addressmodel);
-      await getAddress();
-      print(_addressmodel!.toJson());
-
-      //Get.off(ControlView());
-    }
+    await dbHelper.insertaddress(addressmodel);
+    await getAddress();
+    // Get.off(ControlView());
 
     // print("from controller " + address.firstname);
     // Address address = getAddress();
     //if (address == null) await dbHelper.insertaddress(addressmodel);
+  }
+
+  Future updateAddress(Address addressmodel) async {
+    await dbHelper.updateaddress(addressmodel);
+    await getAddress();
   }
 
   Future getAddress() async {
