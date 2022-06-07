@@ -85,18 +85,21 @@ class CartController extends GetxController {
     return finalprice;
   }
 
-  Future<void> increase_decrease_quatity(int index, bool isIncrease) async {
-    if (isIncrease) {
-      _cartproductList[index].quantity = _cartproductList[index].quantity! + 1;
-    } else {
-      if (_cartproductList[index].quantity! > 1)
-        _cartproductList[index].quantity =
-            _cartproductList[index].quantity! - 1;
-    }
-    // updateProduct(
-    //     _cartproductList[index].productId, _cartproductList[index].quantity);
-    dbHelper.updatecartProduct(_cartproductList[index]);
-    update();
+  Future<void> increase_decrease_quatity(
+      String productId, bool isIncrease) async {
+    CartProduct? product;
+    cartproductList.forEach((element) {
+      if (element.productId == productId) {
+        product = element;
+        if (isIncrease) {
+          element.quantity = element.quantity! + 1;
+        } else {
+          if (element.quantity! > 1) element.quantity = element.quantity! - 1;
+        }
+        dbHelper.updatecartProduct(product!);
+        update();
+      }
+    });
   }
 
   Future<bool> addProduct(CartProduct model) async {
@@ -157,6 +160,7 @@ class CartController extends GetxController {
     ids.forEach((element) {
       print("deleted id :" + element);
     });
+    update();
     await dbHelper.deletecartproductbyIds(ids);
   }
 }
