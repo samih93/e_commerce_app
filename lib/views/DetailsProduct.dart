@@ -5,6 +5,7 @@ import 'package:e_commerce_app/models/CartProduct.dart';
 import 'package:e_commerce_app/models/Product.dart';
 import 'package:e_commerce_app/service/HomeViewModelService.dart';
 import 'package:e_commerce_app/service/sqflitedatabase/EcommerceDatabasehelper.dart';
+import 'package:e_commerce_app/shared/style.dart';
 import 'package:e_commerce_app/views/CartView.dart';
 import 'package:e_commerce_app/views/home_view.dart';
 import 'package:e_commerce_app/widgets/CustomButton.dart';
@@ -32,13 +33,13 @@ class DetailsProduct extends StatelessWidget {
               BoxDecoration(gradient: LinearGradient(colors: primarygradient)),
         ),
         // backgroundColor: primarycolor,
-        leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            ),
-            onPressed: () => Get.off(EcommerceLayout()) //Get.off(page),
-            ),
+        // leading: IconButton(
+        //     icon: Icon(
+        //       Icons.arrow_back,
+        //       color: Colors.white,
+        //     ),
+        //     onPressed: () => Get.off(EcommerceLayout()) //Get.off(page),
+        //     ),
         actions: [
           GetBuilder<CartController>(
             init: Get.find<CartController>(),
@@ -58,15 +59,17 @@ class DetailsProduct extends StatelessWidget {
                       homeViewModelService.addProductTofavorite(
                           product!, !product!.isfavorite!);
                       if (!product!.isfavorite! == true) {
-                        Toast.show("Added To favorite",
-                            duration: 2,
-                            backgroundColor: Colors.red,
-                            gravity: Toast.top);
+                        myCustomSnackbar(
+                            duration: 1,
+                            snackPosition: SnackPosition.BOTTOM,
+                            type: toastType.Success,
+                            title: "Added To favorite");
                       } else {
-                        Toast.show("Removed from favorite",
-                            duration: 2,
-                            backgroundColor: Colors.red,
-                            gravity: Toast.top);
+                        myCustomSnackbar(
+                            duration: 1,
+                            snackPosition: SnackPosition.BOTTOM,
+                            type: toastType.Success,
+                            title: "Removed from favorite");
                       }
 
                       //print(HomeViewModelService.isfavorite);
@@ -245,21 +248,30 @@ class DetailsProduct extends StatelessWidget {
                                   description: product!.description,
                                   quantity: 1));
                           if (!isAdded) {
-                            _onAlertWithCustomImagePressed(context);
+                            myCustomSnackbar(
+                                type: toastType.Success,
+                                title: "You have successfully Added to card",
+                                body: " product ID ${product!.id}");
+                            //_onAlertWithCustomImagePressed(context);
                             // reset selected size to nothing if on click on product
                             CartController.onInitializeSize();
                           } else {
-                            Toast.show("Already Added",
+                            myCustomSnackbar(
                                 duration: 2,
-                                backgroundColor: Colors.red,
-                                gravity: Toast.top);
+                                type: toastType.Warning,
+                                title: "Warning",
+                                body: "Already Added");
+                            // Toast.show("Already Added",
+                            //     duration: 2,
+                            //     backgroundColor: Colors.red,
+                            //     gravity: Toast.top);
                             CartController.onInitializeSize();
                           }
                         } else {
-                          Toast.show("Select size befor add to cart",
-                              duration: 2,
-                              backgroundColor: Colors.red,
-                              gravity: Toast.top);
+                          myCustomSnackbar(
+                              type: toastType.Error,
+                              title: "Error",
+                              body: "Select size befor add to cart");
                         }
                       },
                     ),

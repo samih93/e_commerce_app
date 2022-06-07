@@ -16,7 +16,12 @@ class CustomButton extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        gradient: LinearGradient(colors: primarygradient),
+        gradient: color == null
+            ? LinearGradient(colors: primarygradient)
+            : LinearGradient(colors: [
+                color!,
+                color!,
+              ]),
       ),
       child: MaterialButton(
         height: 50,

@@ -322,6 +322,10 @@ class OrderConfirmationScreen extends StatelessWidget {
               builder: (orderController) => orderController.isloadingPostOrder
                   ? CircularProgressIndicator()
                   : CustomButton(
+                      color: paymentcontroller.paymentModel != null &&
+                              shippingController.addressmodel != null
+                          ? null
+                          : Colors.teal.shade200,
                       text: "PAY NOW",
                       onPress: () async {
                         if (paymentcontroller.paymentModel != null &&

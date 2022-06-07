@@ -8,11 +8,13 @@ TextStyle get greyColor => TextStyle(color: Colors.grey);
 void myCustomSnackbar(
     {required toastType type,
     required String title,
-    required String body,
+    String? body,
+    int? duration,
     SnackPosition? snackPosition}) {
   Get.snackbar(
     "$title",
-    "$body",
+    "${body ?? ''}",
+    duration: Duration(seconds: duration ?? 3),
     snackPosition: snackPosition ?? SnackPosition.TOP,
     backgroundColor: type == toastType.Success
         ? primarycolor.shade500.withOpacity(0.7)

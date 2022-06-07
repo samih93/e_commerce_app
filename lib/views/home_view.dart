@@ -4,6 +4,7 @@ import 'package:e_commerce_app/models/Category.dart';
 import 'package:e_commerce_app/models/Product.dart';
 import 'package:e_commerce_app/service/ApplicationDb.dart';
 import 'package:e_commerce_app/service/HomeViewModelService.dart';
+import 'package:e_commerce_app/shared/style.dart';
 import 'package:e_commerce_app/views/DetailsProduct.dart';
 import 'package:e_commerce_app/views/auth/LoginView.dart';
 import 'package:e_commerce_app/widgets/CustumText.dart';
@@ -287,15 +288,15 @@ class HomeView extends StatelessWidget {
                                     .addProductTofavorite(
                                         product, !product.isfavorite!);
                                 if (!product.isfavorite! == true) {
-                                  Toast.show("Added To favorite",
-                                      duration: 2,
-                                      backgroundColor: Colors.red,
-                                      gravity: Toast.top);
+                                  myCustomSnackbar(
+                                      duration: 1,
+                                      type: toastType.Success,
+                                      title: "Added To favorite");
                                 } else {
-                                  Toast.show("Removed from favorite",
-                                      duration: 2,
-                                      backgroundColor: Colors.red,
-                                      gravity: Toast.top);
+                                  myCustomSnackbar(
+                                      duration: 1,
+                                      type: toastType.Success,
+                                      title: "Removed from favorite");
                                 }
 
                                 //print(HomeViewModelService.isfavorite);
@@ -310,7 +311,7 @@ class HomeView extends StatelessWidget {
               ],
             ),
           ),
-          onTap: () => Get.off(DetailsProduct(product: product)),
+          onTap: () => Get.to(DetailsProduct(product: product)),
         ),
       ],
     );

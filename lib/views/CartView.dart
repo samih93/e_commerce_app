@@ -7,6 +7,7 @@ import 'package:e_commerce_app/models/payment_model.dart';
 import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/Controller/CartController.dart';
 import 'package:e_commerce_app/models/Product.dart';
+import 'package:e_commerce_app/shared/style.dart';
 import 'package:e_commerce_app/views/DetailsProduct.dart';
 import 'package:e_commerce_app/views/order_confrimation_screen.dart';
 import 'package:e_commerce_app/widgets/CustomButton.dart';
@@ -390,13 +391,19 @@ class CartView extends StatelessWidget {
                                         color: cartcontroller
                                                     .cartcheckOutList.length ==
                                                 0
-                                            ? primarycolor.shade200
-                                            : primarycolor,
+                                            ? Colors.teal.shade200
+                                            : null,
                                         onPress: () async {
                                           if (cartcontroller
                                                   .cartcheckOutList.length !=
                                               0)
                                             Get.to(OrderConfirmationScreen());
+                                          else {
+                                            myCustomSnackbar(
+                                                type: toastType.Error,
+                                                title: "Error",
+                                                body: "Check your items");
+                                          }
                                         },
                                       ),
                                     ],

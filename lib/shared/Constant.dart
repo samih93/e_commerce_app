@@ -12,6 +12,11 @@ List<Color> primarygradient = <Color>[
   Colors.teal.shade700,
   Colors.teal.shade400,
 ];
+List<Color> disabledprimarygradient = <Color>[
+  Colors.teal.shade500,
+  Colors.teal.shade300,
+  Colors.teal.shade100,
+];
 
 // cart Product model
 

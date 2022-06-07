@@ -35,7 +35,6 @@ void main() async {
 
     widget = LoginView();
   }
-  // Get.put(LayoutController());
 
   Get.put(CartController());
   Get.put(ShippingController());

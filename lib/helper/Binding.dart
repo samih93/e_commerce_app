@@ -16,6 +16,7 @@ class Binding extends Bindings {
     Get.lazyPut(() => AuthController());
     //Get.lazyPut(() => HomeViewModelService());
     Get.lazyPut(() => OrderController());
+    Get.put(() => LayoutController(), permanent: true);
     //Get.lazyPut(() => ProfileController());
   }
 }
