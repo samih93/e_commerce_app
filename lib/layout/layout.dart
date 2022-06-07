@@ -28,12 +28,12 @@ class EcommerceLayout extends StatelessWidget {
 
   Widget _bottomNavigationbar() {
     return GetBuilder<LayoutController>(
-      init: Get.find(),
+      init: Get.find<LayoutController>(),
       builder: (controller) => DefaultTabController(
         length: 3,
         initialIndex: controller.navigatorvalue,
         child: GetBuilder<CartController>(
-          init: Get.find(),
+          init: Get.find<CartController>(),
           builder: (cartController) => Scaffold(
             body: Column(
               children: [

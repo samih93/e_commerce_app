@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/Controller/AuthController.dart';
 import 'package:e_commerce_app/Controller/CartController.dart';
 import 'package:e_commerce_app/Controller/ShippingController.dart';
 import 'package:e_commerce_app/Controller/layoutcontroller.dart';
@@ -31,12 +32,12 @@ void main() async {
     widget = EcommerceLayout();
   } else {
     print("current user null");
+
     widget = LoginView();
   }
   // Get.put(LayoutController());
 
   Get.put(CartController());
-  //Get.put(HomeController());
   Get.put(ShippingController());
   Get.put(PaymentController());
   runApp(MyApp(widget));

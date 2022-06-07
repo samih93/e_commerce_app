@@ -32,7 +32,7 @@ class _AnimIconDemoBoxState extends State<AnimIconBox>
       mainAxisSize: MainAxisSize.min,
       children: [
         GetBuilder<HomeViewModelService>(
-          init: Get.find(),
+          init: Get.find<HomeViewModelService>(),
           builder: (homeViewModelService) => InkWell(
             onTap: () {
               // ! Depending on the state, reverse or forward the animation.

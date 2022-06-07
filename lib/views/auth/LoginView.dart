@@ -8,6 +8,7 @@ import 'package:e_commerce_app/widgets/CustumText.dart';
 import 'package:e_commerce_app/widgets/cutom_greadient_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 class LoginView extends GetWidget<AuthController> {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
@@ -56,7 +57,7 @@ class LoginView extends GetWidget<AuthController> {
                 ),
                 SizedBox(height: 30),
                 GetBuilder<AuthController>(
-                  init: Get.find(),
+                  init: Get.find<AuthController>(),
                   builder: (authcontroller) => TextFormField(
                     obscureText: authcontroller.showpassword,
                     validator: (value) {
@@ -96,7 +97,7 @@ class LoginView extends GetWidget<AuthController> {
                   height: 15,
                 ),
                 GetBuilder<AuthController>(
-                  init: Get.find(),
+                  init: Get.find<AuthController>(),
                   builder: (authcontroller) => authcontroller.isloadingSignIn
                       ? CircularProgressIndicator(
                           color: primarycolor,
@@ -131,57 +132,59 @@ class LoginView extends GetWidget<AuthController> {
                 SizedBox(
                   height: 20,
                 ),
-                GestureDetector(
-                  onTap: () async {
-                    await controller.facebookSignInMethod().then((value) {
-                      if (value != null) {
-                        controller.saveuserThenNavigate(value);
+                controller.isloadingsigninwithfacebook
+                    ? CircularProgressIndicator()
+                    : GestureDetector(
+                        onTap: () async {
+                          await controller.facebookSignInMethod().then((value) {
+                            if (value != null) {
+                              controller.saveuserThenNavigate(value);
 
-                        myCustomSnackbar(
-                            title: "Sign in successfully",
-                            body: "Welcome '${value.name}'",
-                            type: toastType.Success);
-                      } else
-                        myCustomSnackbar(
-                            title: "Error Login Account",
-                            body: controller.errorMessage.toString(),
-                            type: toastType.Error);
-                    });
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.blue.shade800,
-                      ),
-                      width: double.infinity,
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Row(children: [
-                          Icon(
-                            Icons.facebook,
-                            color: Colors.white,
+                              myCustomSnackbar(
+                                  title: "You have successfully logged in",
+                                  body: "Welcome '${value.name}'",
+                                  type: toastType.Success);
+                            } else
+                              myCustomSnackbar(
+                                  title: "Error Login Account",
+                                  body: controller.errorMessage.toString(),
+                                  type: toastType.Error);
+                          });
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.blue.shade800,
+                            ),
+                            width: double.infinity,
+                            child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Row(children: [
+                                Icon(
+                                  Icons.facebook,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(
+                                  width: 30,
+                                ),
+                                Text(
+                                  "Sign in with facebook",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              ]),
+                            ),
                           ),
-                          SizedBox(
-                            width: 30,
-                          ),
-                          Text(
-                            "Sign in with facebook",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          )
-                        ]),
+                        ),
                       ),
-                    ),
-                  ),
-                ),
                 SizedBox(
                   height: 15,
                 ),
                 GetBuilder<AuthController>(
-                  init: Get.find(),
+                  init: Get.find<AuthController>(),
                   builder: (authcontroller) => authcontroller
                           .isloadingsigninwithgoogle
                       ? CircularProgressIndicator(
@@ -193,13 +196,14 @@ class LoginView extends GetWidget<AuthController> {
                               if (value != null) {
                                 controller.saveuserThenNavigate(value);
                                 myCustomSnackbar(
-                                    title: "Sign in successfully",
+                                    title: "You have successfully logged in",
                                     body: "Welcome '${value.name}'",
                                     type: toastType.Success);
                               } else
                                 myCustomSnackbar(
                                     title: "Error Login Account",
-                                    body: "controller.errorMessage.toString()",
+                                    body:
+                                        "${controller.errorMessage.toString()}",
                                     type: toastType.Error);
                             });
                           },

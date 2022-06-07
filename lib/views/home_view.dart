@@ -287,15 +287,15 @@ class HomeView extends StatelessWidget {
                                     .addProductTofavorite(
                                         product, !product.isfavorite!);
                                 if (!product.isfavorite! == true) {
-                                  Toast.show("Added To favorite", _context,
+                                  Toast.show("Added To favorite",
                                       duration: 2,
                                       backgroundColor: Colors.red,
-                                      gravity: Toast.TOP);
+                                      gravity: Toast.top);
                                 } else {
-                                  Toast.show("Removed from favorite", _context,
+                                  Toast.show("Removed from favorite",
                                       duration: 2,
                                       backgroundColor: Colors.red,
-                                      gravity: Toast.TOP);
+                                      gravity: Toast.top);
                                 }
 
                                 //print(HomeViewModelService.isfavorite);

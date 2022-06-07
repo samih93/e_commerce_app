@@ -41,12 +41,12 @@ class DetailsProduct extends StatelessWidget {
             ),
         actions: [
           GetBuilder<CartController>(
-            init: Get.find(),
+            init: Get.find<CartController>(),
             builder: (cartController) => Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 GetBuilder<HomeViewModelService>(
-                  init: Get.find(),
+                  init: Get.find<HomeViewModelService>(),
                   builder: (homeViewModelService) => GestureDetector(
                     child: product!.isfavorite!
                         ? Icon(
@@ -58,15 +58,15 @@ class DetailsProduct extends StatelessWidget {
                       homeViewModelService.addProductTofavorite(
                           product!, !product!.isfavorite!);
                       if (!product!.isfavorite! == true) {
-                        Toast.show("Added To favorite", context,
+                        Toast.show("Added To favorite",
                             duration: 2,
                             backgroundColor: Colors.red,
-                            gravity: Toast.TOP);
+                            gravity: Toast.top);
                       } else {
-                        Toast.show("Removed from favorite", context,
+                        Toast.show("Removed from favorite",
                             duration: 2,
                             backgroundColor: Colors.red,
-                            gravity: Toast.TOP);
+                            gravity: Toast.top);
                       }
 
                       //print(HomeViewModelService.isfavorite);
@@ -157,7 +157,7 @@ class DetailsProduct extends StatelessWidget {
                             borderRadius: BorderRadius.circular(30),
                           ),
                           child: GetBuilder<CartController>(
-                            init: Get.find(),
+                            init: Get.find<CartController>(),
                             builder: (cartcontroller) => Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -227,7 +227,7 @@ class DetailsProduct extends StatelessWidget {
                   ],
                 ),
                 GetBuilder<CartController>(
-                  init: Get.find(),
+                  init: Get.find<CartController>(),
                   builder: (CartController) => Container(
                     width: 150,
                     child: CustomButton(
@@ -249,17 +249,17 @@ class DetailsProduct extends StatelessWidget {
                             // reset selected size to nothing if on click on product
                             CartController.onInitializeSize();
                           } else {
-                            Toast.show("Already Added", context,
+                            Toast.show("Already Added",
                                 duration: 2,
                                 backgroundColor: Colors.red,
-                                gravity: Toast.TOP);
+                                gravity: Toast.top);
                             CartController.onInitializeSize();
                           }
                         } else {
-                          Toast.show("Select size befor add to cart", context,
+                          Toast.show("Select size befor add to cart",
                               duration: 2,
                               backgroundColor: Colors.red,
-                              gravity: Toast.TOP);
+                              gravity: Toast.top);
                         }
                       },
                     ),
@@ -303,7 +303,7 @@ class DetailsProduct extends StatelessWidget {
         children: List.generate(
           sizes.length,
           (index) => GetBuilder<CartController>(
-            init: Get.find(),
+            init: Get.find<CartController>(),
             builder: (cartController) => GestureDetector(
               onTap: () => cartController.onselectsize(sizes[index].toString()),
               child: Container(

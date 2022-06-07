@@ -216,10 +216,10 @@ class PaymentMethodScreenState extends State<PaymentMethodScreen> {
                                 paymentController
                                     .insertPaymentCard(model)
                                     .then((value) {
-                                  Toast.show("Payment method inserted", context,
+                                  Toast.show("Payment method inserted",
                                       backgroundColor: Colors.green,
                                       duration: 2,
-                                      gravity: Toast.TOP);
+                                      gravity: Toast.center);
                                   Get.back();
                                 });
                                 // is model !=null we need to update
@@ -234,19 +234,19 @@ class PaymentMethodScreenState extends State<PaymentMethodScreen> {
                                     .updatePayment(model)
                                     .then((value) {
                                   print("updated");
-                                  Toast.show("Payment method updated", context,
+                                  Toast.show("Payment method updated",
                                       backgroundColor: Colors.green,
                                       duration: 2,
-                                      gravity: Toast.TOP);
+                                      gravity: Toast.top);
                                   Get.back();
                                 });
                               }
                             } else {
                               print('invalid!');
-                              Toast.show("Fill all form", context,
+                              Toast.show("Fill all form",
                                   backgroundColor: Colors.red,
                                   duration: 2,
-                                  gravity: Toast.TOP);
+                                  gravity: Toast.top);
                             }
                           },
                         ),

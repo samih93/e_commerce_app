@@ -61,22 +61,22 @@ class ForgetPasswordScreen extends GetWidget<AuthController> {
                             .resetpasword(
                                 emailControllerText.text.toString().trim())
                             .then((value) {
-                          Toast.show("Password reset email sent ", context,
+                          Toast.show("Password reset email sent ",
                               duration: 2,
                               backgroundColor: Colors.green,
-                              gravity: Toast.CENTER);
+                              gravity: Toast.center);
                           Get.off(LoginView());
                         }).catchError((error) {
-                          Toast.show("${error.toString()}", context,
+                          Toast.show("${error.toString()}",
                               duration: 2,
                               backgroundColor: Colors.red,
-                              gravity: Toast.CENTER);
+                              gravity: Toast.center);
                         });
                       } else {
-                        Toast.show("please Enter a valid email", context,
+                        Toast.show("please Enter a valid email",
                             duration: 2,
                             backgroundColor: Colors.red,
-                            gravity: Toast.CENTER);
+                            gravity: Toast.center);
                       }
                     }
                   },

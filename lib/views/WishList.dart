@@ -235,11 +235,10 @@ class WishList extends StatelessWidget {
                                                         Navigator.pop(context);
                                                         Toast.show(
                                                             "Removed from favorite",
-                                                            context,
                                                             duration: 2,
                                                             backgroundColor:
                                                                 Colors.red,
-                                                            gravity: Toast.TOP);
+                                                            gravity: Toast.top);
                                                       },
                                                       color:
                                                           Colors.red.shade400,

@@ -61,35 +61,40 @@ class AuthController extends GetxController {
     UserModel? userModel;
     _isloadingsigninwithgoogle = true;
     // sign in with google
-    final GoogleSignInAccount? googleuser = await _googleSignIn.signIn();
 
-    // save google email after signin in firebase
-    GoogleSignInAuthentication googleSignInAuthentication =
-        await googleuser!.authentication;
-    final AuthCredential credential = GoogleAuthProvider.credential(
-        idToken: googleSignInAuthentication.idToken,
-        accessToken: googleSignInAuthentication.accessToken);
-    await _auth.signInWithCredential(credential).then((usercredential) {
-      userModel = UserModel(
-          email: usercredential.user?.email,
-          name: usercredential.user?.displayName,
-          pic: usercredential.user?.photoURL,
-          userId: usercredential.user?.uid);
-
-      SaveUserToFireStore(userModel!);
+    await _googleSignIn.signIn().then((value) async {
+      GoogleSignInAuthentication googleSignInAuthentication =
+          await value!.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+          idToken: googleSignInAuthentication.idToken,
+          accessToken: googleSignInAuthentication.accessToken);
+      await _auth.signInWithCredential(credential).then((usercredential) {
+        userModel = UserModel(
+            email: usercredential.user?.email,
+            name: usercredential.user?.displayName,
+            pic: usercredential.user?.photoURL,
+            userId: usercredential.user?.uid);
+        _isloadingsigninwithgoogle = false;
+        update();
+        SaveUserToFireStore(userModel!);
+      });
+    }).catchError((error) {
       _isloadingsigninwithgoogle = false;
+      errorMessage = error.toString();
       update();
     });
-    // Get.offAll(
-    //   () => EcommerceLayout(),
-    //   binding: HomeViewBinding(),
-    // );
+
     return userModel;
   }
+
+  bool _isloadingsigninwithfacebook = false;
+  bool get isloadingsigninwithfacebook => _isloadingsigninwithfacebook;
 
   Future<UserModel?> facebookSignInMethod() async {
     UserModel? userModel;
 
+    _isloadingsigninwithfacebook = true;
+    update();
     // Log in
     final res = await fb.logIn(permissions: [
       FacebookPermission.publicProfile,
@@ -127,16 +132,25 @@ class AuthController extends GetxController {
                   profile.lastName.toString(),
               pic: imageUrl,
               userId: value.user?.uid);
+          _isloadingsigninwithfacebook = false;
+          update();
           SaveUserToFireStore(userModel!);
         });
 
         break;
       case FacebookLoginStatus.cancel:
+        errorMessage = "canceled";
+        _isloadingsigninwithfacebook = false;
+        update();
         // User cancel log in
         break;
       case FacebookLoginStatus.error:
         // Log in failed
         print('Error while log in: ${res.error}');
+        errorMessage = res.error.toString();
+        _isloadingsigninwithfacebook = false;
+        update();
+
         break;
     }
     return userModel;

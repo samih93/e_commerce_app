@@ -305,7 +305,7 @@ class OrderConfirmationScreen extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 GetBuilder<CartController>(
-                  init: Get.find(),
+                  init: Get.find<CartController>(),
                   builder: (cart_controller) => CustomText(
                     text: "\$  ${cart_controller.totalprice}",
                     fontSize: 20,

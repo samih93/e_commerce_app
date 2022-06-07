@@ -26,7 +26,7 @@ class ShippingAddressScreen extends StatelessWidget {
         ),
       ),
       body: GetBuilder<ShippingController>(
-        init: Get.find(),
+        init: Get.find<ShippingController>(),
         builder: (shippingController) => Form(
           key: shippingController.formstate,
           child: SingleChildScrollView(

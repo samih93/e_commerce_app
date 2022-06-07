@@ -122,7 +122,7 @@ class ProfileView extends StatelessWidget {
                       height: 2,
                     ),
                     GetBuilder<HomeViewModelService>(
-                      init: Get.find(),
+                      init: Get.find<HomeViewModelService>(),
                       builder: (homeViewModelService) => ListTile(
                         title: Text("Wish List"),
                         leading: Icon(Icons.favorite_border),
