@@ -7,6 +7,7 @@ class Order {
   double? totalprice;
   String? uId;
   Timestamp? orderdate;
+  String? status;
   Address? shippingAddress; // Address
   UserModel? personelInformation; // userModel
   List<CartProduct>? orderItems;
@@ -15,6 +16,7 @@ class Order {
       {this.totalprice,
       this.uId,
       this.orderdate,
+      this.status,
       this.shippingAddress,
       this.personelInformation,
       this.orderItems});
@@ -26,6 +28,7 @@ class Order {
         map["totalprice"] != null ? double.parse(map["totalprice"]) : 0;
     uId = map["uId"] != null ? map["uId"].toString() : '';
     orderdate = map["orderdate"] != null ? map["orderdate"] : Timestamp.now();
+    orderdate = map["status"] != null ? map["status"] : '';
     shippingAddress = Address.fromJson(map['shippingAddress']);
     personelInformation = UserModel.fromjson(map['personelInformation']);
     map["orderItems"].forEach((element) {
@@ -38,6 +41,7 @@ class Order {
       "totalprice": totalprice,
       "uId": uId,
       "orderdate": orderdate,
+      "status": status ?? '',
       "shippingAddress": shippingAddress?.toJson(),
       "personelInformation": personelInformation?.tojson(),
       "orderItems": [
