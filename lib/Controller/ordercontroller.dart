@@ -10,7 +10,7 @@ class OrderController extends GetxController {
   @override
   void onReady() {
     // TODO: implement onReady
-    //getallOrder();
+    getallOrder();
     super.onReady();
   }
 
@@ -28,6 +28,7 @@ class OrderController extends GetxController {
             totalprice: totalprice,
             uId: currentuserModel!.userId,
             orderdate: Timestamp.now(),
+            status: "Pending",
             shippingAddress: address,
             personelInformation: currentuserModel!,
             orderItems: items)
@@ -38,9 +39,15 @@ class OrderController extends GetxController {
     await databasereference.collection('orders').add(order).then((value) async {
       //  add items collection
       orderid = value.id;
-      isloadingPostOrder = false;
-      isOrdersuccess = true;
-      update();
+      await databasereference
+          .collection('orders')
+          .doc(orderid)
+          .update({"orderId": orderid}).then((value) {
+        isloadingPostOrder = false;
+        isOrdersuccess = true;
+        update();
+        getallOrder();
+      });
     }).catchError((error) {
       print(error.toString());
     });
@@ -50,20 +57,26 @@ class OrderController extends GetxController {
 
 //get all orders
 
-  List<CartProduct> myOrders = [];
+  List<Order> myOrders = [];
   Future<void> getallOrder() async {
     myOrders = [];
 
     databasereference
         .collection('orders')
+        .orderBy('orderdate', descending: true)
         .where('uId', isEqualTo: currentuserModel?.userId)
         .get()
         .then((value) {
       if (value.docs.length > 0) {
-        // myOrders.forEach((element) {
-        //   print(element.toJson());
-        // });
+        // print("orders :" + value.docs.length.toString());
+        value.docs.forEach((element) {
+          print(element.data());
+          myOrders.add(Order.fromJson(element.data()));
+        });
       }
+      myOrders.forEach((element) {
+        print(element.toJson());
+      });
     });
   }
 }

@@ -1,10 +1,12 @@
 import 'package:e_commerce_app/Controller/AuthController.dart';
+import 'package:e_commerce_app/Controller/ordercontroller.dart';
 import 'package:e_commerce_app/Controller/payment_controller.dart';
+import 'package:e_commerce_app/models/ordermodel.dart';
 import 'package:e_commerce_app/service/HomeViewModelService.dart';
 import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/views/ShippingAddressView.dart';
 import 'package:e_commerce_app/views/credit_card/payment_method_screen.dart';
-import 'package:e_commerce_app/views/my_orders.dart';
+import 'package:e_commerce_app/views/my_orders_screen.dart';
 import 'package:e_commerce_app/widgets/CustomButton.dart';
 import 'package:e_commerce_app/widgets/CustumText.dart';
 import 'package:flutter/material.dart';
@@ -100,22 +102,25 @@ class ProfileView extends StatelessWidget {
                       color: Colors.grey,
                       height: 2,
                     ),
-                    ListTile(
-                      title: Text("Orders"),
-                      leading: Icon(Icons.list),
-                      trailing: FlutterBadge(
-                        icon: Icon(
-                          Icons.message,
-                          size: 30,
+                    GetBuilder<OrderController>(
+                      init: Get.find<OrderController>(),
+                      builder: (orderController) => ListTile(
+                        title: Text("Orders"),
+                        leading: Icon(Icons.list),
+                        trailing: FlutterBadge(
+                          icon: Icon(
+                            Icons.message,
+                            size: 30,
+                          ),
+                          itemCount: orderController.myOrders.length,
+                          hideZeroCount: false,
+                          badgeColor: primarycolor,
+                          borderRadius: 20.0,
                         ),
-                        itemCount: 0,
-                        hideZeroCount: false,
-                        badgeColor: primarycolor,
-                        borderRadius: 20.0,
+                        onTap: () {
+                          Get.to(MyOrdersScreen());
+                        },
                       ),
-                      onTap: () {
-                        Get.to(MyOrdersScreen());
-                      },
                     ),
                     Divider(
                       color: Colors.grey,

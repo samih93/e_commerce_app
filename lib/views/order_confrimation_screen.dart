@@ -311,7 +311,7 @@ class OrderConfirmationScreen extends StatelessWidget {
               height: 10,
             ),
             GetBuilder<OrderController>(
-              init: OrderController(),
+              init: Get.find<OrderController>(),
               builder: (orderController) => orderController.isloadingPostOrder
                   ? CircularProgressIndicator()
                   : CustomButton(
