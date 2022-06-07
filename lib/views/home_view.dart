@@ -1,19 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/models/Category.dart';
 import 'package:e_commerce_app/models/Product.dart';
-import 'package:e_commerce_app/service/ApplicationDb.dart';
 import 'package:e_commerce_app/service/HomeViewModelService.dart';
+import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/shared/style.dart';
 import 'package:e_commerce_app/views/DetailsProduct.dart';
-import 'package:e_commerce_app/views/auth/LoginView.dart';
 import 'package:e_commerce_app/widgets/CustumText.dart';
+import 'package:e_commerce_app/widgets/animatedIcon.dart';
 import 'package:e_commerce_app/widgets/cutom_greadient_text.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:e_commerce_app/widgets/animatedIcon.dart';
-import 'package:toast/toast.dart';
 
 class HomeView extends StatelessWidget {
   BuildContext? _context;

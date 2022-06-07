@@ -10,8 +10,15 @@ class OrderController extends GetxController {
   @override
   void onReady() {
     // TODO: implement onReady
-    getallOrder();
     super.onReady();
+  }
+
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    getallOrder();
+
+    super.onInit();
   }
 
   /// Add Order

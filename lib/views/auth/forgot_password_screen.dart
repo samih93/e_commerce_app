@@ -8,7 +8,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
-import 'package:toast/toast.dart';
 
 class ForgetPasswordScreen extends GetWidget<AuthController> {
   var emailControllerText = TextEditingController();
@@ -25,14 +24,14 @@ class ForgetPasswordScreen extends GetWidget<AuthController> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.only(left: 12.0, right: 12, top: 40),
         child: Container(
           height: double.infinity,
           width: double.infinity,
           child: Form(
             key: _formkey,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text("Receive an email to reset your password"),
                 SizedBox(height: 10),

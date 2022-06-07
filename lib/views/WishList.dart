@@ -1,16 +1,16 @@
 import 'package:e_commerce_app/Controller/CartController.dart';
+import 'package:e_commerce_app/Controller/layoutcontroller.dart';
 import 'package:e_commerce_app/layout/layout.dart';
 import 'package:e_commerce_app/service/HomeViewModelService.dart';
 import 'package:e_commerce_app/shared/Constant.dart';
+import 'package:e_commerce_app/shared/style.dart';
 import 'package:e_commerce_app/views/CartView.dart';
-import 'package:e_commerce_app/views/DetailsProduct.dart';
 import 'package:e_commerce_app/widgets/CustumText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_badged/flutter_badge.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-import 'package:toast/toast.dart';
 
 class WishList extends StatelessWidget {
   @override
@@ -25,7 +25,10 @@ class WishList extends StatelessWidget {
               builder: (cartController) => Row(
                 children: [
                   GestureDetector(
-                    onTap: () => Get.to(() => CartView()),
+                    onTap: () {
+                      Get.find<LayoutController>().changeSelectedValue(1);
+                      Get.off(() => EcommerceLayout());
+                    },
                     child: FlutterBadge(
                       icon: Icon(
                         Icons.shopping_bag,
@@ -44,7 +47,10 @@ class WishList extends StatelessWidget {
                     width: 20,
                   ),
                   GestureDetector(
-                      onTap: () => Get.off(() => EcommerceLayout()),
+                      onTap: () {
+                        Get.find<LayoutController>().changeSelectedValue(0);
+                        Get.off(() => EcommerceLayout());
+                      },
                       child: Icon(
                         Icons.home,
                         color: Colors.white,
@@ -60,7 +66,7 @@ class WishList extends StatelessWidget {
           ),
           leading: IconButton(
               icon: Icon(Icons.arrow_back),
-              onPressed: () => Get.off(EcommerceLayout()) //Get.off(page),
+              onPressed: () => Get.back() //Get.off(page),
               ),
           title: CustomText(
               text: "Wish List",
@@ -238,12 +244,11 @@ class WishList extends StatelessWidget {
                                                                         index]
                                                                     .isfavorite!);
                                                         Navigator.pop(context);
-                                                        Toast.show(
-                                                            "Removed from favorite",
-                                                            duration: 2,
-                                                            backgroundColor:
-                                                                Colors.red,
-                                                            gravity: Toast.top);
+                                                        myCustomSnackbar(
+                                                            type: toastType
+                                                                .Success,
+                                                            title:
+                                                                "Removed from favorite");
                                                       },
                                                       color:
                                                           Colors.red.shade400,

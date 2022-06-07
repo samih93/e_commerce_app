@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/credit_card_brand.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:get/get.dart';
-import 'package:toast/toast.dart';
 
 class PaymentMethodScreen extends StatefulWidget {
   @override
@@ -248,10 +247,10 @@ class PaymentMethodScreenState extends State<PaymentMethodScreen> {
                               }
                             } else {
                               print('invalid!');
-                              Toast.show("Fill all form",
-                                  backgroundColor: Colors.red,
-                                  duration: 2,
-                                  gravity: Toast.top);
+                              myCustomSnackbar(
+                                  type: toastType.Error,
+                                  title: "Fill all form",
+                                  duration: 2);
                             }
                           },
                         ),

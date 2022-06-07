@@ -1,22 +1,17 @@
+import 'package:e_commerce_app/Controller/CartController.dart';
 import 'package:e_commerce_app/Controller/layoutcontroller.dart';
 import 'package:e_commerce_app/layout/layout.dart';
-import 'package:e_commerce_app/shared/Constant.dart';
-import 'package:e_commerce_app/Controller/CartController.dart';
 import 'package:e_commerce_app/models/CartProduct.dart';
 import 'package:e_commerce_app/models/Product.dart';
 import 'package:e_commerce_app/service/HomeViewModelService.dart';
-import 'package:e_commerce_app/service/sqflitedatabase/EcommerceDatabasehelper.dart';
+import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/shared/style.dart';
-import 'package:e_commerce_app/views/CartView.dart';
-import 'package:e_commerce_app/views/home_view.dart';
 import 'package:e_commerce_app/widgets/CustomButton.dart';
 import 'package:e_commerce_app/widgets/CustumText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_badged/flutter_badge.dart';
 import 'package:get/get.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:toast/toast.dart';
 
 class DetailsProduct extends StatelessWidget {
   Product? product;

@@ -8,7 +8,6 @@ import 'package:e_commerce_app/widgets/CustumText.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:country_picker/country_picker.dart';
-import 'package:toast/toast.dart';
 
 class ShippingAddressScreen extends StatelessWidget {
   BuildContext? _context;
@@ -221,48 +220,52 @@ class ShippingAddressScreen extends StatelessWidget {
                       onPress: () async {
                         // save form state to save all field
                         shippingController.formstate.currentState?.save();
-                        if (shippingController.addressmodel == null) {
-                          Address address = Address(
-                            firstname: shippingController.firstname,
-                            lastname: shippingController.lastname,
-                            location: shippingController.address,
-                            state: shippingController.state,
-                            city: shippingController.city,
-                            postcode: shippingController.postcode,
-                            country: shippingController.country,
-                            phone: shippingController.phone,
-                          );
-                          await shippingController
-                              .insertAddress(address)
-                              .then((value) {
-                            Get.back();
-                            myCustomSnackbar(
-                                duration: 2,
-                                type: toastType.Success,
-                                title:
-                                    "Shipping address successfully inserted");
-                          });
-                        } else {
-                          Address address = Address(
-                            id: shippingController.addressmodel!.id,
-                            firstname: shippingController.firstname,
-                            lastname: shippingController.lastname,
-                            location: shippingController.address,
-                            state: shippingController.state,
-                            city: shippingController.city,
-                            postcode: shippingController.postcode,
-                            country: shippingController.country,
-                            phone: shippingController.phone,
-                          );
-                          await shippingController
-                              .updateAddress(address)
-                              .then((value) {
-                            Get.back();
-                            myCustomSnackbar(
-                                duration: 2,
-                                type: toastType.Success,
-                                title: "Shipping address successfully updated");
-                          });
+                        if (shippingController.formstate.currentState!
+                            .validate()) {
+                          if (shippingController.addressmodel == null) {
+                            Address address = Address(
+                              firstname: shippingController.firstname,
+                              lastname: shippingController.lastname,
+                              location: shippingController.address,
+                              state: shippingController.state,
+                              city: shippingController.city,
+                              postcode: shippingController.postcode,
+                              country: shippingController.country,
+                              phone: shippingController.phone,
+                            );
+                            await shippingController
+                                .insertAddress(address)
+                                .then((value) {
+                              Get.back();
+                              myCustomSnackbar(
+                                  duration: 2,
+                                  type: toastType.Success,
+                                  title:
+                                      "Shipping address successfully inserted");
+                            });
+                          } else {
+                            Address address = Address(
+                              id: shippingController.addressmodel!.id,
+                              firstname: shippingController.firstname,
+                              lastname: shippingController.lastname,
+                              location: shippingController.address,
+                              state: shippingController.state,
+                              city: shippingController.city,
+                              postcode: shippingController.postcode,
+                              country: shippingController.country,
+                              phone: shippingController.phone,
+                            );
+                            await shippingController
+                                .updateAddress(address)
+                                .then((value) {
+                              Get.back();
+                              myCustomSnackbar(
+                                  duration: 2,
+                                  type: toastType.Success,
+                                  title:
+                                      "Shipping address successfully updated");
+                            });
+                          }
                         }
                       },
                     ),

@@ -23,6 +23,10 @@ class MyOrdersScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: primarycolor,
         title: Text("My Orders"),
+        flexibleSpace: Container(
+          decoration:
+              BoxDecoration(gradient: LinearGradient(colors: primarygradient)),
+        ),
       ),
       body: GetBuilder<OrderController>(
         init: Get.find<OrderController>(),
@@ -198,14 +202,6 @@ class MyOrdersScreen extends StatelessWidget {
                 color: primarycolor,
               ),
             ],
-          ),
-          SizedBox(
-            height: 15,
-          ),
-          CustomButton(
-            onPress: () {},
-            text: "Tracking",
-            color: primarycolor.shade300,
           ),
           SizedBox(
             height: 15,
