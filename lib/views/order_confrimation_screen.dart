@@ -5,6 +5,7 @@ import 'package:e_commerce_app/Controller/ordercontroller.dart';
 import 'package:e_commerce_app/Controller/payment_controller.dart';
 import 'package:e_commerce_app/layout/layout.dart';
 import 'package:e_commerce_app/models/Address.dart';
+import 'package:e_commerce_app/models/CartProduct.dart';
 import 'package:e_commerce_app/models/payment_model.dart';
 import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/shared/style.dart';
@@ -64,8 +65,8 @@ class OrderConfirmationScreen extends StatelessWidget {
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
                             itemCount: cartcontroller.cartcheckOutList.length,
-                            itemBuilder: (context, index) =>
-                                _checkoutItems(index),
+                            itemBuilder: (context, index) => _checkoutItems(
+                                cartcontroller.cartcheckOutList[index]),
                             separatorBuilder:
                                 (BuildContext context, int index) => Divider(),
                           ),
@@ -192,7 +193,7 @@ class OrderConfirmationScreen extends StatelessWidget {
         ),
       );
 
-  _checkoutItems(int index) => Container(
+  _checkoutItems(CartProduct model) => Container(
       height: 140,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -203,9 +204,9 @@ class OrderConfirmationScreen extends StatelessWidget {
           Container(
             height: 130,
             width: 130,
-            child: cartcontroller.cartcheckOutList[index].image != ""
+            child: model.image != ""
                 ? Image.network(
-                    cartcontroller.cartcheckOutList[index].image.toString(),
+                    model.image.toString(),
                     fit: BoxFit.fitWidth,
                   )
                 : Image.asset("assets/icons/chaire.png"),
@@ -217,25 +218,19 @@ class OrderConfirmationScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    cartcontroller.cartcheckOutList[index].name.toString(),
+                    model.name.toString(),
                     overflow: TextOverflow.ellipsis,
                   ),
                   SizedBox(
                     height: 10,
                   ),
-                  CustomText(
-                      text:
-                          "Size : ${cartcontroller.cartcheckOutList[index].size}"),
+                  CustomText(text: "Size : ${model.size}"),
                   SizedBox(
                     height: 10,
                   ),
-                  GetBuilder<CartController>(
-                    init: Get.find<CartController>(),
-                    builder: (cart_contro) => CustomText(
-                      text: "\$ " +
-                          cart_contro.cartcheckOutList[index].price.toString(),
-                      color: primarycolor,
-                    ),
+                  CustomText(
+                    text: "\$ " + model.price.toString(),
+                    color: primarycolor,
                   ),
                   SizedBox(
                     height: 20,
@@ -252,7 +247,7 @@ class OrderConfirmationScreen extends StatelessWidget {
                         GestureDetector(
                           onTap: () {
                             cartcontroller.increase_decrease_quatity(
-                                index, true);
+                                model.productId.toString(), true);
                           },
                           child: Icon(
                             Icons.add,
@@ -261,10 +256,8 @@ class OrderConfirmationScreen extends StatelessWidget {
                         ),
                         GetBuilder<CartController>(
                           init: Get.find<CartController>(),
-                          builder: (cart_contro) => CustomText(
-                            text: cartcontroller
-                                .cartcheckOutList[index].quantity
-                                .toString(),
+                          builder: (cart_controller) => CustomText(
+                            text: model.quantity.toString(),
                             alignment: Alignment.center,
                             fontSize: 25,
                           ),
@@ -272,7 +265,7 @@ class OrderConfirmationScreen extends StatelessWidget {
                         GestureDetector(
                           onTap: () {
                             cartcontroller.increase_decrease_quatity(
-                                index, false);
+                                model.productId.toString(), false);
                           },
                           child: Padding(
                             padding: const EdgeInsets.only(bottom: 5.0),
@@ -322,10 +315,10 @@ class OrderConfirmationScreen extends StatelessWidget {
               builder: (orderController) => orderController.isloadingPostOrder
                   ? CircularProgressIndicator()
                   : CustomButton(
-                      color: paymentcontroller.paymentModel != null &&
-                              shippingController.addressmodel != null
-                          ? null
-                          : Colors.teal.shade200,
+                      // color: paymentcontroller.paymentModel != null &&
+                      //         shippingController.addressmodel != null
+                      //     ? null
+                      //     : Colors.teal.shade200,
                       text: "PAY NOW",
                       onPress: () async {
                         if (paymentcontroller.paymentModel != null &&
