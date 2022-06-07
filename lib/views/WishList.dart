@@ -3,6 +3,7 @@ import 'package:e_commerce_app/layout/layout.dart';
 import 'package:e_commerce_app/service/HomeViewModelService.dart';
 import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/views/CartView.dart';
+import 'package:e_commerce_app/views/DetailsProduct.dart';
 import 'package:e_commerce_app/widgets/CustumText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_badged/flutter_badge.dart';
@@ -15,12 +16,12 @@ class WishList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeViewModelService>(
-      init: Get.find(),
+      init: Get.find<HomeViewModelService>(),
       builder: (homeViewModelService) => Scaffold(
         appBar: AppBar(
           actions: [
             GetBuilder<CartController>(
-              init: Get.find(),
+              init: Get.find<CartController>(),
               builder: (cartController) => Row(
                 children: [
                   GestureDetector(
@@ -94,6 +95,10 @@ class WishList extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () {
+                              // Get.off(DetailsProduct(
+                              //   product: homeViewModelService
+                              //       .favoriteproduct[index].product,
+                              // ));
                               //TODo:
                               // Get.off(DetailsProduct(
                               //   product: Product(
@@ -181,7 +186,7 @@ class WishList extends StatelessWidget {
                                   Expanded(
                                     flex: 1,
                                     child: GetBuilder<HomeViewModelService>(
-                                      init: Get.find(),
+                                      init: Get.find<HomeViewModelService>(),
                                       builder: (homeViewModelService) =>
                                           GestureDetector(
                                               child: Container(

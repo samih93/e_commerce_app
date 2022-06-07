@@ -80,7 +80,7 @@ class SignUpView extends GetWidget<AuthController> {
                   height: 30,
                 ),
                 GetBuilder<AuthController>(
-                  init: Get.find(),
+                  init: Get.find<AuthController>(),
                   builder: (authcontroller) => authcontroller
                           .isloadingCreateAccount
                       ? CircularProgressIndicator()

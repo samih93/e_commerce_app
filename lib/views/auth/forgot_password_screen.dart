@@ -1,5 +1,6 @@
 import 'package:e_commerce_app/Controller/AuthController.dart';
 import 'package:e_commerce_app/shared/Constant.dart';
+import 'package:e_commerce_app/shared/style.dart';
 import 'package:e_commerce_app/views/auth/LoginView.dart';
 import 'package:e_commerce_app/widgets/CustomButton.dart';
 import 'package:email_validator/email_validator.dart';
@@ -61,22 +62,21 @@ class ForgetPasswordScreen extends GetWidget<AuthController> {
                             .resetpasword(
                                 emailControllerText.text.toString().trim())
                             .then((value) {
-                          Toast.show("Password reset email sent ",
-                              duration: 2,
-                              backgroundColor: Colors.green,
-                              gravity: Toast.center);
+                          myCustomSnackbar(
+                              type: toastType.Success,
+                              title: "Password reset email sent");
+
                           Get.off(LoginView());
                         }).catchError((error) {
-                          Toast.show("${error.toString()}",
-                              duration: 2,
-                              backgroundColor: Colors.red,
-                              gravity: Toast.center);
+                          myCustomSnackbar(
+                              type: toastType.Error,
+                              title: "${error.toString()}");
                         });
                       } else {
-                        Toast.show("please Enter a valid email",
-                            duration: 2,
-                            backgroundColor: Colors.red,
-                            gravity: Toast.center);
+                        myCustomSnackbar(
+                            duration: 4,
+                            type: toastType.Success,
+                            title: "Password reset email sent");
                       }
                     }
                   },
