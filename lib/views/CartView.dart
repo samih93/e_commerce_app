@@ -241,10 +241,13 @@ class CartView extends StatelessWidget {
                                                         children: [
                                                           GestureDetector(
                                                             onTap: () {
-                                                              cartcontroller
-                                                                  .increase_decrease_quatity(
-                                                                      index,
-                                                                      true);
+                                                              cartcontroller.increase_decrease_quatity(
+                                                                  cartcontroller
+                                                                      .cartproductList[
+                                                                          index]
+                                                                      .productId
+                                                                      .toString(),
+                                                                  true);
                                                             },
                                                             child: Icon(
                                                               Icons.add,
@@ -264,10 +267,13 @@ class CartView extends StatelessWidget {
                                                           ),
                                                           GestureDetector(
                                                             onTap: () {
-                                                              cartcontroller
-                                                                  .increase_decrease_quatity(
-                                                                      index,
-                                                                      false);
+                                                              cartcontroller.increase_decrease_quatity(
+                                                                  cartcontroller
+                                                                      .cartproductList[
+                                                                          index]
+                                                                      .productId
+                                                                      .toString(),
+                                                                  false);
                                                             },
                                                             child: Padding(
                                                               padding:
