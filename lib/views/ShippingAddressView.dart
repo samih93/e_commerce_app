@@ -1,6 +1,7 @@
 import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/Controller/ShippingController.dart';
 import 'package:e_commerce_app/models/Address.dart';
+import 'package:e_commerce_app/shared/style.dart';
 import 'package:e_commerce_app/widgets/CustomButton.dart';
 import 'package:e_commerce_app/widgets/CustomTextFormField.dart';
 import 'package:e_commerce_app/widgets/CustumText.dart';
@@ -217,38 +218,52 @@ class ShippingAddressScreen extends StatelessWidget {
                       text: shippingController.list_of_address.length == 0
                           ? "Add"
                           : "Update",
-                      onPress: () {
+                      onPress: () async {
                         // save form state to save all field
                         shippingController.formstate.currentState?.save();
-                        shippingController.insertAddress(Address(
-                          id: shippingController.addressmodel != null
-                              ? shippingController.addressmodel?.id
-                              : '',
-                          firstname: shippingController.firstname,
-                          lastname: shippingController.lastname,
-                          location: shippingController.address,
-                          state: shippingController.state,
-                          city: shippingController.city,
-                          postcode: shippingController.postcode,
-                          country: shippingController.country,
-                          phone: shippingController.phone,
-                        ));
-                        Get.back();
-
-                        // Toast if added or updated
-                        // if (shippingController.list_of_address.length == 0) {
-                        //   Toast.show("Address Added", context,
-                        //       duration: 2,
-                        //       textColor: Colors.white,
-                        //       backgroundColor: primarycolor,
-                        //       gravity: Toast.CENTER);
-                        // } else {
-                        //   Toast.show("Address Updated", context,
-                        //       duration: 2,
-                        //       textColor: Colors.white,
-                        //       backgroundColor: primarycolor,
-                        //       gravity: Toast.CENTER);
-                        // }
+                        if (shippingController.addressmodel == null) {
+                          Address address = Address(
+                            firstname: shippingController.firstname,
+                            lastname: shippingController.lastname,
+                            location: shippingController.address,
+                            state: shippingController.state,
+                            city: shippingController.city,
+                            postcode: shippingController.postcode,
+                            country: shippingController.country,
+                            phone: shippingController.phone,
+                          );
+                          await shippingController
+                              .insertAddress(address)
+                              .then((value) {
+                            Get.back();
+                            myCustomSnackbar(
+                                duration: 2,
+                                type: toastType.Success,
+                                title:
+                                    "Shipping address successfully inserted");
+                          });
+                        } else {
+                          Address address = Address(
+                            id: shippingController.addressmodel!.id,
+                            firstname: shippingController.firstname,
+                            lastname: shippingController.lastname,
+                            location: shippingController.address,
+                            state: shippingController.state,
+                            city: shippingController.city,
+                            postcode: shippingController.postcode,
+                            country: shippingController.country,
+                            phone: shippingController.phone,
+                          );
+                          await shippingController
+                              .updateAddress(address)
+                              .then((value) {
+                            Get.back();
+                            myCustomSnackbar(
+                                duration: 2,
+                                type: toastType.Success,
+                                title: "Shipping address successfully updated");
+                          });
+                        }
                       },
                     ),
                   ),

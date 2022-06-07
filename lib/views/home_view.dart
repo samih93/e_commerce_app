@@ -47,7 +47,8 @@ class HomeView extends StatelessWidget {
                         ),
                         CustomGradientText(
                           text: "Categories",
-                          fontSize: 24,
+                          fontSize: 22,
+                          fontweight: FontWeight.bold,
                         ),
 
                         SizedBox(
@@ -62,6 +63,7 @@ class HomeView extends StatelessWidget {
                           children: [
                             CustomGradientText(
                               text: "Products",
+                              fontweight: FontWeight.bold,
                               fontSize: 24,
                             ),
                             AnimIconBox(
@@ -108,9 +110,11 @@ class HomeView extends StatelessWidget {
                                         SizedBox(height: 10),
                                     itemCount:
                                         homeViewModelService.ProductList.length)
-                            : Text(
-                                "No Products",
-                                style: TextStyle(color: Colors.grey),
+                            : Center(
+                                child: Text(
+                                  "No Products",
+                                  style: TextStyle(color: Colors.grey),
+                                ),
                               ),
                       ],
                     ),

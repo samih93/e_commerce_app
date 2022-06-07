@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/Controller/layoutcontroller.dart';
 import 'package:e_commerce_app/layout/layout.dart';
 import 'package:e_commerce_app/shared/Constant.dart';
 import 'package:e_commerce_app/Controller/CartController.dart';
@@ -80,7 +81,11 @@ class DetailsProduct extends StatelessWidget {
                   width: 20,
                 ),
                 GestureDetector(
-                  onTap: () => Get.to(() => CartView()),
+                  onTap: () {
+                    var controller = Get.find<LayoutController>();
+                    controller.changeSelectedValue(1);
+                    Get.off(() => EcommerceLayout());
+                  },
                   child: FlutterBadge(
                     icon: Icon(Icons.shopping_bag),
                     itemCount: cartController.cartproductList != null
@@ -249,9 +254,10 @@ class DetailsProduct extends StatelessWidget {
                                   quantity: 1));
                           if (!isAdded) {
                             myCustomSnackbar(
+                                duration: 2,
                                 type: toastType.Success,
                                 title: "You have successfully Added to card",
-                                body: " product ID ${product!.id}");
+                                body: " product Name '${product!.name}'");
                             //_onAlertWithCustomImagePressed(context);
                             // reset selected size to nothing if on click on product
                             CartController.onInitializeSize();
@@ -285,25 +291,25 @@ class DetailsProduct extends StatelessWidget {
     );
   }
 
-  _onAlertWithCustomImagePressed(context) {
-    var alertStyle = AlertStyle(animationDuration: Duration(milliseconds: 1));
-    Alert(
-      style: alertStyle,
-      context: context,
-      title: "Item Added to Cart",
-      image: Image.asset("assets/images/success.png"),
-      buttons: [
-        DialogButton(
-          child: Text(
-            "Go To Cart",
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
-          onPressed: () => Get.off(CartView()),
-          width: 120,
-        )
-      ],
-    ).show();
-  }
+  // _onAlertWithCustomImagePressed(context) {
+  //   var alertStyle = AlertStyle(animationDuration: Duration(milliseconds: 1));
+  //   Alert(
+  //     style: alertStyle,
+  //     context: context,
+  //     title: "Item Added to Cart",
+  //     image: Image.asset("assets/images/success.png"),
+  //     buttons: [
+  //       DialogButton(
+  //         child: Text(
+  //           "Go To Cart",
+  //           style: TextStyle(color: Colors.white, fontSize: 20),
+  //         ),
+  //         onPressed: () => Get.off(CartView()),
+  //         width: 120,
+  //       )
+  //     ],
+  //   ).show();
+  // }
 
   Widget _productsizes(List<String> sizes) {
     return Align(

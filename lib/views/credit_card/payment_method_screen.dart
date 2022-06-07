@@ -1,6 +1,7 @@
 import 'package:e_commerce_app/Controller/payment_controller.dart';
 import 'package:e_commerce_app/models/payment_model.dart';
 import 'package:e_commerce_app/shared/Constant.dart';
+import 'package:e_commerce_app/shared/style.dart';
 import 'package:e_commerce_app/widgets/CustomButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/credit_card_brand.dart';
@@ -216,11 +217,13 @@ class PaymentMethodScreenState extends State<PaymentMethodScreen> {
                                 paymentController
                                     .insertPaymentCard(model)
                                     .then((value) {
-                                  Toast.show("Payment method inserted",
-                                      backgroundColor: Colors.green,
-                                      duration: 2,
-                                      gravity: Toast.center);
                                   Get.back();
+
+                                  myCustomSnackbar(
+                                      type: toastType.Success,
+                                      title:
+                                          "Payment method successfully inserted",
+                                      duration: 2);
                                 });
                                 // is model !=null we need to update
                               } else {
@@ -234,11 +237,13 @@ class PaymentMethodScreenState extends State<PaymentMethodScreen> {
                                     .updatePayment(model)
                                     .then((value) {
                                   print("updated");
-                                  Toast.show("Payment method updated",
-                                      backgroundColor: Colors.green,
-                                      duration: 2,
-                                      gravity: Toast.top);
                                   Get.back();
+
+                                  myCustomSnackbar(
+                                      type: toastType.Success,
+                                      title:
+                                          "Payment method successfully updated",
+                                      duration: 2);
                                 });
                               }
                             } else {
