@@ -9,6 +9,7 @@ import 'package:e_commerce_app/widgets/CustumText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class MyOrdersScreen extends StatelessWidget {
@@ -30,21 +31,40 @@ class MyOrdersScreen extends StatelessWidget {
       ),
       body: GetBuilder<OrderController>(
         init: Get.find<OrderController>(),
-        builder: (orderController) => SingleChildScrollView(
-          child: Column(children: [
-            ...orderController.myOrders.map((e) => Column(
-                  children: [
-                    Container(
-                      child: _buildMyOrders(e),
-                      color: Colors.white,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    )
-                  ],
-                )),
-          ]),
-        ),
+        builder: (orderController) => orderController.myOrders.length == 0
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    "assets/svg/empty_box.svg",
+                    alignment: Alignment.center,
+                    width: 200,
+                    height: 240,
+                  ),
+                  SizedBox(height: 15),
+                  CustomText(
+                    text: "No orders yet",
+                    fontSize: 25,
+                    color: Colors.grey,
+                    alignment: Alignment.center,
+                  ),
+                ],
+              )
+            : SingleChildScrollView(
+                child: Column(children: [
+                  ...orderController.myOrders.map((e) => Column(
+                        children: [
+                          Container(
+                            child: _buildMyOrders(e),
+                            color: Colors.white,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          )
+                        ],
+                      )),
+                ]),
+              ),
       ),
     );
   }
