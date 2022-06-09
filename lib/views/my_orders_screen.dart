@@ -20,7 +20,7 @@ class MyOrdersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     _context = context;
     return Scaffold(
-      backgroundColor: Colors.grey.shade300,
+      //backgroundColor: Colors.grey.shade300,
       appBar: AppBar(
         backgroundColor: primarycolor,
         title: Text("My Orders"),
