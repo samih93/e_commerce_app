@@ -35,7 +35,7 @@ class OrderController extends GetxController {
             totalprice: totalprice,
             uId: currentuserModel!.userId,
             orderdate: Timestamp.now(),
-            status: "Pending",
+            status: "Packaging",
             shippingAddress: address,
             personelInformation: currentuserModel!,
             orderItems: items)
