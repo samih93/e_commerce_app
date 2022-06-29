@@ -14,7 +14,7 @@ class CustomButtonWithSocial extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         color: Colors.grey.shade100,
       ),
-      child: FlatButton(
+      child: MaterialButton(
         onPressed: onpress,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Row(
