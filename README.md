@@ -1,9 +1,10 @@
-# e_commerce_app (Backend : Firebase)
+# e_commerce_app Shop App  (Backend : Firebase) <a href="https://youtu.be/aTN9V3hu0JM">Demo</a>
 
-![ezgif com-gif-maker](https://user-images.githubusercontent.com/78031951/158563893-23f62b2a-9505-45dc-ab34-27a05320843f.gif)
 
-![ShopApp](https://user-images.githubusercontent.com/78031951/158561373-fb5ea325-2449-4f25-9619-a30dec5170ba.png)
-![Screenshot_20220321_130247_com example e_commerce_app](https://user-images.githubusercontent.com/78031951/159248714-1a4b42cd-8b48-4a51-8030-86fed788c7a3.jpg)
+
+<img src="https://user-images.githubusercontent.com/78031951/172792943-7b19e294-28e5-47c0-89da-b09791b74e60.PNG">
+<img src="https://user-images.githubusercontent.com/78031951/172797236-0deb36e5-bbd4-4e6e-8cab-d8e10614b831.PNG">
+
 
 
 
